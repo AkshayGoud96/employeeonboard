@@ -1,0 +1,23 @@
+.custonnavbar-nav
+{
+    flex-direction: row;
+    font-size: 15px;
+
+}
+.customnavbar
+{
+    background-color: white;
+    border: none; 
+}
+ul li a{
+    color: #097dae;
+    font-weight: bold;
+    border-color: white;
+    background-color:white !important;
+}
+ul li a:active{
+    background-color: #368db3 !important;
+}
+ul li a:hover{
+    color: #06455f !important;
+}
