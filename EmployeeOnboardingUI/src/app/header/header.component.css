@@ -1,13 +1,18 @@
 .custonnavbar-nav
 {
     flex-direction: row;
-    font-size: 15px;
+    font-size: 16px;
+float: right;
+margin-top: 4%;
+font-family: "Open Sans", sans-serif;
+font-weight: 700;
 
 }
 .customnavbar
 {
     background-color: white;
     border: none; 
+    margin: 0% 10% 0% 10%;
 }
 ul li a{
     color: #097dae;
@@ -16,8 +21,9 @@ ul li a{
     background-color:white !important;
 }
 ul li a:active{
-    background-color: #368db3 !important;
+    background-color: #b1d3e2 !important;
 }
 ul li a:hover{
     color: #06455f !important;
 }
+

@@ -1,9 +1,11 @@
 <nav class="navbar navbar-default customnavbar ">
-<a href="#"><img src="../../assets/Images/ValueMomentum-logo.png"></a>
+  <div class="container-fluid">
+    <a  class="navbar-brand" href="#"><img src="../../assets/Images/ValueMomentum-logo.png"></a>
       <ul class="nav navbar-nav custonnavbar-nav" >
-        <li class="active"><a href="#">Guidelines</a></li>
-        <li><a href="#">Create Profile</a></li>
-        <li><a href="#">View Profile</a></li>
-        <li><a href="#">Edit Profile</a></li>
+        <li class="active"><a [routerLink]="['Guidelines']">Guidelines</a></li>
+        <li><a [routerLink]="['CreateProfile']">Create Profile</a></li>
+        <li><a [routerLink]="['ViewProfile']">View Profile</a></li>
       </ul>
+    </div>    
   </nav>
+  <hr/>
