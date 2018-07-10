@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeOnboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="UserOfferDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="emailID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="EmployeeOnboardEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserOfferDetails" EntityType="Self.UserOfferDetail" />
+  </EntityContainer>
+</Schema>

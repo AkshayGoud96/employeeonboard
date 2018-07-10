@@ -9,12 +9,15 @@ import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import { HomeComponent } from './home/home.component';
+import { OnboardingService } from './services/onboarding.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes:Routes=[
-  { path: '', redirectTo: '/CreateProfile', pathMatch: 'full' },
+  { path: '', redirectTo: '/Home', pathMatch: 'full' },
+  {path:'Home',component:HomeComponent},
   {path:'Guidelines',component:GuidelinesComponent},
-  {path:'CreateProfile',component:CreateProfileComponent},
+  {path:'Home/CreateProfile',component:CreateProfileComponent},
   {path:'ViewProfile',component:ViewProfileComponent},
  ];
 @NgModule({
@@ -25,15 +28,16 @@ const routes:Routes=[
     FooterComponent,
     GuidelinesComponent,
     CreateProfileComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true}),
   ],
-  providers: [],
+  providers: [OnboardingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

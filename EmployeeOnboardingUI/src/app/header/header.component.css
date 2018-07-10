@@ -3,16 +3,19 @@
     flex-direction: row;
     font-size: 16px;
 float: right;
-margin-top: 4%;
 font-family: "Open Sans", sans-serif;
 font-weight: 700;
-
+width: 100%;
+}
+.navbar-brand
+{
+    margin-left: 7%;
 }
 .customnavbar
 {
     background-color: white;
     border: none; 
-    margin: 0% 10% 0% 10%;
+    display: block !important;
 }
 ul li a{
     color: #097dae;
@@ -26,4 +29,27 @@ ul li a:active{
 ul li a:hover{
     color: #06455f !important;
 }
-
+.btn-lg.round {
+    background-color: transparent;
+    border: 2px solid #0f81ab;
+    border-radius: 2rem;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 3% 0% 0% 35%;
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    font-family: sans-serif;
+    background: rgb(255,255,255);
+    color: rgb(15, 129, 171);
+}
+.contact
+{
+    margin-left: 2% !important;
+    display: inline-block !important;
+    color: #fff !important;
+    background-color: #097dae !important;
+    border-radius: 30px !important;
+    font-size: 12px !important;
+}
