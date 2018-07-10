@@ -12,12 +12,19 @@ import {FormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { OnboardingService } from './services/onboarding.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PersonnelComponent } from './personnel/personnel.component';
+import { QualificationComponent } from './qualification/qualification.component';
 
 const routes:Routes=[
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   {path:'Home',component:HomeComponent},
   {path:'Guidelines',component:GuidelinesComponent},
-  {path:'Home/CreateProfile',component:CreateProfileComponent},
+  {path:'Home/CreateProfile',component:CreateProfileComponent,
+  children: [
+    {path: '', redirectTo: 'personnel',pathMatch:'full'}, 
+    {path: 'personnel', component:PersonnelComponent}, 
+    {path: 'qualification', component: QualificationComponent}, 
+  ]},
   {path:'ViewProfile',component:ViewProfileComponent},
  ];
 @NgModule({
@@ -29,7 +36,9 @@ const routes:Routes=[
     GuidelinesComponent,
     CreateProfileComponent,
     ViewProfileComponent,
-    HomeComponent
+    HomeComponent,
+    PersonnelComponent,
+    QualificationComponent
   ],
   imports: [
     BrowserModule,
