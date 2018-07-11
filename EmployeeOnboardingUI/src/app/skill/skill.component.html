@@ -1,0 +1,285 @@
+<div class="container">
+  <div class="row h5css">
+    <h5>Technical Skills Info</h5>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2 form-group">
+      <label>Skill</label>
+      <select class="form-control" [(ngModel)]="skill.Skill" name="Skill" #Skill="ngModel">
+        <option>Select</option>
+        <option>.Net</option>
+        <option>Java</option>
+        <option>Azure</option>
+        <option>AngularJs</option>
+        <option>Android</option>
+      </select>
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Version</label>
+      <input type="text" class="form-control" [(ngModel)]="skill.Version" name="Version" #Version="ngModel" placeholder="Version">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Experience (months) </label>
+      <input type="text" class="form-control" [(ngModel)]="skill.Experience" name="Experience" #Experience="ngModel" placeholder="Experience">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Expertise</label>
+      <select class="form-control" [(ngModel)]="skill.Expertise" name="Expertise" #Expertise="ngModel">
+        <option>Select</option>
+        <option>Expert</option>
+        <option>Very Good</option>
+        <option>Good</option>
+        <option>Beginner</option>
+      </select>
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Type</label>
+      <select class="form-control" [(ngModel)]="skill.Type" name="Type" #Type="ngModel" placeholder="Type">
+        <option>Select</option>
+        <option>Primary</option>
+        <option>Secondary</option>
+      </select>
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Last Worked On</label>
+      <select class="form-control" [(ngModel)]="skill.LastWorkedOn" name="LastWorkedOn" #LastWorkedOn="ngModel">
+        <option>Select</option>
+        <option>2018</option>
+        <option>2017</option>
+        <option>2016</option>
+        <option>2015</option>
+        <option>2014</option>
+      </select>
+    </div>
+    <div class="clear-fix"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+      <button class="btn btn-primary addnew" type="submit" (click)="AddSkill()">
+        <i class="fa fa-plus"></i>
+        Add New</button>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="clear-fix"></div>
+  <div class="row container">
+    <div class="table-responsive" *ngIf="skills.length>0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Version</th>
+            <th>Expertise</th>
+            <th>Experience</th>
+            <th>Type</th>
+            <th>Last Worked On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of skills;let i=index">
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Skill" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Skill}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Version" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Version}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Expertise" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Expertise}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Experience" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Experience}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Type" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Type}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.LastWorkedOn" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.LastWorkedOn}}
+              </div>
+            </td>
+            <td class="actiontd" style="text-align: center">
+              <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditSkill(item)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditSkill(item)">
+                <span class="glyphicon glyphicon-floppy-saved"></span>
+              </button>
+              <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteSkill(i)">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <hr size="20">
+  <div class="clear-fix"></div>
+
+  <!-- ------------------------------- -->
+
+  <div class="row h5css">
+    <h5>Functional Skills Info</h5>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-3 form-group">
+      <label>Skill</label>
+      <select class="form-control" [(ngModel)]="functionalSkill.Skill" name="Skill" #Skill="ngModel">
+        <option>Select</option>
+        <option>Auto</option>
+        <option>BOP</option>
+        <option>CPP</option>
+        <option>Claims</option>
+        <option>Banking</option>
+      </select>
+    </div>
+    <div class="col-md-3 form-group">
+      <label>Experience (months) </label>
+      <input type="text" class="form-control" [(ngModel)]="functionalSkill.Experience" name="Experience" #Experience="ngModel"
+        placeholder="Experience">
+    </div>
+    <div class="col-md-3 form-group">
+      <label>Expertise</label>
+      <select class="form-control" [(ngModel)]="functionalSkill.Expertise" name="Expertise" #Expertise="ngModel">
+        <option>Select</option>
+        <option>Expert</option>
+        <option>Very Good</option>
+        <option>Good</option>
+        <option>Beginner</option>
+      </select>
+    </div>
+    <div class="col-md-3 form-group">
+      <label>Last Worked On</label>
+      <select class="form-control" [(ngModel)]="functionalSkill.LastWorkedOn" name="LastWorkedOn" #LastWorkedOn="ngModel">
+        <option>Select</option>
+        <option>2018</option>
+        <option>2017</option>
+        <option>2016</option>
+        <option>2015</option>
+        <option>2014</option>
+      </select>
+    </div>
+    <div class="clear-fix"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+      <button class="btn btn-primary addnew" type="submit" (click)="AddFunctionalSkill()">
+        <i class="fa fa-plus"></i>
+        Add New</button>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="clear-fix"></div>
+  <div class="row container">
+    <div class="table-responsive" *ngIf="functionalSkills.length>0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Expertise</th>
+            <th>Experience</th>
+            <th>Last Worked On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of functionalSkills;let i=index">
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Skill" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Skill}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Expertise" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Expertise}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.Experience" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.Experience}}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.IsEdited">
+                <input type="text" [(ngModel)]="item.LastWorkedOn" class="form-control">
+              </div>
+              <div *ngIf="item.IsEdited != true">
+                {{item.LastWorkedOn}}
+              </div>
+            </td>
+            <td class="actiontd" style="text-align: center">
+              <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditFunctionalSkill(item)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditFunctionalSkill(item)">
+                <span class="glyphicon glyphicon-floppy-saved"></span>
+              </button>
+              <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteFunctionalSkill(i)">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <hr size="20">
+  <div class="clear-fix"></div>
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../qualification']">Previous Step </a>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../training']">Next Step </a>
+    </div>
+  </div>
+</div>

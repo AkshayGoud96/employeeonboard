@@ -1,84 +1,149 @@
 <div class="container">
-  <div class="row qualificationcss">
+  <div class="row h5css">
     <h5>Qualification Info</h5>
   </div>
   <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-1"></div>
-    <div class="col-md-2 form-group">
-      <label>Qualification</label>
-      <select class="form-control">
-        <option>10th Class</option>
-        <option>B.Com</option>
-        <option>B.E</option>
-        <option>AMIE</option>
-      </select>
+    <div class="row labelText">
+      <div class="col-md-2 form-group">
+        <label>Qualification</label>
+        <select class="form-control" [(ngModel)]="model.Qualification" name="Qualification" #Qualification="ngModel">
+          <option>Select</option>
+          <option>10th Class</option>
+          <option>B.Com</option>
+          <option>B.E</option>
+          <option>AMIE</option>
+        </select>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>School/College</label>
+        <input type="text" class="form-control" [(ngModel)]="model.Institution" name="Institution" #Institution="ngModel" placeholder="School/College Name">
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Board/University</label>
+        <input type="text" class="form-control" [(ngModel)]="model.University" name="University" #University="ngModel" placeholder="Board/University Name">
+      </div>
+      <div class="col-md-2 form-group">
+          <label>Year of Completion</label>
+          <select class="form-control" [(ngModel)]="model.YearOfCompletion" name="YearOfCompletion" #YearOfCompletion="ngModel">
+            <option>Select</option>
+            <option>2018</option>
+            <option>2017</option>
+            <option>2016</option>
+            <option>2015</option>
+          </select>
+        </div>
+        <div class="col-md-1 form-group">
+            <label>Percentage</label>
+            <input type="text" class="form-control" [(ngModel)]="model.Percentage" name="Percentage" #Percentage="ngModel" placeholder="%">
+          </div>
+          <div class="col-md-1 form-group">
+              <label>Grade</label>
+              <input type="text" class="form-control" [(ngModel)]="model.Grade" name="Grade" #Grade="ngModel" placeholder="Grade">
+            </div>
+      <div class="clear-fix"></div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3 form-group">
-      <label>School/College</label>
-      <input type="text" class="form-control" placeholder="School/College Name">
+    <div class="clear-fix"></div>
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary addnew" type="submit" (click)="AddQualification()">
+            <i class="fa fa-plus"></i>
+          Add New</button>
+      </div>
+      <div class="col-md-5"></div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3 form-group">
-      <label>Board/University</label>
-      <input type="text" class="form-control" placeholder="Board/University Name">
+  <div class="clear-fix"></div>
+  <div class="row container">
+    <div class="table-responsive" *ngIf="qualifications.length>0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Qualification</th>
+            <th>School\College</th>
+            <th>Board\University</th>
+            <th>Year of Completion</th>
+            <th>Percentage\GPA</th>
+            <th>Grade</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of qualifications;let i=index">
+            <td>
+              <div *ngIf="item.IsEditable">
+                <input type="text" [(ngModel)]="item.Qualification" class="form-control">
+              </div>
+              <div *ngIf="item.IsEditable != true">
+                {{index}}  {{item.Qualification}}
+              </div>         
+            </td>
+            <td>
+                <div *ngIf="item.IsEditable">
+                    <input type="text" [(ngModel)]="item.Institution" class="form-control">
+                  </div>
+                  <div *ngIf="item.IsEditable != true">
+                      {{item.Institution}}
+                  </div >            
+            </td>
+            <td>
+                <div *ngIf="item.IsEditable">
+                    <input type="text" [(ngModel)]="item.University" class="form-control">
+                  </div>
+                  <div *ngIf="item.IsEditable != true">
+                      {{item.University}}
+                  </div >           
+            </td>
+            <td>
+                <div *ngIf="item.IsEditable">
+                    <input type="text" [(ngModel)]="item.YearOfCompletion" class="form-control">
+                  </div>
+                  <div *ngIf="item.IsEditable != true">
+                      {{item.YearOfCompletion}}
+                  </div >              
+            </td>
+            <td>
+                <div *ngIf="item.IsEditable">
+                    <input type="text" [(ngModel)]="item.Percentage" class="form-control">
+                  </div>
+                  <div *ngIf="item.IsEditable != true">
+                      {{item.Percentage}}
+                  </div >              
+            </td>
+            <td>
+                <div *ngIf="item.IsEditable">
+                    <input type="text" [(ngModel)]="item.Grade" class="form-control">
+                  </div>
+                  <div *ngIf="item.IsEditable != true">
+                      {{item.Grade}}
+                  </div >              
+            </td>
+            <td class="actiontd" style="text-align: center">
+              <button  class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEditable != true" data-title="Edit" (click)="EditQualification(item)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button  class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEditable" data-title="Edit" (click)="SaveEditQualification(item)">
+                  <span class="glyphicon glyphicon-floppy-saved"></span>
+                </button>
+              <button class="btn btn-danger btn-xs rowbutton"  data-title="Delete" (click)="DeleteQualification(i)">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="col-md-1"></div>
   </div>
   <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-1"></div>
-    <div class="col-md-2 form-group">
-      <label>Year of Completion</label>
-      <select class="form-control">
-        <option>2018</option>
-        <option>2017</option>
-        <option>2016</option>
-        <option>2015</option>
-      </select>
-    </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3 form-group">
-      <label>Percentage/GPA</label>
-      <input type="text" class="form-control" placeholder="Percentage/GPA">
-    </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3 form-group">
-      <label>Grade</label>
-      <input type="text" class="form-control" placeholder="Grade">
-    </div>
-    <div class="col-md-1"></div>
-  </div>
+  <hr size="20">
   <div class="clear-fix"></div>
   <div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-      <button class="btn btn-primary" style="padding:6% 35%">Add</button>
-    </div>
-    <div class="col-md-5"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="clear-fix"></div>
-  <div class="row">
-    <div class="table-responsive">
-<table class="table table-bordered">
-<thead>
-  <tr>
-    <th>Qualification</th>
-    <th>School\College</th>
-    <th>Board\University</th>
-    <th>Year of Completion</th>
-    <th>Percentage\GPA</th>
-    <th>Grade</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
+      <div class="col-md-8"></div>
+      <div class="col-md-2">
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../personnel']">Previous Step </a>
+      </div>
+      <div class="col-md-2">
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../skill']">Next Step </a>
+      </div>
 
-  </tr>
-</tbody>
-</table>
     </div>
-  </div>
 </div>

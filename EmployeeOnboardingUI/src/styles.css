@@ -9,3 +9,17 @@
 {
   margin: 1%;
 }
+.h5css h5
+{
+    color:#31708f;
+    font-size:17px;
+    margin-left: 2%;
+}
+.rowbutton
+{
+    margin: 0% 15% 15% 10%;
+}
+.actiontd
+{
+    display: flex;
+}

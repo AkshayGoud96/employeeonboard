@@ -14,6 +14,13 @@ import { OnboardingService } from './services/onboarding.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonnelComponent } from './personnel/personnel.component';
 import { QualificationComponent } from './qualification/qualification.component';
+import { SkillComponent } from './skill/skill.component';
+import { TrainingComponent } from './training/training.component';
+import { EmployerComponent } from './employer/employer.component';
+import { CertificationsComponent } from './certifications/certifications.component';
+import { InsuranceComponent } from './insurance/insurance.component';
+import { MembershipsComponent } from './memberships/memberships.component';
+import { AdditionaldetailsComponent } from './additionaldetails/additionaldetails.component';
 
 const routes:Routes=[
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
@@ -23,6 +30,8 @@ const routes:Routes=[
   children: [
     {path: '', redirectTo: 'personnel',pathMatch:'full'}, 
     {path: 'personnel', component:PersonnelComponent}, 
+    {path: 'skill', component:SkillComponent}, 
+    {path: 'training', component:TrainingComponent}, 
     {path: 'qualification', component: QualificationComponent}, 
   ]},
   {path:'ViewProfile',component:ViewProfileComponent},
@@ -38,7 +47,14 @@ const routes:Routes=[
     ViewProfileComponent,
     HomeComponent,
     PersonnelComponent,
-    QualificationComponent
+    QualificationComponent,
+    SkillComponent,
+    TrainingComponent,
+    EmployerComponent,
+    CertificationsComponent,
+    InsuranceComponent,
+    MembershipsComponent,
+    AdditionaldetailsComponent
   ],
   imports: [
     BrowserModule,
