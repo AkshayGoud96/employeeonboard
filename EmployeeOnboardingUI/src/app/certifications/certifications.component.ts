@@ -15,7 +15,7 @@ export class CertificationsComponent implements OnInit {
   ngOnInit() {
     if(sessionStorage.getItem("Certifications") !=undefined)
     {
-    this.certifications=JSON.parse(sessionStorage.getItem("Trainings"));
+    this.certifications=JSON.parse(sessionStorage.getItem("Certifications"));
     }
     this.certification = new CertificationData();
     this.certification.Category="Select";

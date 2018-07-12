@@ -13,16 +13,19 @@ export class InsuranceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Insurance") !=undefined)
+     if(sessionStorage.getItem("Insurance") !=undefined)
     {
     this.insurance=JSON.parse(sessionStorage.getItem("Insurance"));
     }
+    else
+    {
     this.insurance=new InsuranceData();
     this.insurance.RelationshipType="Select";
     this.insurance.MaritalStatus="Select";
     this.insurance.SpouseGender="Select";
     this.insurance.Child1Gender="Select";
     this.insurance.Child2Gender="Select";
+    }
   }
   PreviousClick()
   {
