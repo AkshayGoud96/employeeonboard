@@ -13,6 +13,10 @@ export class TrainingComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("Trainings") !=undefined)
+    {
+    this.trainings=JSON.parse(sessionStorage.getItem("Trainings"));
+    }
     this.training = new TrainingData();
     this.training.Category="Select";
   }
@@ -36,6 +40,15 @@ export class TrainingComponent implements OnInit {
   SaveEditTraining(item)
   {
     item.IsEdited=false;
+  }
+  PreviousClick()
+  {
+    sessionStorage.setItem("Trainings",JSON.stringify(this.trainings));
+  }
+
+  NextClick()
+  {
+    sessionStorage.setItem("Trainings",JSON.stringify(this.trainings));
   }
 
 }

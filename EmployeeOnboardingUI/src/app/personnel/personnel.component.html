@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="First Name">
+      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]=personalData.FirstName name="FirstName" #FirstName="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Middle Name">
+      <input type="text" class="form-control" placeholder="Middle Name" [(ngModel)]=personalData.MiddleName name="MiddleName" #MiddleName="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Last Name">
+      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]=personalData.LastName name="LastName" #LastName="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -45,14 +45,11 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <div class="radio-inline">
-        <label>
-          <input type="radio" name="optradio">Male</label>
-      </div>
-      <div class="radio-inline">
-        <label>
-          <input type="radio" name="optradio">Female</label>
-      </div>
+      <select class="form-control" [(ngModel)]=personalData.Gender name="Gender" #Gender="ngModel">
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -64,7 +61,8 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Mobile Number">
+      <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=personalData.MobileNumber name="MobileNumber"
+        #MobileNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -76,7 +74,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <textarea class="form-control" rows="3"></textarea>
+      <textarea class="form-control" rows="3" [(ngModel)]=personalData.Address name="Address" #Address="ngModel"></textarea>
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -88,7 +86,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="City">
+      <input type="text" class="form-control" placeholder="City" [(ngModel)]=personalData.City name="City" #City="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -100,7 +98,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="State">
+      <input type="text" class="form-control" placeholder="State" [(ngModel)]=personalData.State name="State" #State="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -112,7 +110,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Country">
+      <input type="text" class="form-control" placeholder="Country" [(ngModel)]=personalData.Country name="Country" #Country="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -124,7 +122,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="D.O.B">
+      <input type="date" class="form-control" placeholder="D.O.B" [(ngModel)]=personalData.DOB name="DOB" #DOB="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -132,7 +130,7 @@
   <div class="row">
     <div class="col-md-8"></div>
     <div class="col-md-4">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../qualification']">Next Step </a>
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../qualifications']">Next Step </a>
     </div>
   </div>
 </div>

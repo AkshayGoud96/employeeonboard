@@ -21,6 +21,7 @@ import { CertificationsComponent } from './certifications/certifications.compone
 import { InsuranceComponent } from './insurance/insurance.component';
 import { MembershipsComponent } from './memberships/memberships.component';
 import { AdditionaldetailsComponent } from './additionaldetails/additionaldetails.component';
+import { SubmissionComponent } from './submission/submission.component';
 
 const routes:Routes=[
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
@@ -30,9 +31,15 @@ const routes:Routes=[
   children: [
     {path: '', redirectTo: 'personnel',pathMatch:'full'}, 
     {path: 'personnel', component:PersonnelComponent}, 
-    {path: 'skill', component:SkillComponent}, 
-    {path: 'training', component:TrainingComponent}, 
-    {path: 'qualification', component: QualificationComponent}, 
+    {path: 'skills', component:SkillComponent}, 
+    {path: 'trainings', component:TrainingComponent}, 
+    {path: 'qualifications', component: QualificationComponent}, 
+    {path: 'certifications', component: CertificationsComponent},
+    {path: 'employers', component: EmployerComponent},  
+    {path: 'memberships', component: MembershipsComponent},  
+    {path: 'insurances', component: InsuranceComponent},
+    {path: 'additional-details', component:AdditionaldetailsComponent},  
+    {path: 'submission', component:SubmissionComponent},  
   ]},
   {path:'ViewProfile',component:ViewProfileComponent},
  ];
@@ -54,7 +61,8 @@ const routes:Routes=[
     CertificationsComponent,
     InsuranceComponent,
     MembershipsComponent,
-    AdditionaldetailsComponent
+    AdditionaldetailsComponent,
+    SubmissionComponent
   ],
   imports: [
     BrowserModule,

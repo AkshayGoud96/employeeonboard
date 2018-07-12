@@ -145,4 +145,13 @@
       <div class="clear-fix"></div>
       <hr size="20">
       <div class="clear-fix"></div>
+      <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../skills']">Previous Step </a>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../certifications']">Next Step </a>
+        </div>
+      </div>
 </div>

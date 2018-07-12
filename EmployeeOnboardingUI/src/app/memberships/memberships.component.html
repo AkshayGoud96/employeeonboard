@@ -1,3 +1,125 @@
-<p>
-  memberships works!
-</p>
+<div class="container">
+  <div class="row h5css">
+      <h5>Membership Info</h5>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="row labelText">
+      <div class="col-md-3 form-group">
+        <label>Association</label>
+        <input type="text" class="form-control" [(ngModel)]="membership.Association" name="Association" #Association="ngModel" placeholder="Association">
+        
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Membership ID</label>
+        <input type="text" class="form-control" [(ngModel)]="membership.MembershipID" name="MembershipID" #MembershipID="ngModel" placeholder="MembershipID">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Membership Type </label>
+        <input type="text" class="form-control" [(ngModel)]="membership.MembershipType" name="MembershipType" #MembershipType="ngModel" placeholder="Membership Type">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Membership Year</label>
+        <input type="text" class="form-control" [(ngModel)]="membership.MembershipYear" name="JoiniMembershipYearngDate" #MembershipYear="ngModel" placeholder="Membership Year">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Valid Upto</label>
+        <input type="text" class="form-control" [(ngModel)]="membership.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Valid Upto">     
+      </div>
+      <div class="clear-fix"></div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary addnew" type="submit" (click)="AddMembership()">
+          <i class="fa fa-plus"></i>
+          Add New</button>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="clear-fix"></div>
+    <div class="row container">
+      <div class="table-responsive" *ngIf="memberships.length>0">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Association</th>
+              <th>Membership ID</th>
+              <th>Membership Type</th>
+              <th>Membership Year</th>
+              <th>Valid Upto</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of memberships;let i=index">
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.Association" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.Association}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.MembershipID" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.MembershipID}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.MembershipType" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.MembershipType}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.MembershipYear" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.MembershipYear}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.ValidUpto" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.ValidUpto}}
+                </div>
+              </td>
+              <td class="actiontd" style="text-align: center">
+                <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditMembership(item)">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditMembership(item)">
+                  <span class="glyphicon glyphicon-floppy-saved"></span>
+                </button>
+                <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteMembership(i)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+    <hr size="20">
+    <div class="clear-fix"></div>
+    <div class="row">
+      <div class="col-md-8"></div>
+      <div class="col-md-2">
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px"  (click)="PreviousClick()" [routerLink]="['../employers']">Previous Step </a>
+      </div>
+      <div class="col-md-2">
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../insurances']">Next Step </a>
+      </div>
+    </div>
+</div>

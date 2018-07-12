@@ -1,3 +1,142 @@
-<p>
-  insurance works!
-</p>
+<div class="container" >
+  <div class="row h5css">
+    <h5>Insurance Info</h5>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Relationship Type</label>
+      <select class="form-control" [(ngModel)]="insurance.RelationshipType" name="RelationshipType" #RelationshipType="ngModel">
+        <option>Select</option>
+        <option>Parents</option>
+        <option>In-Laws</option>
+        <option>None</option>
+      </select>
+    </div>
+  </div>  
+  <div class="clear-fix"></div>
+  <div class="row labelText" *ngIf="insurance.RelationshipType == 'Parents'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Father Name</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.FatherName" name="FatherName" #FatherName="ngModel" placeholder="Father Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Father Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.FatherDOB" name="FatherDOB" #FatherDOB="ngModel" placeholder="FatherDOB">
+    </div> 
+    <div class="col-md-2 form-group">
+      <label>Mother Name </label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.MotherName" name="MotherName" #MotherName="ngModel" placeholder="MotherName">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Mother Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.MotherDOB" name="MotherDOB" #MotherDOB="ngModel" placeholder="MotherDOB">
+    </div>
+  </div>
+  <div class="row labelText" *ngIf="insurance.RelationshipType == 'In-Laws'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Father In-Law Name</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.FatherInLawName" name="FatherInLawName" #FatherInLawName="ngModel" placeholder="Father In-Law Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.FatherInLawDOB" name="FatherInLawDOB" #FatherInLawDOB="ngModel" placeholder="Father In-Law DOB">
+    </div> 
+    <div class="col-md-2 form-group">
+      <label>Mother In-Law Name </label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.MotherInLawName" name="MotherInLawName" #MotherInLawName="ngModel" placeholder="Mother In-Law Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label> Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.MotherInLawDOB" name="MotherInLawDOB" #MotherInLawDOB="ngModel" placeholder="Mother In-Law DOB">
+    </div>
+  </div>
+  <div class="row labelText">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Marital Status</label>
+      <select class="form-control" [(ngModel)]="insurance.MaritalStatus" name="MaritalStatus" #MaritalStatus="ngModel" placeholder="Marital Status">
+          <option>Select</option>
+        <option>Single</option>
+        <option>Married</option>
+      </select>
+    </div>
+  </div>  
+  <div class="clear-fix"></div>
+  <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Spouse Name</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.SpouseName" name="SpouseName" #SpouseName="ngModel" placeholder="Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.SpouseDOB" name="SpouseDOB" #SpouseDOB="ngModel" placeholder="Date">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Gender</label>
+      <select class="form-control" [(ngModel)]="insurance.SpouseGender" name="SpouseGender" #SpouseGender="ngModel">
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="clear-fix"></div>
+  <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Child1 Name</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.Child1Name" name="Child1Name" #Child1Name="ngModel" placeholder="Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.Child1DOB" name="Child1DOB" #Child1DOB="ngModel" placeholder="Date">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Gender</label>
+      <select class="form-control" [(ngModel)]="insurance.Child1Gender" name="Child1Gender" #Child1Gender="ngModel">
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="clear-fix"></div>
+  <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Child2 Name</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.Child2Name" name="Child2Name" #Child2Name="ngModel" placeholder="Name">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Date of Birth</label>
+      <input type="text" class="form-control" [(ngModel)]="insurance.Child2DOB" name="Child2DOB" #Child12OB="ngModel" placeholder="Date">
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Gender</label>
+      <select class="form-control" [(ngModel)]="insurance.Child2Gender" name="Child2Gender" #Child2Gender="ngModel">
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <hr size="20">
+  <div class="clear-fix"></div>
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../employers']">Previous Step </a>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../additional-details']">Next Step </a>
+    </div>
+  </div>
+</div>

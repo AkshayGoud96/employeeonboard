@@ -14,6 +14,10 @@ export class QualificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(sessionStorage.getItem("Qualifications") !=undefined)
+    {
+    this.qualifications=JSON.parse(sessionStorage.getItem("Qualifications"));
+    }
     this.model = new QualificationData();
     this.model.Qualification="Select";
     this.model.YearOfCompletion="Select";
@@ -40,4 +44,15 @@ export class QualificationComponent implements OnInit {
   {
     item.IsEditable=false;
   }
+
+  PreviousClick()
+  {
+    sessionStorage.setItem("Qualifications",JSON.stringify(this.qualifications));
+  }
+
+  NextClick()
+  {
+    sessionStorage.setItem("Qualifications",JSON.stringify(this.qualifications));
+  }
+
 }

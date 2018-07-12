@@ -1,3 +1,144 @@
-<p>
-  certifications works!
-</p>
+<div class="container">
+  <div class="row h5css">
+      <h5>Certifications Info</h5>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="row labelText">
+      <div class="col-md-2 form-group">
+        <label>Category</label>
+        <select class="form-control" [(ngModel)]="certification.Category" name="Category" #Category="ngModel">
+          <option>Select</option>
+          <option>Technical</option>
+          <option>Domain</option>
+          <option>Process Compliance</option>
+          <option>IT Security Compliance</option>
+          <option>Others</option>
+        </select>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Certification ID</label>
+        <input type="text" class="form-control" [(ngModel)]="certification.CertificationID" name="CertificationID" #CertificationID="ngModel" placeholder="CertificationID">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Title </label>
+        <input type="text" class="form-control" [(ngModel)]="certification.Title" name="Title" #Title="ngModel" placeholder="Certification Name">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Certified By</label>
+        <input type="text" class="form-control" [(ngModel)]="certification.CertifiedBy" name="CertifiedBy" #CertifiedBy="ngModel" placeholder="Institute">
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Issued Date</label>
+        <input type="text" class="form-control" [(ngModel)]="certification.IssuedDate" name="IssuedDate" #IssuedDate="ngModel" placeholder="Date">     
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Valid Upto</label>
+        <input type="text" class="form-control" [(ngModel)]="certification.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Date">
+      </div>
+      <div class="clear-fix"></div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary addnew" type="submit" (click)="AddCertification()">
+          <i class="fa fa-plus"></i>
+          Add New</button>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="clear-fix"></div>
+    <div class="row container">
+      <div class="table-responsive" *ngIf="certifications.length>0">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Certification ID</th>
+              <th>Title</th>
+              <th>CertifiedBy</th>
+              <th>Issued Date</th>
+              <th>Valid Upto</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of certifications;let i=index">
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.Category" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.Category}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.CertificationID" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.CertificationID}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.Title" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.Title}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.CertifiedBy" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.CertifiedBy}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.IssuedDate" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.IssuedDate}}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="item.IsEdited">
+                  <input type="text" [(ngModel)]="item.ValidUpto" class="form-control">
+                </div>
+                <div *ngIf="item.IsEdited != true">
+                  {{item.ValidUpto}}
+                </div>
+              </td>
+              <td class="actiontd" style="text-align: center">
+                <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditCertification(item)">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditCertification(item)">
+                  <span class="glyphicon glyphicon-floppy-saved"></span>
+                </button>
+                <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteCertification(i)">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+    <hr size="20">
+    <div class="clear-fix"></div>
+    <div class="row">
+      <div class="col-md-8"></div>
+      <div class="col-md-2">
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../trainings']">Previous Step </a>
+      </div>
+      <div class="col-md-2">
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../employers']">Next Step </a>
+      </div>
+    </div>
+</div>

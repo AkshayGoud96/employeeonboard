@@ -15,6 +15,16 @@ export class SkillComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    if(sessionStorage.getItem("TechnicalSkills") !=undefined)
+    {
+    this.skills=JSON.parse(sessionStorage.getItem("TechnicalSkills"));
+    }
+    if(sessionStorage.getItem("FunctionalSkills") !=undefined)
+    {
+    this.functionalSkills=JSON.parse(sessionStorage.getItem("FunctionalSkills"));
+    }
+
     this.skill = new TechnicalSkillData();
     this.skill.Skill="Select";
     this.skill.Expertise="Select";
@@ -74,4 +84,17 @@ export class SkillComponent implements OnInit {
   {
     item.IsEdited=false;
   }
+
+  PreviousClick()
+  {
+    sessionStorage.setItem("TechnicalSkills",JSON.stringify(this.skills));
+    sessionStorage.setItem("FunctionalSkills",JSON.stringify(this.functionalSkills));
+  }
+
+  NextClick()
+  {
+    sessionStorage.setItem("TechnicalSkills",JSON.stringify(this.skills));
+    sessionStorage.setItem("FunctionalSkills",JSON.stringify(this.functionalSkills));
+  }
+
 }
