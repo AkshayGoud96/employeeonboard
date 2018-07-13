@@ -164,6 +164,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -196,6 +199,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="CertificationData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\OnboardingController.cs" />
     <Compile Include="EmployeeOnboarding.Context.cs">
       <AutoGen>True</AutoGen>
@@ -212,14 +218,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmployeeOnboarding.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EmployerData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FunctionalSkillData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InsuranceData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="OnboardingHelper.cs" />
+    <Compile Include="PersonalData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualificationData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TainingData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalSkillData.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserOfferDetail.cs">
       <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserProfile.cs">
+      <DependentUpon>EmployeeOnboarding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfileData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -229,8 +263,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="EmployeeOnboarding.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EmployeeOnboarding.Context.cs</LastGenOutput>
       <DependentUpon>EmployeeOnboarding.edmx</DependentUpon>
+      <LastGenOutput>EmployeeOnboarding.Context.cs</LastGenOutput>
     </Content>
     <Content Include="EmployeeOnboarding.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

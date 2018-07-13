@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdditionalDetailsData } from '../AdditionalDetailsData';
 import { UserProfile } from '../UserProfile';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-additionaldetails',
@@ -11,7 +12,7 @@ export class AdditionaldetailsComponent implements OnInit {
 
   additionalDetails:AdditionalDetailsData;
   userProfile:UserProfile;
-  constructor() { }
+  constructor(private onboardingService:OnboardingService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("AdditionalDetails") !=undefined)
@@ -25,11 +26,11 @@ export class AdditionaldetailsComponent implements OnInit {
     }
     if(sessionStorage.getItem("UserProfile") != undefined)
     {
-    this.userProfile=new UserProfile();
+      this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
     }
     else
     {
-      this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+      this.userProfile=new UserProfile();
     }
   }
 
@@ -40,7 +41,7 @@ export class AdditionaldetailsComponent implements OnInit {
 SaveClick()
 {
  sessionStorage.setItem("AdditionalDetails",JSON.stringify(this.additionalDetails));
-
+debugger;
  this.userProfile.PersonalData=JSON.parse(sessionStorage.getItem("PersonalData"));
  this.userProfile.QualificationData=JSON.parse(sessionStorage.getItem("Qualifications"));
  this.userProfile.TechnicalSkillData=JSON.parse(sessionStorage.getItem("TechnicalSkills"));
@@ -51,7 +52,11 @@ SaveClick()
  this.userProfile.MembershipData=JSON.parse(sessionStorage.getItem("Memberships"));
  this.userProfile.InsuranceData=JSON.parse(sessionStorage.getItem("Insurance"));
  this.userProfile.AdditionalData=JSON.parse(sessionStorage.getItem("AdditionalDetails"));
-
+ let formData:FormData=new FormData();
+ formData.append("UserProfile",JSON.stringify(this.userProfile));
+  this.onboardingService.SaveData(formData).subscribe(res=>{
+    console.log(res);
+  })
 
 }
 

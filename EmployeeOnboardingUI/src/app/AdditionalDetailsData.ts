@@ -1,5 +1,7 @@
 export class AdditionalDetailsData
 {
+    UPID:string;
+    ADID:string;    
     EmergencyContact:string;
     PersonalContact:string;
     DateofMarriage:string;

@@ -1,5 +1,7 @@
 export class QualificationData
 {
+    UPID:string;
+    QDID:string;
     Qualification:string;
     Institution:string;
     University:string;

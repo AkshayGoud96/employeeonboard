@@ -14,4 +14,15 @@ export class OnboardingService {
   {
     return this.httpClient.get(environment.api+'api/Onboarding/VerifyUser?email='+email+'&name='+name);
   }
+
+  SaveData(data):Observable<any>
+  {
+    return this.httpClient.post(environment.api+'api/Onboarding/SaveData',data);
+  }
+
+  GetProfileData(email):Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/GetProfileData?email='+email);
+  }
+
 }

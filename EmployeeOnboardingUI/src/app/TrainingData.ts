@@ -1,5 +1,7 @@
 export class TrainingData
 {
+    UPID:string;
+    TDID:string;
     Category:string;
     Name:string;
     StartDate:string;

@@ -1,5 +1,7 @@
 export class InsuranceData
 {
+    UPID:string;
+    IDID:string;
     RelationshipType:string;
     FatherName:string;
     FatherDOB:string;

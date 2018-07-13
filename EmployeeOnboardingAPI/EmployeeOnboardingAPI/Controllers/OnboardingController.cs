@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -24,6 +25,43 @@ namespace EmployeeOnboardingAPI.Controllers
                     return Request.CreateResponse(HttpStatusCode.OK, "Success");
                 else
                     return Request.CreateResponse(HttpStatusCode.OK, "No such record");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("SaveData")]
+        public HttpResponseMessage SaveData()
+        {
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+                string email = httpRequest.Params["Email"];
+                UserProfileData userProfile = JsonConvert.DeserializeObject<UserProfileData>(httpRequest.Params["UserProfile"]);
+                OnboardingHelper helper = new OnboardingHelper();
+                helper.SaveUserProfileData(userProfile,email);
+                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("GetProfileData")]
+        public HttpResponseMessage GetProfileData(string emailId)
+        {
+            try
+            {
+                OnboardingHelper helper = new OnboardingHelper();
+               UserProfile profileData= helper.GetUserProfileData(emailId);
+                return Request.CreateResponse(HttpStatusCode.OK, profileData);
             }
             catch (Exception ex)
             {

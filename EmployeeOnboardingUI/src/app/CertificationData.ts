@@ -1,5 +1,7 @@
 export class CertificationData
 {
+    UPID:string;
+    CDID:string;
     CertificationID:string;
     Category:string;
     Title:string;

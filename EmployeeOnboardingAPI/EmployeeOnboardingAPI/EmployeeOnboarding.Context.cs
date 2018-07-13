@@ -25,6 +25,17 @@ namespace EmployeeOnboardingAPI
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AdditionalData> AdditionalDatas { get; set; }
+        public virtual DbSet<CertificationData> CertificationDatas { get; set; }
+        public virtual DbSet<EmployerData> EmployerDatas { get; set; }
+        public virtual DbSet<FunctionalSkillData> FunctionalSkillDatas { get; set; }
+        public virtual DbSet<InsuranceData> InsuranceDatas { get; set; }
+        public virtual DbSet<MembershipData> MembershipDatas { get; set; }
+        public virtual DbSet<PersonalData> PersonalDatas { get; set; }
+        public virtual DbSet<QualificationData> QualificationDatas { get; set; }
+        public virtual DbSet<TainingData> TainingDatas { get; set; }
+        public virtual DbSet<TechnicalSkillData> TechnicalSkillDatas { get; set; }
         public virtual DbSet<UserOfferDetail> UserOfferDetails { get; set; }
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
     }
 }

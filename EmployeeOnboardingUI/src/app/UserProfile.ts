@@ -11,6 +11,7 @@ import { AdditionalDetailsData } from "./AdditionalDetailsData";
 
 export class UserProfile
 {
+    
     PersonalData:PersonalData;
     QualificationData:Array<QualificationData>;
     TechnicalSkillData:Array<TechnicalSkillData>;

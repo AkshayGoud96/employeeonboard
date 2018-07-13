@@ -1,5 +1,7 @@
 export class EmployerData
 {
+    UPID:string;
+    EDID:string;
     EmployerName:string;
     Designation:string;
     Domain:string;

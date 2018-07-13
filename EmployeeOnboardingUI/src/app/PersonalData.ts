@@ -1,5 +1,7 @@
 export class PersonalData
 {
+    UPID:string;
+    PDID:string;
     FirstName:string;
     MiddleName:string;
     LastName:string;

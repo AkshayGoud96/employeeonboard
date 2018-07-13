@@ -1,12 +1,185 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="EmployeeOnboardModelStoreContainer" CdmEntityContainer="EmployeeOnboardEntities">
+    <EntitySetMapping Name="AdditionalDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.AdditionalData">
+        <MappingFragment StoreEntitySet="AdditionalData">
+          <ScalarProperty Name="ADID" ColumnName="ADID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="EmergencyContact" ColumnName="EmergencyContact" />
+          <ScalarProperty Name="PersonalContact" ColumnName="PersonalContact" />
+          <ScalarProperty Name="DateofMarriage" ColumnName="DateofMarriage" />
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="PersonalEmail" ColumnName="PersonalEmail" />
+          <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+          <ScalarProperty Name="PassportValidUpto" ColumnName="PassportValidUpto" />
+          <ScalarProperty Name="PermenantAccountNumber" ColumnName="PermenantAccountNumber" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CertificationDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.CertificationData">
+        <MappingFragment StoreEntitySet="CertificationData">
+          <ScalarProperty Name="CDID" ColumnName="CDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="CertificationID" ColumnName="CertificationID" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CertifiedBy" ColumnName="CertifiedBy" />
+          <ScalarProperty Name="IssuedDate" ColumnName="IssuedDate" />
+          <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployerDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.EmployerData">
+        <MappingFragment StoreEntitySet="EmployerData">
+          <ScalarProperty Name="EDID" ColumnName="EDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Domain" ColumnName="Domain" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="ReleivingDate" ColumnName="ReleivingDate" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FunctionalSkillDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.FunctionalSkillData">
+        <MappingFragment StoreEntitySet="FunctionalSkillData">
+          <ScalarProperty Name="FSDID" ColumnName="FSDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="Skill" ColumnName="Skill" />
+          <ScalarProperty Name="Expertise" ColumnName="Expertise" />
+          <ScalarProperty Name="LastWorkedOn" ColumnName="LastWorkedOn" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InsuranceDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.InsuranceData">
+        <MappingFragment StoreEntitySet="InsuranceData">
+          <ScalarProperty Name="IDID" ColumnName="IDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="RelationshipType" ColumnName="RelationshipType" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="FatherDOB" ColumnName="FatherDOB" />
+          <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+          <ScalarProperty Name="MotherDOB" ColumnName="MotherDOB" />
+          <ScalarProperty Name="FatherInLawName" ColumnName="FatherInLawName" />
+          <ScalarProperty Name="FatherInLawDOB" ColumnName="FatherInLawDOB" />
+          <ScalarProperty Name="MotherInLawName" ColumnName="MotherInLawName" />
+          <ScalarProperty Name="MotherInLawDOB" ColumnName="MotherInLawDOB" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+          <ScalarProperty Name="SpouseDOB" ColumnName="SpouseDOB" />
+          <ScalarProperty Name="SpouseGender" ColumnName="SpouseGender" />
+          <ScalarProperty Name="Child1Name" ColumnName="Child1Name" />
+          <ScalarProperty Name="Child1DOB" ColumnName="Child1DOB" />
+          <ScalarProperty Name="Child1Gender" ColumnName="Child1Gender" />
+          <ScalarProperty Name="Child2Name" ColumnName="Child2Name" />
+          <ScalarProperty Name="Child2DOB" ColumnName="Child2DOB" />
+          <ScalarProperty Name="Child2Gender" ColumnName="Child2Gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MembershipDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.MembershipData">
+        <MappingFragment StoreEntitySet="MembershipData">
+          <ScalarProperty Name="MDID" ColumnName="MDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="Association" ColumnName="Association" />
+          <ScalarProperty Name="MembershipID" ColumnName="MembershipID" />
+          <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+          <ScalarProperty Name="MembershipYear" ColumnName="MembershipYear" />
+          <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonalDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.PersonalData">
+        <MappingFragment StoreEntitySet="PersonalData">
+          <ScalarProperty Name="PDID" ColumnName="PDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualificationDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.QualificationData">
+        <MappingFragment StoreEntitySet="QualificationData">
+          <ScalarProperty Name="QDID" ColumnName="QDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="Institution" ColumnName="Institution" />
+          <ScalarProperty Name="University" ColumnName="University" />
+          <ScalarProperty Name="YearOfCompletion" ColumnName="YearOfCompletion" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TainingDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.TainingData">
+        <MappingFragment StoreEntitySet="TainingData">
+          <ScalarProperty Name="TDID" ColumnName="TDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
+          <ScalarProperty Name="InstituteName" ColumnName="InstituteName" />
+          <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TechnicalSkillDatas">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.TechnicalSkillData">
+        <MappingFragment StoreEntitySet="TechnicalSkillData">
+          <ScalarProperty Name="TSDID" ColumnName="TSDID" />
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="Skill" ColumnName="Skill" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Expertise" ColumnName="Expertise" />
+          <ScalarProperty Name="LastWorkedOn" ColumnName="LastWorkedOn" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="IsEdited" ColumnName="IsEdited" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="UserOfferDetails">
       <EntityTypeMapping TypeName="EmployeeOnboardModel.UserOfferDetail">
         <MappingFragment StoreEntitySet="UserOfferDetails">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="emailID" ColumnName="emailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfiles">
+      <EntityTypeMapping TypeName="EmployeeOnboardModel.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="UPID" ColumnName="UPID" />
+          <ScalarProperty Name="email" ColumnName="email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

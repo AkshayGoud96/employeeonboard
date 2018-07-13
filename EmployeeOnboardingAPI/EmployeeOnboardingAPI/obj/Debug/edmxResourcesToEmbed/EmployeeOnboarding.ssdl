@@ -1,5 +1,160 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="EmployeeOnboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AdditionalData">
+    <Key>
+      <PropertyRef Name="ADID" />
+    </Key>
+    <Property Name="ADID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="EmergencyContact" Type="nvarchar" MaxLength="80" />
+    <Property Name="PersonalContact" Type="nvarchar" MaxLength="80" />
+    <Property Name="DateofMarriage" Type="nvarchar" MaxLength="80" />
+    <Property Name="BloodGroup" Type="nvarchar" MaxLength="80" />
+    <Property Name="PersonalEmail" Type="nvarchar" MaxLength="80" />
+    <Property Name="PassportNumber" Type="nvarchar" MaxLength="80" />
+    <Property Name="PassportValidUpto" Type="nvarchar" MaxLength="80" />
+    <Property Name="PermenantAccountNumber" Type="nvarchar" MaxLength="80" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="80" />
+    <Property Name="BankAccountNumber" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="CertificationData">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="CertificationID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Category" Type="nvarchar" MaxLength="80" />
+    <Property Name="Title" Type="nvarchar" MaxLength="80" />
+    <Property Name="CertifiedBy" Type="nvarchar" MaxLength="80" />
+    <Property Name="IssuedDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="ValidUpto" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="EmployerData">
+    <Key>
+      <PropertyRef Name="EDID" />
+    </Key>
+    <Property Name="EDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="EmployerName" Type="nvarchar" MaxLength="80" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="80" />
+    <Property Name="Domain" Type="nvarchar" MaxLength="80" />
+    <Property Name="JoiningDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="ReleivingDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="FunctionalSkillData">
+    <Key>
+      <PropertyRef Name="FSDID" />
+    </Key>
+    <Property Name="FSDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Skill" Type="nvarchar" MaxLength="80" />
+    <Property Name="Expertise" Type="nvarchar" MaxLength="80" />
+    <Property Name="LastWorkedOn" Type="nvarchar" MaxLength="80" />
+    <Property Name="Experience" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="InsuranceData">
+    <Key>
+      <PropertyRef Name="IDID" />
+    </Key>
+    <Property Name="IDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="RelationshipType" Type="nvarchar" MaxLength="80" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="80" />
+    <Property Name="FatherDOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="MotherName" Type="nvarchar" MaxLength="80" />
+    <Property Name="MotherDOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="FatherInLawName" Type="nvarchar" MaxLength="80" />
+    <Property Name="FatherInLawDOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="MotherInLawName" Type="nvarchar" MaxLength="80" />
+    <Property Name="MotherInLawDOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="MaritalStatus" Type="nvarchar" MaxLength="80" />
+    <Property Name="SpouseName" Type="nvarchar" MaxLength="80" />
+    <Property Name="SpouseDOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="SpouseGender" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child1Name" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child1DOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child1Gender" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child2Name" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child2DOB" Type="nvarchar" MaxLength="80" />
+    <Property Name="Child2Gender" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="MembershipData">
+    <Key>
+      <PropertyRef Name="MDID" />
+    </Key>
+    <Property Name="MDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Association" Type="nvarchar" MaxLength="80" />
+    <Property Name="MembershipID" Type="nvarchar" MaxLength="80" />
+    <Property Name="MembershipType" Type="nvarchar" MaxLength="80" />
+    <Property Name="MembershipYear" Type="nvarchar" MaxLength="80" />
+    <Property Name="ValidUpto" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="PersonalData">
+    <Key>
+      <PropertyRef Name="PDID" />
+    </Key>
+    <Property Name="PDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOB" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="QualificationData">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Qualification" Type="nvarchar" MaxLength="80" />
+    <Property Name="Institution" Type="nvarchar" MaxLength="80" />
+    <Property Name="University" Type="nvarchar" MaxLength="80" />
+    <Property Name="YearOfCompletion" Type="nvarchar" MaxLength="80" />
+    <Property Name="Percentage" Type="nvarchar" MaxLength="80" />
+    <Property Name="Grade" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEditable" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="TainingData">
+    <Key>
+      <PropertyRef Name="TDID" />
+    </Key>
+    <Property Name="TDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Category" Type="nvarchar" MaxLength="80" />
+    <Property Name="Name" Type="nvarchar" MaxLength="80" />
+    <Property Name="StartDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="EndDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="TotalHours" Type="nvarchar" MaxLength="80" />
+    <Property Name="InstituteName" Type="nvarchar" MaxLength="80" />
+    <Property Name="TrainerName" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <EntityType Name="TechnicalSkillData">
+    <Key>
+      <PropertyRef Name="TSDID" />
+    </Key>
+    <Property Name="TSDID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+    <Property Name="Skill" Type="nvarchar" MaxLength="80" />
+    <Property Name="Version" Type="nvarchar" MaxLength="80" />
+    <Property Name="Type" Type="nvarchar" MaxLength="80" />
+    <Property Name="Expertise" Type="nvarchar" MaxLength="80" />
+    <Property Name="LastWorkedOn" Type="nvarchar" MaxLength="80" />
+    <Property Name="Experience" Type="nvarchar" MaxLength="80" />
+    <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+  </EntityType>
   <EntityType Name="UserOfferDetails">
     <Key>
       <PropertyRef Name="id" />
@@ -8,7 +163,185 @@
     <Property Name="name" Type="nvarchar" MaxLength="80" />
     <Property Name="emailID" Type="nvarchar" MaxLength="80" />
   </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UPID" />
+    </Key>
+    <Property Name="UPID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="80" />
+  </EntityType>
+  <Association Name="FK__Additional__UPID__7D439ABD">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="AdditionalData" Type="Self.AdditionalData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="AdditionalData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Certificat__UPID__71D1E811">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="CertificationData" Type="Self.CertificationData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="CertificationData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployerDa__UPID__74AE54BC">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="EmployerData" Type="Self.EmployerData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="EmployerData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Functional__UPID__6C190EBB">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="FunctionalSkillData" Type="Self.FunctionalSkillData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="FunctionalSkillData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InsuranceD__UPID__7A672E12">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="InsuranceData" Type="Self.InsuranceData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="InsuranceData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Membership__UPID__778AC167">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="MembershipData" Type="Self.MembershipData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="MembershipData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PersonalDa__UPID__6383C8BA">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="PersonalData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Qualificat__UPID__66603565">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="QualificationData" Type="Self.QualificationData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="QualificationData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TainingDat__UPID__6EF57B66">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="TainingData" Type="Self.TainingData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="TainingData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TechnicalS__UPID__693CA210">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="TechnicalSkillData" Type="Self.TechnicalSkillData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="TechnicalSkillData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="EmployeeOnboardModelStoreContainer">
+    <EntitySet Name="AdditionalData" EntityType="Self.AdditionalData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CertificationData" EntityType="Self.CertificationData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployerData" EntityType="Self.EmployerData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FunctionalSkillData" EntityType="Self.FunctionalSkillData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsuranceData" EntityType="Self.InsuranceData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MembershipData" EntityType="Self.MembershipData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonalData" EntityType="Self.PersonalData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QualificationData" EntityType="Self.QualificationData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TainingData" EntityType="Self.TainingData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TechnicalSkillData" EntityType="Self.TechnicalSkillData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserOfferDetails" EntityType="Self.UserOfferDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Additional__UPID__7D439ABD" Association="Self.FK__Additional__UPID__7D439ABD">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="AdditionalData" EntitySet="AdditionalData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Certificat__UPID__71D1E811" Association="Self.FK__Certificat__UPID__71D1E811">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="CertificationData" EntitySet="CertificationData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployerDa__UPID__74AE54BC" Association="Self.FK__EmployerDa__UPID__74AE54BC">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="EmployerData" EntitySet="EmployerData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Functional__UPID__6C190EBB" Association="Self.FK__Functional__UPID__6C190EBB">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="FunctionalSkillData" EntitySet="FunctionalSkillData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InsuranceD__UPID__7A672E12" Association="Self.FK__InsuranceD__UPID__7A672E12">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="InsuranceData" EntitySet="InsuranceData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Membership__UPID__778AC167" Association="Self.FK__Membership__UPID__778AC167">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="MembershipData" EntitySet="MembershipData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PersonalDa__UPID__6383C8BA" Association="Self.FK__PersonalDa__UPID__6383C8BA">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="PersonalData" EntitySet="PersonalData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Qualificat__UPID__66603565" Association="Self.FK__Qualificat__UPID__66603565">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="QualificationData" EntitySet="QualificationData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TainingDat__UPID__6EF57B66" Association="Self.FK__TainingDat__UPID__6EF57B66">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="TainingData" EntitySet="TainingData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TechnicalS__UPID__693CA210" Association="Self.FK__TechnicalS__UPID__693CA210">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="TechnicalSkillData" EntitySet="TechnicalSkillData" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>
