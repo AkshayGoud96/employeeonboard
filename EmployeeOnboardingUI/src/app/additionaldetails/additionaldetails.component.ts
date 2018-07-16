@@ -10,54 +10,38 @@ import { OnboardingService } from '../services/onboarding.service';
 })
 export class AdditionaldetailsComponent implements OnInit {
 
-  additionalDetails:AdditionalDetailsData;
-  userProfile:UserProfile;
-  constructor(private onboardingService:OnboardingService) { }
+  additionalDetails: AdditionalDetailsData;
+  userProfile: UserProfile;
+  constructor(private onboardingService: OnboardingService) { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("AdditionalDetails") !=undefined)
-    {
-    this.additionalDetails=JSON.parse(sessionStorage.getItem("AdditionalDetails"));
+    debugger;
+    if (sessionStorage.getItem("UserProfile") != undefined) {
+      this.additionalDetails = JSON.parse(sessionStorage.getItem("UserProfile")).AdditionalData;
     }
-    else
-    {
-    this.additionalDetails=new AdditionalDetailsData();
-    this.additionalDetails.BloodGroup="Select";
-    }
-    if(sessionStorage.getItem("UserProfile") != undefined)
-    {
-      this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
-    }
-    else
-    {
-      this.userProfile=new UserProfile();
+    else {
+      this.additionalDetails = new AdditionalDetailsData();
+      this.additionalDetails.BloodGroup = "Select";
     }
   }
 
-  PreviousClick()
-  {
-    sessionStorage.setItem("AdditionalDetails",JSON.stringify(this.additionalDetails));
+  PreviousClick() {
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.AdditionalData = this.additionalDetails;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
-SaveClick()
-{
- sessionStorage.setItem("AdditionalDetails",JSON.stringify(this.additionalDetails));
-debugger;
- this.userProfile.PersonalData=JSON.parse(sessionStorage.getItem("PersonalData"));
- this.userProfile.QualificationData=JSON.parse(sessionStorage.getItem("Qualifications"));
- this.userProfile.TechnicalSkillData=JSON.parse(sessionStorage.getItem("TechnicalSkills"));
- this.userProfile.FunctionalSkillData=JSON.parse(sessionStorage.getItem("FunctionalSkills"));
- this.userProfile.TrainingData=JSON.parse(sessionStorage.getItem("Trainings"));
- this.userProfile.CertificationData=JSON.parse(sessionStorage.getItem("Certifications"));
- this.userProfile.EmployerData=JSON.parse(sessionStorage.getItem("Employers"));
- this.userProfile.MembershipData=JSON.parse(sessionStorage.getItem("Memberships"));
- this.userProfile.InsuranceData=JSON.parse(sessionStorage.getItem("Insurance"));
- this.userProfile.AdditionalData=JSON.parse(sessionStorage.getItem("AdditionalDetails"));
- let formData:FormData=new FormData();
- formData.append("UserProfile",JSON.stringify(this.userProfile));
-  this.onboardingService.SaveData(formData).subscribe(res=>{
-    console.log(res);
-  })
+  SaveClick() {
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.AdditionalData = this.additionalDetails;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
 
-}
+    let formData: FormData = new FormData();
+    formData.append("UserProfile", JSON.stringify(this.userProfile));
+    formData.append("Email", sessionStorage.getItem("Email"));
+    this.onboardingService.SaveData(formData).subscribe(res => {
+      console.log(res);
+    })
+
+  }
 
 }

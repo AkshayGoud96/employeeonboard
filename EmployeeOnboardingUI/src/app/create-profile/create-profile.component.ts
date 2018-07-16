@@ -17,6 +17,7 @@ export class CreateProfileComponent implements OnInit {
   constructor(private onboardingService: OnboardingService) { }
 
   ngOnInit() {
+    this.userProfile=new UserProfile();
   }
 
   Verify(details) {
@@ -25,21 +26,24 @@ export class CreateProfileComponent implements OnInit {
       if (res == "Success") {
         this.recordExists = true;
         this.verifyStatus= "Success";
+        sessionStorage.setItem("Email",details.email);
         this.onboardingService.GetProfileData(details.email).subscribe(res=>{
           if(res!=null)
           {
-            this.userProfile=res;
-            sessionStorage.setItem("PersonalData",JSON.stringify(this.userProfile.PersonalData));
-            sessionStorage.setItem("Qualifications",JSON.stringify(this.userProfile.QualificationData));
-            sessionStorage.setItem("TechnicalSkills",JSON.stringify(this.userProfile.TechnicalSkillData));
-            sessionStorage.setItem("FunctionalSkills",JSON.stringify(this.userProfile.PersonalData));
-            sessionStorage.setItem("Trainings",JSON.stringify(this.userProfile.PersonalData));
-            sessionStorage.setItem("Certifications",JSON.stringify(this.userProfile.PersonalData));
-            sessionStorage.setItem("Employers",JSON.stringify(this.userProfile.EmployerData));
-            sessionStorage.setItem("Memberships",JSON.stringify(this.userProfile.MembershipData));
-            sessionStorage.setItem("Insurance",JSON.stringify(this.userProfile.InsuranceData));
-          
+            debugger;
+            this.userProfile.PersonalData=res.PersonalDatas[0];
+            this.userProfile.InsuranceData=res.InsuranceDatas[0];
+            this.userProfile.AdditionalData=res.AdditionalDatas[0];
+            this.userProfile.QualificationData=res.QualificationDatas;
+            this.userProfile.TechnicalSkillData=res.TechnicalSkillDatas;
+            this.userProfile.FunctionalSkillData=res.FunctionalSkillDatas;
+            this.userProfile.CertificationData=res.CertificationDatas;
+            this.userProfile.EmployerData=res.EmployerDatas;
+            this.userProfile.MembershipData=res.MembershipDatas;
+            this.userProfile.TrainingData=res.TainingDatas;
+            sessionStorage.setItem("UserProfile",JSON.stringify(this.userProfile));
           }
+          
         });
       }
       else

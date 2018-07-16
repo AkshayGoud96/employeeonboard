@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployerData } from '../EmployerData';
+import { UserProfile } from '../UserProfile';
 
 @Component({
   selector: 'app-employer',
@@ -10,13 +11,14 @@ export class EmployerComponent implements OnInit {
 
   employer:EmployerData;
   employers:Array<EmployerData>=[];
+  userProfile:UserProfile;
 
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Employers") !=undefined)
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.employers=JSON.parse(sessionStorage.getItem("Employers"));
+    this.employers=JSON.parse(sessionStorage.getItem("UserProfile")).EmployerData;
     }
     this.employer = new EmployerData();
   }
@@ -41,11 +43,15 @@ export class EmployerComponent implements OnInit {
 
   PreviousClick()
   {
-    sessionStorage.setItem("Employers",JSON.stringify(this.employers));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.EmployerData=this.employers;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("Employers",JSON.stringify(this.employers));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.EmployerData=this.employers;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 }

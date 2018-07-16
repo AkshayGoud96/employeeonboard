@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QualificationData } from '../QualificationData';
+import { UserProfile } from '../UserProfile';
 
 @Component({
   selector: 'app-qualification',
@@ -9,14 +10,16 @@ import { QualificationData } from '../QualificationData';
 export class QualificationComponent implements OnInit {
   model: QualificationData;
   qualifications: Array<QualificationData> = [];
+  userProfile:UserProfile;
   constructor() {
     
   }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Qualifications") !=undefined)
+    debugger;
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.qualifications=JSON.parse(sessionStorage.getItem("Qualifications"));
+    this.qualifications=JSON.parse(sessionStorage.getItem("UserProfile")).QualificationData;
     }
     this.model = new QualificationData();
     this.model.Qualification="Select";
@@ -47,12 +50,16 @@ export class QualificationComponent implements OnInit {
 
   PreviousClick()
   {
-    sessionStorage.setItem("Qualifications",JSON.stringify(this.qualifications));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.QualificationData=this.qualifications;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("Qualifications",JSON.stringify(this.qualifications));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.QualificationData=this.qualifications;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
 }

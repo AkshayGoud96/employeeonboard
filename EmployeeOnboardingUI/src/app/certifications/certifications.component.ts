@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CertificationData} from '../CertificationData';
+import { UserProfile } from '../UserProfile';
 
 @Component({
   selector: 'app-certifications',
@@ -10,12 +11,14 @@ export class CertificationsComponent implements OnInit {
 
   certification:CertificationData;
   certifications:Array<CertificationData>=[];
+  userProfile:UserProfile;
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Certifications") !=undefined)
+    debugger;
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.certifications=JSON.parse(sessionStorage.getItem("Certifications"));
+    this.certifications=JSON.parse(sessionStorage.getItem("UserProfile")).CertificationData;
     }
     this.certification = new CertificationData();
     this.certification.Category="Select";
@@ -44,12 +47,16 @@ export class CertificationsComponent implements OnInit {
 
   PreviousClick()
   {
-    sessionStorage.setItem("Certifications",JSON.stringify(this.certifications));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.CertificationData=this.certifications;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("Certifications",JSON.stringify(this.certifications));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.CertificationData=this.certifications;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
 }

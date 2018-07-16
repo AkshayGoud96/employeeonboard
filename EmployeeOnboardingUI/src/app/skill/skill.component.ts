@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TechnicalSkillData} from '../SkillData';
 import { FunctionalSkillData } from '../FunctionalSkillData';
+import { UserProfile } from '../UserProfile';
 @Component({
   selector: 'app-skill',
   templateUrl: './skill.component.html',
@@ -12,17 +13,18 @@ export class SkillComponent implements OnInit {
  skills:Array<TechnicalSkillData>=[];
  functionalSkill:FunctionalSkillData;
  functionalSkills:Array<FunctionalSkillData>=[];
+ userProfile:UserProfile;
   constructor() { }
 
   ngOnInit() {
-
-    if(sessionStorage.getItem("TechnicalSkills") !=undefined)
+    debugger;
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.skills=JSON.parse(sessionStorage.getItem("TechnicalSkills"));
+    this.skills=JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
     }
-    if(sessionStorage.getItem("FunctionalSkills") !=undefined)
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.functionalSkills=JSON.parse(sessionStorage.getItem("FunctionalSkills"));
+    this.functionalSkills=JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
     }
 
     this.skill = new TechnicalSkillData();
@@ -87,14 +89,18 @@ export class SkillComponent implements OnInit {
 
   PreviousClick()
   {
-    sessionStorage.setItem("TechnicalSkills",JSON.stringify(this.skills));
-    sessionStorage.setItem("FunctionalSkills",JSON.stringify(this.functionalSkills));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TechnicalSkillData=this.skills;
+    this.userProfile.FunctionalSkillData=this.functionalSkills;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("TechnicalSkills",JSON.stringify(this.skills));
-    sessionStorage.setItem("FunctionalSkills",JSON.stringify(this.functionalSkills));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TechnicalSkillData=this.skills;
+    this.userProfile.FunctionalSkillData=this.functionalSkills;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberShipData } from '../MemberShipData';
+import { UserProfile } from '../UserProfile';
 
 @Component({
   selector: 'app-memberships',
@@ -10,13 +11,14 @@ export class MembershipsComponent implements OnInit {
 
   membership:MemberShipData;
 memberships:Array<MemberShipData>=[];
+userProfile:UserProfile;
 
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Memberships") !=undefined)
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.memberships=JSON.parse(sessionStorage.getItem("Memberships"));
+    this.memberships=JSON.parse(sessionStorage.getItem("UserProfile")).MembershipData;
     }
     this.membership=new MemberShipData();
   }
@@ -42,11 +44,15 @@ memberships:Array<MemberShipData>=[];
 
   PreviousClick()
   {
-    sessionStorage.setItem("Memberships",JSON.stringify(this.memberships));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData=this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("Memberships",JSON.stringify(this.memberships));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData=this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 }

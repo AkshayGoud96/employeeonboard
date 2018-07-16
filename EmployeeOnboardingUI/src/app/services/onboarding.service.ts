@@ -22,7 +22,7 @@ export class OnboardingService {
 
   GetProfileData(email):Observable<any>
   {
-    return this.httpClient.get(environment.api+'api/Onboarding/GetProfileData?email='+email);
+    return this.httpClient.get(environment.api+'api/Onboarding/GetProfileData?emailId='+email);
   }
 
 }

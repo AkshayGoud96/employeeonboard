@@ -14,9 +14,10 @@ export class PersonnelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("PersonalData") !=undefined)
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.personalData=JSON.parse(sessionStorage.getItem("PersonalData"));
+      debugger;
+    this.personalData=JSON.parse(sessionStorage.getItem("UserProfile")).PersonalData;
     }
     else
     {
@@ -26,6 +27,8 @@ export class PersonnelComponent implements OnInit {
   }
   NextClick() {
     debugger;
-    sessionStorage.setItem("PersonalData", JSON.stringify(this.personalData));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.PersonalData=this.personalData;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 }

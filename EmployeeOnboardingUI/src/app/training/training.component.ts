@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingData } from '../TrainingData';
+import { UserProfile } from '../UserProfile';
 
 @Component({
   selector: 'app-training',
@@ -10,12 +11,14 @@ export class TrainingComponent implements OnInit {
 
   training:TrainingData;
   trainings:Array<TrainingData>=[];
+  userProfile:UserProfile;
   constructor() { }
 
   ngOnInit() {
-    if(sessionStorage.getItem("Trainings") !=undefined)
+    debugger;
+    if(sessionStorage.getItem("UserProfile") !=undefined)
     {
-    this.trainings=JSON.parse(sessionStorage.getItem("Trainings"));
+    this.trainings=JSON.parse(sessionStorage.getItem("UserProfile")).TrainingData;
     }
     this.training = new TrainingData();
     this.training.Category="Select";
@@ -43,12 +46,16 @@ export class TrainingComponent implements OnInit {
   }
   PreviousClick()
   {
-    sessionStorage.setItem("Trainings",JSON.stringify(this.trainings));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TrainingData=this.trainings;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick()
   {
-    sessionStorage.setItem("Trainings",JSON.stringify(this.trainings));
+    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TrainingData=this.trainings;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
 }
