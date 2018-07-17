@@ -22,6 +22,7 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { MembershipsComponent } from './memberships/memberships.component';
 import { AdditionaldetailsComponent } from './additionaldetails/additionaldetails.component';
 import { SubmissionComponent } from './submission/submission.component';
+import { CommonService } from 'src/app/services/commonservice.service';
 
 const routes:Routes=[
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
@@ -70,7 +71,7 @@ const routes:Routes=[
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true}),
   ],
-  providers: [OnboardingService],
+  providers: [OnboardingService,CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,17 +2,23 @@
   <div class=" row text-center profile">
     Onboarding Request
   </div>
+  <div *ngIf="loading">
+    <div class="loading"></div>
+  </div>
   <div class="row">
     <div class="panel panel-info">
       <div class="panel-heading">Verify User</div>
       <div class="panel-body">
-        <form #user="ngForm" (ngSubmit)="Verify(user.value)" class="form-inline">
+        <form #user="ngForm" (ngSubmit)="Verify(user.value)" class="form-inline" novalidate>
          
           <div class="row labelText">
-            <div class="col-md-3"></div>
-              <div class="col-md-2 form-group customtextbox">
+            <div class="col-md-2"></div>
+              <div class="col-md-2 form-group customtextbox" required [ngClass]="{  
+                'has-danger': email.invalid && (email.dirty || email.touched),  
+                'has-success': email.valid && (email.dirty || email.touched)}">
                   <input type="email" class="form-control" id="inputEmail" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" #email="ngModel" placeholder="Email ID" [(ngModel)]="emailID">
               </div>
+             
               <div class="col-md-2 form-group customtextbox">        
                   <input type="text" class="form-control" id="inputname"  name="name" #name="ngModel" placeholder="Full Name" [(ngModel)]="fullName">
               </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OnboardingService } from '../services/onboarding.service';
 import { UserProfile } from '../UserProfile';
+import { CommonService } from 'src/app/services/commonservice.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -14,7 +15,9 @@ export class CreateProfileComponent implements OnInit {
   recordExists: boolean=false;
   verifyStatus:string="Verify";
   userProfile:UserProfile;
-  constructor(private onboardingService: OnboardingService) { }
+
+  loading:boolean=false;
+  constructor(private onboardingService: OnboardingService,private commonService:CommonService) { }
 
   ngOnInit() {
     this.userProfile=new UserProfile();
@@ -22,6 +25,7 @@ export class CreateProfileComponent implements OnInit {
 
   Verify(details) {
     debugger;
+    this.loading=true;
     this.onboardingService.VerifyUser(details.email, details.name).subscribe(res => {
       if (res == "Success") {
         this.recordExists = true;
@@ -42,6 +46,12 @@ export class CreateProfileComponent implements OnInit {
             this.userProfile.MembershipData=res.MembershipDatas;
             this.userProfile.TrainingData=res.TainingDatas;
             sessionStorage.setItem("UserProfile",JSON.stringify(this.userProfile));
+            this.commonService.notifyOther({option: 'get', value: res.PersonalData});
+            this.loading=false;
+          }
+          else
+          {
+            this.loading=false;
           }
           
         });
@@ -50,6 +60,7 @@ export class CreateProfileComponent implements OnInit {
       {
         this.recordExists = false;
         this.verifyStatus="Failed";
+        this.loading=false;
         alert("Not such user exists")
       }
     });
