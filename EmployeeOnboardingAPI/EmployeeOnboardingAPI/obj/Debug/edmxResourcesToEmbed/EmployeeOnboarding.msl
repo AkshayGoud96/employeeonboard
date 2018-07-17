@@ -169,6 +169,8 @@
     <EntitySetMapping Name="UserOfferDetails">
       <EntityTypeMapping TypeName="EmployeeOnboardModel.UserOfferDetail">
         <MappingFragment StoreEntitySet="UserOfferDetails">
+          <ScalarProperty Name="isSubmitted" ColumnName="isSubmitted" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="emailID" ColumnName="emailID" />

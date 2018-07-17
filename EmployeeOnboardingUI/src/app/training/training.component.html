@@ -5,7 +5,7 @@
       <div class="clear-fix"></div>
       <div class="row labelText">
         <div class="col-md-2 form-group">
-          <label>Category</label>
+          <label>Category <span style="color: red">*</span></label>
           <select class="form-control" [(ngModel)]="training.Category" name="Category" #Category="ngModel">
             <option>Select</option>
             <option>Technical</option>
@@ -16,27 +16,27 @@
           </select>
         </div>
         <div class="col-md-2 form-group">
-          <label>Name of Program</label>
+          <label>Name of Program<span style="color: red">*</span></label>
           <input type="text" class="form-control" [(ngModel)]="training.Name" name="Name" #Name="ngModel" placeholder="Name">
         </div>
         <div class="col-md-2 form-group">
-          <label>Start Date </label>
+          <label>Start Date <span style="color: red">*</span></label>
           <input type="date" class="form-control" [(ngModel)]="training.StartDate" name="StartDate" #StartDate="ngModel" placeholder="StartDate">
         </div>
         <div class="col-md-2 form-group">
-          <label>End Date</label>
+          <label>End Date <span style="color: red">*</span></label>
           <input type="date" class="form-control" [(ngModel)]="training.EndDate" name="EndDate" #EndDate="ngModel" placeholder="EndDate">
         </div>
         <div class="col-md-2 form-group">
-          <label>Total Hours</label>
+          <label>Total Hours <span style="color: red">*</span></label>
           <input type="number" class="form-control" [(ngModel)]="training.TotalHours" name="TotalHours" #TotalHours="ngModel" placeholder="TotalHours">     
         </div>
         <div class="col-md-2 form-group">
-          <label>Institute Name</label>
+          <label>Institute Name<span style="color: red">*</span></label>
           <input type="text" class="form-control" [(ngModel)]="training.InstituteName" name="InstituteName" #InstituteName="ngModel" placeholder="InstituteName">
         </div>
         <div class="col-md-2 form-group">
-            <label>Trainer Name</label>
+            <label>Trainer Name<span style="color: red">*</span></label>
             <input type="text" class="form-control" [(ngModel)]="training.TrainerName" name="TrainerName" #TrainerName="ngModel" placeholder="TrainerName">
           </div>
         <div class="clear-fix"></div>
@@ -45,7 +45,7 @@
       <div class="row">
         <div class="col-md-5"></div>
         <div class="col-md-2">
-          <button class="btn btn-primary addnew" type="submit" (click)="AddTraining()">
+          <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddTraining()">
             <i class="fa fa-plus"></i>
             Add New</button>
         </div>
@@ -127,13 +127,13 @@
                     </div>
                   </td>
                 <td class="actiontd" style="text-align: center">
-                  <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditTraining(item)">
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditTraining(item)">
                     <span class="glyphicon glyphicon-pencil"></span>
                   </button>
-                  <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditTraining(item)">
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditTraining(item)">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
                   </button>
-                  <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteTraining(i)">
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteTraining(i)">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </td>

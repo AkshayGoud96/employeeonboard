@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-
+.alert
+{
+  padding: 5px 15px 5px 15px !important;
+  margin-bottom: 0px !important;
+}
 .labelText label
 {
     font-size: 14px;

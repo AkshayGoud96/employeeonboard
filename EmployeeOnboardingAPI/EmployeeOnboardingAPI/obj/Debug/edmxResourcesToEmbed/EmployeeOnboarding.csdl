@@ -172,6 +172,8 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
     <Property Name="emailID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="createdDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="isSubmitted" Type="Boolean" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>

@@ -5,7 +5,7 @@
   <div class="clear-fix"></div>
     <div class="row labelText">
       <div class="col-md-2 form-group">
-        <label>Qualification</label>
+        <label>Qualification<span style="color: red">*</span></label>
         <select class="form-control" [(ngModel)]="model.Qualification" name="Qualification" #Qualification="ngModel">
           <option>Select</option>
           <option>10th Class</option>
@@ -15,15 +15,15 @@
         </select>
       </div>
       <div class="col-md-3 form-group">
-        <label>School/College</label>
+        <label>School/College<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="model.Institution" name="Institution" #Institution="ngModel" placeholder="School/College Name">
       </div>
       <div class="col-md-3 form-group">
-        <label>Board/University</label>
+        <label>Board/University<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="model.University" name="University" #University="ngModel" placeholder="Board/University Name">
       </div>
       <div class="col-md-2 form-group">
-          <label>Year of Completion</label>
+          <label>Year of Completion<span style="color: red">*</span></label>
           <select class="form-control" [(ngModel)]="model.YearOfCompletion" name="YearOfCompletion" #YearOfCompletion="ngModel">
             <option>Select</option>
             <option>2018</option>
@@ -33,11 +33,11 @@
           </select>
         </div>
         <div class="col-md-1 form-group">
-            <label>Percentage</label>
+            <label>Percentage<span style="color: red">*</span></label>
             <input type="number" class="form-control" [(ngModel)]="model.Percentage" name="Percentage" #Percentage="ngModel" placeholder="%">
           </div>
           <div class="col-md-1 form-group">
-              <label>Grade</label>
+              <label>Grade<span style="color: red">*</span></label>
               <input type="text" class="form-control" [(ngModel)]="model.Grade" name="Grade" #Grade="ngModel" placeholder="Grade">
             </div>
       <div class="clear-fix"></div>
@@ -46,7 +46,7 @@
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" type="submit" (click)="AddQualification()">
+        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddQualification()">
             <i class="fa fa-plus"></i>
           Add New</button>
       </div>
@@ -118,13 +118,13 @@
                   </div >              
             </td>
             <td class="actiontd" style="text-align: center">
-              <button  class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEditable != true" data-title="Edit" (click)="EditQualification(item)">
+              <button [disabled]="submitted=='Submitted'"  class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEditable != true" data-title="Edit" (click)="EditQualification(item)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-              <button  class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEditable" data-title="Edit" (click)="SaveEditQualification(item)">
+              <button  [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEditable" data-title="Edit" (click)="SaveEditQualification(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-              <button class="btn btn-danger btn-xs rowbutton"  data-title="Delete" (click)="DeleteQualification(i)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton"  data-title="Delete" (click)="DeleteQualification(i)">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>

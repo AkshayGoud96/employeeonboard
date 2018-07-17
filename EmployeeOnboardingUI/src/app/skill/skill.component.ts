@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {TechnicalSkillData} from '../SkillData';
+import { TechnicalSkillData } from '../SkillData';
 import { FunctionalSkillData } from '../FunctionalSkillData';
 import { UserProfile } from '../UserProfile';
+import { CommonService } from '../services/commonservice.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-skill',
   templateUrl: './skill.component.html',
@@ -9,97 +11,94 @@ import { UserProfile } from '../UserProfile';
 })
 export class SkillComponent implements OnInit {
 
-  skill:TechnicalSkillData;
- skills:Array<TechnicalSkillData>=[];
- functionalSkill:FunctionalSkillData;
- functionalSkills:Array<FunctionalSkillData>=[];
- userProfile:UserProfile;
-  constructor() { }
+  skill: TechnicalSkillData;
+  skills: Array<TechnicalSkillData> = [];
+  functionalSkill: FunctionalSkillData;
+  functionalSkills: Array<FunctionalSkillData> = [];
+  userProfile: UserProfile;
+  submitted: string;
+  subscription: Subscription;
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
-    debugger;
-    if(sessionStorage.getItem("UserProfile") !=undefined)
-    {
-    this.skills=JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
+    this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
+      if (res.hasOwnProperty('option') && res.option === 'get') {
+        this.skills = JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
+        this.functionalSkills = JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
+
+      }
+    });
+    this.submitted = sessionStorage.getItem("Submitted");
+    if (sessionStorage.getItem("UserProfile") != undefined) {
+      this.skills = JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
     }
-    if(sessionStorage.getItem("UserProfile") !=undefined)
-    {
-    this.functionalSkills=JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
+    if (sessionStorage.getItem("UserProfile") != undefined) {
+      this.functionalSkills = JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
     }
 
     this.skill = new TechnicalSkillData();
-    this.skill.Skill="Select";
-    this.skill.Expertise="Select";
-    this.skill.LastWorkedOn="Select";
-    this.skill.Type="Select";
-    this.skill.IsEdited=false;
+    this.skill.Skill = "Select";
+    this.skill.Expertise = "Select";
+    this.skill.LastWorkedOn = "Select";
+    this.skill.Type = "Select";
+    this.skill.IsEdited = false;
 
 
     this.functionalSkill = new FunctionalSkillData();
-    this.functionalSkill.Skill="Select";
-    this.functionalSkill.Expertise="Select";
-    this.functionalSkill.LastWorkedOn="Select";
-    this.functionalSkill.IsEdited=false;
+    this.functionalSkill.Skill = "Select";
+    this.functionalSkill.Expertise = "Select";
+    this.functionalSkill.LastWorkedOn = "Select";
+    this.functionalSkill.IsEdited = false;
   }
 
-  AddSkill()
-  {
+  AddSkill() {
     this.skills.push(this.skill);
     this.skill = new TechnicalSkillData();
-    this.skill.Skill="Select";
-    this.skill.Expertise="Select";
-    this.skill.LastWorkedOn="Select";
-    this.skill.Type="Select";
-    this.skill.IsEdited=false;
+    this.skill.Skill = "Select";
+    this.skill.Expertise = "Select";
+    this.skill.LastWorkedOn = "Select";
+    this.skill.Type = "Select";
+    this.skill.IsEdited = false;
   }
-  DeleteSkill(index)
-  {
-    this.skills.splice(index,1);
+  DeleteSkill(index) {
+    this.skills.splice(index, 1);
   }
-  EditSkill(item)
-  {
-   item.IsEdited=true;
+  EditSkill(item) {
+    item.IsEdited = true;
   }
-  SaveEditSkill(item)
-  {
-    item.IsEdited=false;
+  SaveEditSkill(item) {
+    item.IsEdited = false;
   }
 
-  AddFunctionalSkill()
-  {
+  AddFunctionalSkill() {
     this.functionalSkills.push(this.functionalSkill);
     this.functionalSkill = new FunctionalSkillData();
-    this.functionalSkill.Skill="Select";
-    this.functionalSkill.Expertise="Select";
-    this.functionalSkill.LastWorkedOn="Select";
-    this.functionalSkill.IsEdited=false;
+    this.functionalSkill.Skill = "Select";
+    this.functionalSkill.Expertise = "Select";
+    this.functionalSkill.LastWorkedOn = "Select";
+    this.functionalSkill.IsEdited = false;
   }
-  DeleteFunctionalSkill(index)
-  {
-    this.functionalSkills.splice(index,1);
+  DeleteFunctionalSkill(index) {
+    this.functionalSkills.splice(index, 1);
   }
-  EditFunctionalSkill(item)
-  {
-   item.IsEdited=true;
+  EditFunctionalSkill(item) {
+    item.IsEdited = true;
   }
-  SaveEditFunctionalSkill(item)
-  {
-    item.IsEdited=false;
+  SaveEditFunctionalSkill(item) {
+    item.IsEdited = false;
   }
 
-  PreviousClick()
-  {
-    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
-    this.userProfile.TechnicalSkillData=this.skills;
-    this.userProfile.FunctionalSkillData=this.functionalSkills;
+  PreviousClick() {
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TechnicalSkillData = this.skills;
+    this.userProfile.FunctionalSkillData = this.functionalSkills;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
-  NextClick()
-  {
-    this.userProfile=JSON.parse(sessionStorage.getItem("UserProfile"));
-    this.userProfile.TechnicalSkillData=this.skills;
-    this.userProfile.FunctionalSkillData=this.functionalSkills;
+  NextClick() {
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.TechnicalSkillData = this.skills;
+    this.userProfile.FunctionalSkillData = this.functionalSkills;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 

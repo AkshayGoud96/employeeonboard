@@ -1,3 +1,12 @@
-<p>
-  submission works!
-</p>
+<div class="container">
+    <div class="clear-fix"></div>
+<div class="row labelText" style="text-align: center">
+  <label>Your data is saved sucessfully .In case you have no further changes please Submit.</label>
+</div>
+<div class="clear-fix"></div>
+<div class="row">
+  <div class="col-md-5"></div>
+<button type="submit" class="col-md-1 btn btn-primary" [disabled]="submitted=='Submitted'" (click)="SubmitData()">Submit</button>
+<div class="col-md-5"></div>
+</div>
+</div>

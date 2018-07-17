@@ -21,8 +21,9 @@ namespace EmployeeOnboardingAPI.Controllers
             try
             {
                 OnboardingHelper helper = new OnboardingHelper();
-                if (helper.VerifyUserDetails(email, name))
-                    return Request.CreateResponse(HttpStatusCode.OK, "Success");
+                string status = helper.VerifyUserDetails(email, name);
+                if ( status== "Submitted" || status=="Saved")
+                    return Request.CreateResponse(HttpStatusCode.OK, status);
                 else
                     return Request.CreateResponse(HttpStatusCode.OK, "No such record");
             }
@@ -43,7 +44,27 @@ namespace EmployeeOnboardingAPI.Controllers
                 string email = httpRequest.Params["Email"];
                 UserProfileData userProfile = JsonConvert.DeserializeObject<UserProfileData>(httpRequest.Params["UserProfile"]);
                 OnboardingHelper helper = new OnboardingHelper();
-                helper.SaveUserProfileData(userProfile,email);
+               string status= helper.SaveUserProfileData(userProfile,email);
+                return Request.CreateResponse(HttpStatusCode.OK, status);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("SubmitData")]
+        public HttpResponseMessage SubmitData()
+        {
+            try
+            {
+                var httpRequest = HttpContext.Current.Request;
+                string email = httpRequest.Params["Email"];
+                
+                OnboardingHelper helper = new OnboardingHelper();
+                helper.SubmitUserData(email);
                 return Request.CreateResponse(HttpStatusCode.OK, "Success");
             }
             catch (Exception ex)

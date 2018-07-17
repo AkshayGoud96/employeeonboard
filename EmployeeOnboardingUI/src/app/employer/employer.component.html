@@ -5,24 +5,24 @@
     <div class="clear-fix"></div>
     <div class="row labelText">
       <div class="col-md-2 form-group">
-        <label>Employer</label>
+        <label>Employer<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="employer.EmployerName" name="EmployerName" #EmployerName="ngModel" placeholder="Name">
         
       </div>
       <div class="col-md-2 form-group">
-        <label>Designation</label>
+        <label>Designation<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="employer.Designation" name="Designation" #Designation="ngModel" placeholder="Designation">
       </div>
       <div class="col-md-2 form-group">
-        <label>Domain </label>
+        <label>Domain <span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="employer.Domain" name="Domain" #Domain="ngModel" placeholder="Domain">
       </div>
       <div class="col-md-2 form-group">
-        <label>Joining Date</label>
+        <label>Joining Date<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="employer.JoiningDate" name="JoiningDate" #JoiningDate="ngModel" placeholder="Date">
       </div>
       <div class="col-md-2 form-group">
-        <label>Releiving Date</label>
+        <label>Releiving Date<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="employer.ReleivingDate" name="ReleivingDate" #ReleivingDate="ngModel" placeholder="Date">     
       </div>
       <div class="clear-fix"></div>
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" type="submit" (click)="AddEmployer()">
+        <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddEmployer()">
           <i class="fa fa-plus"></i>
           Add New</button>
       </div>
@@ -95,13 +95,13 @@
                 </div>
               </td>
               <td class="actiontd" style="text-align: center">
-                <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditEmployer(item)">
+                <button class="btn btn-primary btn-xs rowbutton" [disabled]="submitted=='Submitted'" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditEmployer(item)">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditEmployer(item)">
+                <button class="btn btn-success btn-xs rowbutton" [disabled]="submitted=='Submitted'" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditEmployer(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-                <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteEmployer(i)">
+                <button class="btn btn-danger btn-xs rowbutton" [disabled]="submitted=='Submitted'" data-title="Delete" (click)="DeleteEmployer(i)">
                   <span class="glyphicon glyphicon-trash"></span>
                 </button>
               </td>

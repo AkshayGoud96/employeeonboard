@@ -5,7 +5,7 @@
     <div class="clear-fix"></div>
     <div class="row labelText">
       <div class="col-md-2 form-group">
-        <label>Category</label>
+        <label>Category<span style="color: red">*</span></label>
         <select class="form-control" [(ngModel)]="certification.Category" name="Category" #Category="ngModel">
           <option>Select</option>
           <option>Technical</option>
@@ -16,23 +16,23 @@
         </select>
       </div>
       <div class="col-md-2 form-group">
-        <label>Certification ID</label>
+        <label>Certification ID<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="certification.CertificationID" name="CertificationID" #CertificationID="ngModel" placeholder="CertificationID">
       </div>
       <div class="col-md-2 form-group">
-        <label>Title </label>
+        <label>Title <span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="certification.Title" name="Title" #Title="ngModel" placeholder="Certification Name">
       </div>
       <div class="col-md-2 form-group">
-        <label>Certified By</label>
+        <label>Certified By<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="certification.CertifiedBy" name="CertifiedBy" #CertifiedBy="ngModel" placeholder="Institute">
       </div>
       <div class="col-md-2 form-group">
-        <label>Issued Date</label>
+        <label>Issued Date<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="certification.IssuedDate" name="IssuedDate" #IssuedDate="ngModel" placeholder="Date">     
       </div>
       <div class="col-md-2 form-group">
-        <label>Valid Upto</label>
+        <label>Valid Upto<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="certification.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Date">
       </div>
       <div class="clear-fix"></div>
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" type="submit" (click)="AddCertification()">
+        <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddCertification()">
           <i class="fa fa-plus"></i>
           Add New</button>
       </div>
@@ -114,13 +114,13 @@
                 </div>
               </td>
               <td class="actiontd" style="text-align: center">
-                <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditCertification(item)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditCertification(item)">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditCertification(item)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditCertification(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-                <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteCertification(i)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteCertification(i)">
                   <span class="glyphicon glyphicon-trash"></span>
                 </button>
               </td>

@@ -5,344 +5,397 @@ namespace EmployeeOnboardingAPI
 {
     public class OnboardingHelper
     {
-        public bool VerifyUserDetails(string email, string fullname)
+        public string VerifyUserDetails(string email, string fullname)
         {
+            string status = string.Empty;
             try
             {
                 using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
                 {
                     UserOfferDetail user = db.UserOfferDetails.Where(x => (x.emailID == email && x.name == fullname)).FirstOrDefault();
-                    if (user != null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    status = user != null ? (user.isSubmitted == true ? "Submitted" : "Saved") : "NoRecord";
+                    return status;
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
         }
 
-        internal void SaveUserProfileData(UserProfileData userProfile, string email)
+        internal string SaveUserProfileData(UserProfileData userProfile, string email)
         {
-            bool isEdit = false;
             using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
             {
-                UserProfile profiledata = db.UserProfiles.Include("AdditionalDatas")
-                    .Include("FunctionalSkillDatas")
-                    .Include("CertificationDatas")
-                    .Include("EmployerDatas")
-                    .Include("InsuranceDatas")
-                    .Include("MembershipDatas")
-                    .Include("PersonalDatas")
-                    .Include("QualificationDatas")
-                    .Include("TainingDatas")
-                    .Include("TechnicalSkillDatas").Where(s => s.email == email).FirstOrDefault();
-
-                if (profiledata != null)
+                try
                 {
-                    isEdit = true;
-
-                    // Personal Data
-                    UpdatePersonalData(userProfile, ref profiledata);
-
-                    //Qualification Data
-                    foreach (var qualification in userProfile.qualificationData)
+                    if (db.UserOfferDetails.Where(x => x.emailID == email).SingleOrDefault().isSubmitted == false)
                     {
-                        if (qualification.QDID != null)
+
+                        UserProfile profiledata = db.UserProfiles.Include("AdditionalDatas")
+                            .Include("FunctionalSkillDatas")
+                            .Include("CertificationDatas")
+                            .Include("EmployerDatas")
+                            .Include("InsuranceDatas")
+                            .Include("MembershipDatas")
+                            .Include("PersonalDatas")
+                            .Include("QualificationDatas")
+                            .Include("TainingDatas")
+                            .Include("TechnicalSkillDatas").Where(s => s.email == email).FirstOrDefault();
+
+                        if (profiledata != null)
                         {
-                            var data = profiledata.QualificationDatas.Where(q => q.QDID == qualification.QDID).Single();
-                            if (data != null)
-                            {
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Grade = data.Grade;
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Institution = data.Institution;
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Percentage = data.Percentage;
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Qualification = data.Qualification;
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().University = data.University;
-                                profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().YearOfCompletion = data.YearOfCompletion;
-                            }
-                            else
-                            {
-                                AddQualificationData(ref profiledata, qualification);
-                            }
+                            profiledata = UpdateProfileData(userProfile, profiledata);
+
+                            db.SaveChanges();
                         }
                         else
                         {
-                            AddQualificationData(ref profiledata, qualification);
-                        }
-                    }
+                            UserProfile profile = GenerateProfileData(userProfile, email);
 
-                    //Technical Skills Data
-                    foreach (var technicalSkill in userProfile.technicalSkillData)
+                            db.UserProfiles.Add(profile);
+                            db.SaveChanges();
+                        }
+
+                        return "Data is saved Successfully";
+                    }
+                    else
                     {
-                        if (technicalSkill.TSDID != null)
-                        {
-                            var data = profiledata.TechnicalSkillDatas.Where(q => q.TSDID == technicalSkill.TSDID).Single();
-                            if (data != null)
-                            {
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Experience = data.Experience;
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Expertise = data.Expertise;
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().LastWorkedOn = data.LastWorkedOn;
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Skill = data.Skill;
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Type = data.Type;
-                                profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Version = data.Version;
-                            }
-                            else
-                            {
-                                AddTechnicalSkillData(ref profiledata, technicalSkill);
-                            }
-                        }
-                        else
-                        {
-                            AddTechnicalSkillData(ref profiledata, technicalSkill);
-                        }
+                        return "Data is already submitted cannot make any further changes";
                     }
+                }
+                catch (Exception)
+                {
 
-                    //Functional Skills Data
-                    foreach (var functionalSkill in userProfile.functionalSkillData)
+                    throw;
+                }
+            }
+        }
+
+        private UserProfile UpdateProfileData(UserProfileData userProfile, UserProfile profiledata)
+        {
+            // Personal Data
+             UpdatePersonalData(userProfile, ref profiledata);
+
+            //Qualification Data
+            foreach (var qualification in userProfile.qualificationData)
+            {
+                if (qualification.QDID != null)
+                {
+                    var data = profiledata.QualificationDatas.Where(q => q.QDID == qualification.QDID).Single();
+                    if (data != null)
                     {
-                        if (functionalSkill.FSDID != null)
-                        {
-                            var data = profiledata.FunctionalSkillDatas.Where(q => q.FSDID == functionalSkill.FSDID).Single();
-                            if (data != null)
-                            {
-                                profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Experience = data.Experience;
-                                profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Expertise = data.Expertise;
-                                profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().LastWorkedOn = data.LastWorkedOn;
-                                profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Skill = data.Skill;
-                            }
-                            else
-                            {
-                                AddFunctionalSkillData(ref profiledata, functionalSkill);
-                            }
-                        }
-                        else
-                        {
-                            AddFunctionalSkillData(ref profiledata, functionalSkill);
-                        }
+                        UpdateQualificationData(ref profiledata, data);
                     }
-
-                    //Certifications Data
-                    foreach (var certification in userProfile.certificationData)
+                    else
                     {
-                        if (certification.CDID != null)
-                        {
-                            var data = profiledata.CertificationDatas.Where(q => q.CDID == certification.CDID).Single();
-
-                            if (data != null)
-                            {
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().Category = data.Category;
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().CertificationID = data.CertificationID;
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().CertifiedBy = data.CertifiedBy;
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().IssuedDate = data.IssuedDate;
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().Title = data.Title;
-                                profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().ValidUpto = data.ValidUpto;
-                            }
-                            else
-                            {
-                                AddCertificationData(ref profiledata, certification);
-                            }
-                        }
-                        else
-                        {
-                            AddCertificationData(ref profiledata, certification);
-                        }
+                        AddQualificationData(ref profiledata, qualification);
                     }
-
-                    //Memberships Data
-                    foreach (var membership in userProfile.MemberShipData)
-                    {
-                        if (membership.MDID != null)
-                        {
-                            var data = profiledata.MembershipDatas.Where(q => q.MDID == membership.MDID).Single();
-
-                            if (data != null)
-                            {
-                                profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().Association = data.Association;
-                                profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipID = data.MembershipID;
-                                profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipType = data.MembershipType;
-                                profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipYear = data.MembershipYear;
-                                profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().ValidUpto = data.ValidUpto;
-                            }
-                            else
-                            {
-                                AddMemberShipData(ref profiledata, membership);
-                            }
-                        }
-                        else
-                        {
-                            AddMemberShipData(ref profiledata, membership);
-                        }
-                    }
-
-                    //Employer Data
-                    foreach (var employer in userProfile.EmployerData)
-                    {
-                        if (employer.EDID != null)
-                        {
-                            var data = profiledata.EmployerDatas.Where(q => q.EDID == employer.EDID).Single();
-
-                            if (data != null)
-                            {
-                                profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().Designation = data.Designation;
-                                profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().Domain = data.Domain;
-                                profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().EmployerName = data.EmployerName;
-                                profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().JoiningDate = data.JoiningDate;
-                                profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().ReleivingDate = data.ReleivingDate;
-                            }
-                            else
-                            {
-                                AddEmployerData(ref profiledata, employer);
-                            }
-                        }
-                        else
-                        {
-                            AddEmployerData(ref profiledata, employer);
-                        }
-                    }
-
-
-                    //Trainings Data
-                    foreach (var training in userProfile.trainingData)
-                    {
-                        if (training.TDID != null)
-                        {
-                            var data = userProfile.trainingData.Where(q => q.TDID == training.TDID).Single();
-
-                            if (data != null)
-                            {
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().Category = data.Category;
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().InstituteName = data.InstituteName;
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().Name = data.Name;
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().StartDate = data.StartDate;
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().TotalHours = data.TotalHours;
-                                profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().TrainerName = data.TrainerName;
-                            }
-                            else
-                            {
-                                AddTrainingData(ref profiledata, training);
-                            }
-                        }
-                        else
-                        {
-                            AddTrainingData(ref profiledata, training);
-                        }
-                    }
-
-                    //Insurance Data
-                    UpdateInsuranceData(userProfile, ref profiledata);
-
-                    //Additional Data
-
-                    UpdateAdditionalData(userProfile, ref profiledata);
-
-                    db.SaveChanges();
                 }
                 else
                 {
-                    UserProfile profile = new UserProfile();
-                    profile.UPID = Convert.ToString(Guid.NewGuid());
-                    profile.email = email;
-                    PersonalData pd = new PersonalData();
-                    QualificationData qd = new QualificationData();
-                    pd = userProfile.personalData;
-                    pd.UPID = profile.UPID;
-                    pd.PDID = Convert.ToString(Guid.NewGuid());
-                    profile.PersonalDatas.Add(pd);
-                    foreach (var qualification in userProfile.qualificationData)
-                    {
-
-                        qd = qualification;
-                        qd.UPID = profile.UPID;
-                        qd.QDID = Convert.ToString(Guid.NewGuid());
-                        profile.QualificationDatas.Add(qd);
-                    }
-                    foreach (var technicalSkill in userProfile.technicalSkillData)
-                    {
-                        TechnicalSkillData tsd = new TechnicalSkillData();
-                        tsd = technicalSkill;
-                        tsd.UPID = profile.UPID;
-                        tsd.TSDID = Convert.ToString(Guid.NewGuid());
-                        profile.TechnicalSkillDatas.Add(tsd);
-                    }
-                    foreach (var functionalSkill in userProfile.functionalSkillData)
-                    {
-                        FunctionalSkillData fsd = new FunctionalSkillData();
-                        fsd = functionalSkill;
-                        fsd.UPID = profile.UPID;
-                        fsd.FSDID = Convert.ToString(Guid.NewGuid());
-                        profile.FunctionalSkillDatas.Add(fsd);
-                    }
-                    foreach (var certification in userProfile.certificationData)
-                    {
-                        CertificationData cd = new CertificationData();
-                        cd = certification;
-                        cd.UPID = profile.UPID;
-                        cd.CDID = Convert.ToString(Guid.NewGuid());
-                        profile.CertificationDatas.Add(cd);
-                    }
-                    foreach (var training in userProfile.trainingData)
-                    {
-                        TainingData td = new TainingData();
-                        td = training;
-                        td.UPID = profile.UPID;
-                        td.TDID = Convert.ToString(Guid.NewGuid());
-                        profile.TainingDatas.Add(td);
-                    }
-                    foreach (var employerData in userProfile.EmployerData)
-                    {
-                        EmployerData ed = new EmployerData();
-                        ed = employerData;
-                        ed.UPID = profile.UPID;
-                        ed.EDID = Convert.ToString(Guid.NewGuid());
-                        profile.EmployerDatas.Add(ed);
-                    }
-                    foreach (var membershipData in userProfile.MemberShipData)
-                    {
-                        MembershipData md = new MembershipData();
-                        md = membershipData;
-                        md.UPID = profile.UPID;
-                        md.MDID = Convert.ToString(Guid.NewGuid());
-                        profile.MembershipDatas.Add(md);
-                    }
-                    InsuranceData id = new InsuranceData();
-                    id = userProfile.insuranceData;
-                    id.UPID = profile.UPID;
-                    id.IDID = Convert.ToString(Guid.NewGuid());
-
-                    profile.InsuranceDatas.Add(id);
-
-                    AdditionalData ad = new AdditionalData();
-                    ad = userProfile.additionalData;
-                    ad.UPID = profile.UPID;
-                    ad.ADID = Convert.ToString(Guid.NewGuid());
-
-                    profile.AdditionalDatas.Add(ad);
-
-                    db.UserProfiles.Add(profile);
-                    db.SaveChanges();
+                    AddQualificationData(ref profiledata, qualification);
                 }
             }
-            //using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
-            //{
 
-            //    if (profiledata == null)
-            //    {
-            //        db.UserProfiles.Add(profile);
-            //    }
-            //    else
-            //    {
-            //        profiledata.PersonalDatas = profile.PersonalDatas;                   
-            //    }
-            //    db.SaveChanges();
-            //}
+            //Technical Skills Data
+            foreach (var technicalSkill in userProfile.technicalSkillData)
+            {
+                if (technicalSkill.TSDID != null)
+                {
+                    var data = profiledata.TechnicalSkillDatas.Where(q => q.TSDID == technicalSkill.TSDID).Single();
+                    if (data != null)
+                    {
+                        UpdateTechnicalSkillsData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddTechnicalSkillData(ref profiledata, technicalSkill);
+                    }
+                }
+                else
+                {
+                    AddTechnicalSkillData(ref profiledata, technicalSkill);
+                }
+            }
+
+            //Functional Skills Data
+            foreach (var functionalSkill in userProfile.functionalSkillData)
+            {
+                if (functionalSkill.FSDID != null)
+                {
+                    var data = profiledata.FunctionalSkillDatas.Where(q => q.FSDID == functionalSkill.FSDID).Single();
+                    if (data != null)
+                    {
+                        UpdateFunctionalSkillData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddFunctionalSkillData(ref profiledata, functionalSkill);
+                    }
+                }
+                else
+                {
+                    AddFunctionalSkillData(ref profiledata, functionalSkill);
+                }
+            }
+
+            //Certifications Data
+            foreach (var certification in userProfile.certificationData)
+            {
+                if (certification.CDID != null)
+                {
+                    var data = profiledata.CertificationDatas.Where(q => q.CDID == certification.CDID).Single();
+
+                    if (data != null)
+                    {
+                        UpdateCertificationData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddCertificationData(ref profiledata, certification);
+                    }
+                }
+                else
+                {
+                    AddCertificationData(ref profiledata, certification);
+                }
+            }
+
+            //Memberships Data
+            foreach (var membership in userProfile.MemberShipData)
+            {
+                if (membership.MDID != null)
+                {
+                    var data = profiledata.MembershipDatas.Where(q => q.MDID == membership.MDID).Single();
+
+                    if (data != null)
+                    {
+                        UpdateMembershipData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddMemberShipData(ref profiledata, membership);
+                    }
+                }
+                else
+                {
+                    AddMemberShipData(ref profiledata, membership);
+                }
+            }
+
+            //Employer Data
+            foreach (var employer in userProfile.EmployerData)
+            {
+                if (employer.EDID != null)
+                {
+                    var data = profiledata.EmployerDatas.Where(q => q.EDID == employer.EDID).Single();
+
+                    if (data != null)
+                    {
+                        UpdateEmployerData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddEmployerData(ref profiledata, employer);
+                    }
+                }
+                else
+                {
+                    AddEmployerData(ref profiledata, employer);
+                }
+            }
+
+
+            //Trainings Data
+            foreach (var training in userProfile.trainingData)
+            {
+                if (training.TDID != null)
+                {
+                    var data = userProfile.trainingData.Where(q => q.TDID == training.TDID).Single();
+
+                    if (data != null)
+                    {
+                        UpdateTrainingData(ref profiledata, data);
+                    }
+                    else
+                    {
+                        AddTrainingData(ref profiledata, training);
+                    }
+                }
+                else
+                {
+                    AddTrainingData(ref profiledata, training);
+                }
+            }
+
+            //Insurance Data
+            UpdateInsuranceData(userProfile, ref profiledata);
+
+            //Additional Data
+
+            UpdateAdditionalData(userProfile, ref profiledata);
+            return profiledata;
+        }
+
+        private static UserProfile GenerateProfileData(UserProfileData userProfile, string email)
+        {
+            UserProfile profile = new UserProfile();
+            profile.UPID = Convert.ToString(Guid.NewGuid());
+            profile.email = email;
+            PersonalData pd = new PersonalData();
+            QualificationData qd = new QualificationData();
+            pd = userProfile.personalData;
+            pd.UPID = profile.UPID;
+            pd.PDID = Convert.ToString(Guid.NewGuid());
+            profile.PersonalDatas.Add(pd);
+            foreach (var qualification in userProfile.qualificationData)
+            {
+
+                qd = qualification;
+                qd.UPID = profile.UPID;
+                qd.QDID = Convert.ToString(Guid.NewGuid());
+                profile.QualificationDatas.Add(qd);
+            }
+            foreach (var technicalSkill in userProfile.technicalSkillData)
+            {
+                TechnicalSkillData tsd = new TechnicalSkillData();
+                tsd = technicalSkill;
+                tsd.UPID = profile.UPID;
+                tsd.TSDID = Convert.ToString(Guid.NewGuid());
+                profile.TechnicalSkillDatas.Add(tsd);
+            }
+            foreach (var functionalSkill in userProfile.functionalSkillData)
+            {
+                FunctionalSkillData fsd = new FunctionalSkillData();
+                fsd = functionalSkill;
+                fsd.UPID = profile.UPID;
+                fsd.FSDID = Convert.ToString(Guid.NewGuid());
+                profile.FunctionalSkillDatas.Add(fsd);
+            }
+            foreach (var certification in userProfile.certificationData)
+            {
+                CertificationData cd = new CertificationData();
+                cd = certification;
+                cd.UPID = profile.UPID;
+                cd.CDID = Convert.ToString(Guid.NewGuid());
+                profile.CertificationDatas.Add(cd);
+            }
+            foreach (var training in userProfile.trainingData)
+            {
+                TainingData td = new TainingData();
+                td = training;
+                td.UPID = profile.UPID;
+                td.TDID = Convert.ToString(Guid.NewGuid());
+                profile.TainingDatas.Add(td);
+            }
+            foreach (var employerData in userProfile.EmployerData)
+            {
+                EmployerData ed = new EmployerData();
+                ed = employerData;
+                ed.UPID = profile.UPID;
+                ed.EDID = Convert.ToString(Guid.NewGuid());
+                profile.EmployerDatas.Add(ed);
+            }
+            foreach (var membershipData in userProfile.MemberShipData)
+            {
+                MembershipData md = new MembershipData();
+                md = membershipData;
+                md.UPID = profile.UPID;
+                md.MDID = Convert.ToString(Guid.NewGuid());
+                profile.MembershipDatas.Add(md);
+            }
+            InsuranceData id = new InsuranceData();
+            id = userProfile.insuranceData;
+            id.UPID = profile.UPID;
+            id.IDID = Convert.ToString(Guid.NewGuid());
+
+            profile.InsuranceDatas.Add(id);
+
+            AdditionalData ad = new AdditionalData();
+            ad = userProfile.additionalData;
+            ad.UPID = profile.UPID;
+            ad.ADID = Convert.ToString(Guid.NewGuid());
+
+            profile.AdditionalDatas.Add(ad);
+            return profile;
+        }
+
+        private static void UpdateTrainingData(ref UserProfile profiledata, TainingData data)
+        {
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().Category = data.Category;
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().InstituteName = data.InstituteName;
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().Name = data.Name;
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().StartDate = data.StartDate;
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().TotalHours = data.TotalHours;
+            profiledata.TainingDatas.Where(q => q.TDID == data.TDID).FirstOrDefault().TrainerName = data.TrainerName;
+        }
+
+        private static void UpdateEmployerData(ref UserProfile profiledata, EmployerData data)
+        {
+            profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().Designation = data.Designation;
+            profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().Domain = data.Domain;
+            profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().EmployerName = data.EmployerName;
+            profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().JoiningDate = data.JoiningDate;
+            profiledata.EmployerDatas.Where(q => q.EDID == data.EDID).FirstOrDefault().ReleivingDate = data.ReleivingDate;
+        }
+
+        private static void UpdateMembershipData(ref UserProfile profiledata, MembershipData data)
+        {
+            profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().Association = data.Association;
+            profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipID = data.MembershipID;
+            profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipType = data.MembershipType;
+            profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().MembershipYear = data.MembershipYear;
+            profiledata.MembershipDatas.Where(q => q.MDID == data.MDID).FirstOrDefault().ValidUpto = data.ValidUpto;
+        }
+
+        private static void UpdateCertificationData(ref UserProfile profiledata, CertificationData data)
+        {
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().Category = data.Category;
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().CertificationID = data.CertificationID;
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().CertifiedBy = data.CertifiedBy;
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().IssuedDate = data.IssuedDate;
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().Title = data.Title;
+            profiledata.CertificationDatas.Where(q => q.CDID == data.CDID).FirstOrDefault().ValidUpto = data.ValidUpto;
+        }
+
+        private static void UpdateFunctionalSkillData(ref UserProfile profiledata, FunctionalSkillData data)
+        {
+            profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Experience = data.Experience;
+            profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Expertise = data.Expertise;
+            profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().LastWorkedOn = data.LastWorkedOn;
+            profiledata.FunctionalSkillDatas.Where(q => q.FSDID == data.FSDID).FirstOrDefault().Skill = data.Skill;
+        }
+
+        private static void UpdateTechnicalSkillsData(ref UserProfile profiledata, TechnicalSkillData data)
+        {
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Experience = data.Experience;
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Expertise = data.Expertise;
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().LastWorkedOn = data.LastWorkedOn;
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Skill = data.Skill;
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Type = data.Type;
+            profiledata.TechnicalSkillDatas.Where(q => q.TSDID == data.TSDID).FirstOrDefault().Version = data.Version;
+        }
+
+        private static void UpdateQualificationData(ref UserProfile profiledata, QualificationData data)
+        {
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Grade = data.Grade;
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Institution = data.Institution;
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Percentage = data.Percentage;
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().Qualification = data.Qualification;
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().University = data.University;
+            profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().YearOfCompletion = data.YearOfCompletion;
+        }
+
+        internal void SubmitUserData(string email)
+        {
+            using (EmployeeOnboardEntities db=new EmployeeOnboardEntities())
+            {
+             var data=  db.UserOfferDetails.Where(x => x.emailID == email).Single();
+              data.isSubmitted = true;
+              db.SaveChanges();
+            }
         }
 
         private void AddTrainingData(ref UserProfile profiledata, TainingData training)
@@ -478,8 +531,4 @@ namespace EmployeeOnboardingAPI
         }
     }
 
-    private void AddCertificationData(ref UserProfile profiledata, CertificationData certification)
-    {
-        throw new NotImplementedException();
-    }
 }

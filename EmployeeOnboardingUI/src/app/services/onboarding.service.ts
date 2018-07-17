@@ -24,5 +24,10 @@ export class OnboardingService {
   {
     return this.httpClient.get(environment.api+'api/Onboarding/GetProfileData?emailId='+email);
   }
-
+  SubmitData():Observable<any>
+  {
+    let formData:FormData=new FormData();
+    formData.append("Email",sessionStorage.getItem("Email"));
+    return this.httpClient.post(environment.api+'api/Onboarding/SubmitData',formData);
+  }
 }

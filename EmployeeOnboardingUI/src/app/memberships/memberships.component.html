@@ -5,24 +5,24 @@
     <div class="clear-fix"></div>
     <div class="row labelText">
       <div class="col-md-3 form-group">
-        <label>Association</label>
+        <label>Association<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="membership.Association" name="Association" #Association="ngModel" placeholder="Association">
         
       </div>
       <div class="col-md-2 form-group">
-        <label>Membership ID</label>
+        <label>Membership ID<span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="membership.MembershipID" name="MembershipID" #MembershipID="ngModel" placeholder="MembershipID">
       </div>
       <div class="col-md-2 form-group">
-        <label>Membership Type </label>
+        <label>Membership Type <span style="color: red">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="membership.MembershipType" name="MembershipType" #MembershipType="ngModel" placeholder="Membership Type">
       </div>
       <div class="col-md-2 form-group">
-        <label>Membership Year</label>
+        <label>Membership Year<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="membership.MembershipYear" name="JoiniMembershipYearngDate" #MembershipYear="ngModel" placeholder="Membership Year">
       </div>
       <div class="col-md-2 form-group">
-        <label>Valid Upto</label>
+        <label>Valid Upto<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="membership.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Valid Upto">     
       </div>
       <div class="clear-fix"></div>
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" type="submit" (click)="AddMembership()">
+        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddMembership()">
           <i class="fa fa-plus"></i>
           Add New</button>
       </div>
@@ -95,13 +95,13 @@
                 </div>
               </td>
               <td class="actiontd" style="text-align: center">
-                <button class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditMembership(item)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditMembership(item)">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditMembership(item)">
+                <button  [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditMembership(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-                <button class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteMembership(i)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteMembership(i)">
                   <span class="glyphicon glyphicon-trash"></span>
                 </button>
               </td>

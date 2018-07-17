@@ -162,6 +162,8 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="80" />
     <Property Name="emailID" Type="nvarchar" MaxLength="80" />
+    <Property Name="createdDate" Type="nvarchar" MaxLength="80" />
+    <Property Name="isSubmitted" Type="bit" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>

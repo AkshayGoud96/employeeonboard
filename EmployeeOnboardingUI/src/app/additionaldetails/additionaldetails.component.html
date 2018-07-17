@@ -5,11 +5,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Emergency Contact</label>
+      <label>Emergency Contact<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
         #EmergencyContact="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -18,11 +18,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Personal Contact</label>
+      <label>Personal Contact<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
         #PersonalContact="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -31,11 +31,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Date of Marriage</label>
+      <label>Date of Marriage<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
+      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
         #DateofMarriage="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -44,11 +44,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Blood Group</label>
+      <label>Blood Group<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <select class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel">
+      <select [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel">
         <option>Select</option>
         <option>A+</option>
         <option>A-</option>
@@ -66,11 +66,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Personal Email</label>
+      <label>Personal Email<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="email" class="form-control" placeholder="Email" [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail"  #PersonalEmail="ngModel">
+      <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail"  #PersonalEmail="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -78,11 +78,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Passport Number</label>
+      <label>Passport Number<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
         #PassportNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -91,11 +91,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Passport Valid Upto</label>
+      <label>Passport Valid Upto<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.PassportValidUpto name="PassportValidUpto"
+      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.PassportValidUpto name="PassportValidUpto"
         #PassportValidUpto="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -104,11 +104,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Permenant Account Number</label>
+      <label>Permenant Account Number<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
         #PermenantAccountNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -117,11 +117,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Bank Name</label>
+      <label>Bank Name<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Name" [(ngModel)]=additionalDetails.BankName name="BankName" #BankName="ngModel">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Name" [(ngModel)]=additionalDetails.BankName name="BankName" #BankName="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -129,11 +129,11 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Bank Account Number</label>
+      <label>Bank Account Number<span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Account Number" [(ngModel)]=additionalDetails.BankAccountNumber name="BankAccountNumber"
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Account Number" [(ngModel)]=additionalDetails.BankAccountNumber name="BankAccountNumber"
         #BankAccountNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
@@ -144,10 +144,10 @@
   <div class="row">
       <div class="col-md-8"></div>
       <div class="col-md-2">
-        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../insurances']">Previous Step </a>
+        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../insurances']">Previous Step </button>
       </div>
       <div class="col-md-2">
-        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="SaveClick()" [routerLink]="['../submission']">Save </a>
+        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" [disabled]="submitted=='Submitted'" (click)="SaveClick()" >Save </button>
       </div>
     </div>
 </div>

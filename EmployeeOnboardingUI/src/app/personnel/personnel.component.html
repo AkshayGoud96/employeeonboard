@@ -1,136 +1,201 @@
 <div class="container">
+  <form #personal="ngForm">
   <div class="row personnelcss">
     <h5>Personnel Info</h5>
   </div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>First Name</label>
+      <label>First Name <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]=personalData.FirstName name="FirstName" #FirstName="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" placeholder="First Name" [(ngModel)]=personalData.FirstName 
+      name="FirstName" #FirstName="ngModel" required>    
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="FirstName.errors && FirstName.errors.required && (FirstName.dirty||FirstName.touched)" class="alert alert-danger">
+           <label> First Name is required</label>
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Middle Name</label>
+      <label>Middle Name <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Middle Name" [(ngModel)]=personalData.MiddleName name="MiddleName" #MiddleName="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" 
+      placeholder="Middle Name" [(ngModel)]=personalData.MiddleName name="MiddleName" 
+      #MiddleName="ngModel" required>
+      
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="MiddleName.errors && MiddleName.errors.required && (MiddleName.dirty||MiddleName.touched)" class="alert alert-danger">
+            Middle Name is required
+       </div>
+       
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Last Name</label>
+      <label>Last Name <span style="color: red">*</span></label>
+
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]=personalData.LastName name="LastName" #LastName="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" placeholder="Last Name" 
+      [(ngModel)]=personalData.LastName name="LastName" #LastName="ngModel" required>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="LastName.errors && LastName.errors.required && (LastName.dirty||LastName.touched)" class="alert alert-danger">
+            Last Name is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Gender</label>
+      <label>Gender <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <select class="form-control" [(ngModel)]=personalData.Gender name="Gender" #Gender="ngModel">
+      <select class="form-control" required [disabled]="submitted=='Submitted'" [(ngModel)]=personalData.Gender name="Gender" #Gender="ngModel">
         <option>Select</option>
         <option>Male</option>
         <option>Female</option>
       </select>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="personalData.Gender=='Select'  && (Gender.dirty||Gender.touched)" class="alert alert-danger">
+            Gender is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Mobile Number</label>
+      <label>Mobile Number <span style="color: red">*</span></label>
+
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=personalData.MobileNumber name="MobileNumber"
-        #MobileNumber="ngModel">
+      <input type="number" [disabled]="submitted=='Submitted'" class="form-control" placeholder="Mobile Number" [(ngModel)]=personalData.MobileNumber name="MobileNumber"
+        #MobileNumber="ngModel" required pattern="^((\\+91-?)|0)?[0-9]{10}$">
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="MobileNumber.errors && MobileNumber.errors.required && (MobileNumber.dirty||MobileNumber.touched)" class="alert alert-danger">
+            Mobile Number is required
+       </div>
+       <div *ngIf="MobileNumber.errors && MobileNumber.errors.pattern && (MobileNumber.dirty||MobileNumber.touched)" class="alert alert-danger">
+          Mobile Number is Invalid
+        </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Address</label>
+      <label>Address <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <textarea class="form-control" rows="3" [(ngModel)]=personalData.Address name="Address" #Address="ngModel"></textarea>
+      <textarea class="form-control" [disabled]="submitted=='Submitted'" rows="3"
+       [(ngModel)]=personalData.Address name="Address" #Address="ngModel" required></textarea>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="Address.errors && Address.errors.required && (Address.dirty||Address.touched)" class="alert alert-danger">
+            Address is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>City</label>
+      <label>City <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="City" [(ngModel)]=personalData.City name="City" #City="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" placeholder="City"
+       [(ngModel)]=personalData.City name="City" #City="ngModel" required>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="City.errors && City.errors.required && (City.dirty||City.touched)" class="alert alert-danger">
+            City is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>State</label>
+      <label>State <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="State" [(ngModel)]=personalData.State name="State" #State="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" placeholder="State" 
+      [(ngModel)]=personalData.State name="State" #State="ngModel" required>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="State.errors && State.errors.required && (State.dirty||State.touched)" class="alert alert-danger">
+            State is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Country</label>
+      <label>Country <span style="color: red">*</span></label>
+      
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="text" class="form-control" placeholder="Country" [(ngModel)]=personalData.Country name="Country" #Country="ngModel">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" placeholder="Country" 
+      [(ngModel)]=personalData.Country name="Country" #Country="ngModel" required>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="Country.errors && Country.errors.required && (Country.dirty||Country.touched)" class="alert alert-danger">
+            Country is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Date of Birth</label>
+      <label>Date of Birth <span style="color: red">*</span></label>    
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input type="date" class="form-control" placeholder="D.O.B" [(ngModel)]=personalData.DOB name="DOB" #DOB="ngModel">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" placeholder="D.O.B"  
+      [(ngModel)]=personalData.DOB name="DOB" #DOB="ngModel" required>
+
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="DOB.errors && DOB.errors.required && (DOB.dirty||DOB.touched)" class="alert alert-danger">
+            Date Of Birth is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row">
     <div class="col-md-8"></div>
     <div class="col-md-4">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../qualifications']">Next Step </a>
+      <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()"   [disabled]="!personal.dirty || !personal.valid" [routerLink]="['../qualifications']">Next Step </button>
     </div>
   </div>
+</form>
 </div>
