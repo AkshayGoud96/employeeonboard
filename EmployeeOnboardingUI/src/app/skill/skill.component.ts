@@ -4,6 +4,7 @@ import { FunctionalSkillData } from '../FunctionalSkillData';
 import { UserProfile } from '../UserProfile';
 import { CommonService } from '../services/commonservice.service';
 import { Subscription } from 'rxjs';
+import { OnboardingService } from '../services/onboarding.service';
 @Component({
   selector: 'app-skill',
   templateUrl: './skill.component.html',
@@ -18,7 +19,7 @@ export class SkillComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
   ngOnInit() {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
@@ -30,10 +31,16 @@ export class SkillComponent implements OnInit {
     });
     this.submitted = sessionStorage.getItem("Submitted");
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.skills = JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
+      let technicalSkills = JSON.parse(sessionStorage.getItem("UserProfile")).TechnicalSkillData;
+      if (technicalSkills != undefined) {
+        this.skills = technicalSkills;
+      }
     }
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.functionalSkills = JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
+      let functionalSkills = JSON.parse(sessionStorage.getItem("UserProfile")).FunctionalSkillData;
+      if (functionalSkills != undefined) {
+        this.functionalSkills = functionalSkills;
+      }
     }
 
     this.skill = new TechnicalSkillData();
@@ -90,7 +97,12 @@ export class SkillComponent implements OnInit {
 
   PreviousClick() {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
-    this.userProfile.TechnicalSkillData = this.skills;
+    if (this.skills != []) {
+      this.userProfile.TechnicalSkillData = this.skills;
+    }
+    if (this.functionalSkills != []) {
+      this.userProfile.FunctionalSkillData = this.functionalSkills;
+    }
     this.userProfile.FunctionalSkillData = this.functionalSkills;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
@@ -100,6 +112,18 @@ export class SkillComponent implements OnInit {
     this.userProfile.TechnicalSkillData = this.skills;
     this.userProfile.FunctionalSkillData = this.functionalSkills;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 
 }

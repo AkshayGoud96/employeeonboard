@@ -3,6 +3,7 @@ import { MemberShipData } from '../MemberShipData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-memberships',
@@ -16,7 +17,7 @@ export class MembershipsComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
   ngOnInit() {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
@@ -26,7 +27,12 @@ export class MembershipsComponent implements OnInit {
     });
     this.submitted = sessionStorage.getItem("Submitted");
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.memberships = JSON.parse(sessionStorage.getItem("UserProfile")).MembershipData;
+      let memberships = JSON.parse(sessionStorage.getItem("UserProfile")).MembershipData;
+      if(memberships != undefined)
+      {
+        this.memberships=memberships;
+      }
+     
     }
     this.membership = new MemberShipData();
   }
@@ -48,14 +54,29 @@ export class MembershipsComponent implements OnInit {
   }
 
   PreviousClick() {
+    if(this.memberships != [])
+    {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.MembershipData = this.memberships;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    }
   }
 
   NextClick() {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.MembershipData = this.memberships;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 }

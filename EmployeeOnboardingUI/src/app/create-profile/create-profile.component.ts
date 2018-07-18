@@ -3,6 +3,9 @@ import { OnboardingService } from '../services/onboarding.service';
 import { UserProfile } from '../UserProfile';
 import { CommonService } from 'src/app/services/commonservice.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { PersonalData } from '../PersonalData';
+import { QualificationData } from '../QualificationData';
 
 @Component({
   selector: 'app-create-profile',
@@ -22,10 +25,9 @@ export class CreateProfileComponent implements OnInit {
   errorMessage: string = "";
   subscription: Subscription;
   successMessage: string = "";
-  constructor(private onboardingService: OnboardingService, private commonService: CommonService) { }
+  constructor(private onboardingService: OnboardingService, private commonService: CommonService, private router: Router) { }
 
   ngOnInit() {
-    sessionStorage.clear();
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       debugger;
       if (res.hasOwnProperty('option') && res.option === 'success' && res.value != undefined) {
@@ -41,9 +43,47 @@ export class CreateProfileComponent implements OnInit {
     this.userProfile = new UserProfile();
     this.loading = false;
   }
+  Navigate(event) {
+    debugger;
+    var title = event.currentTarget.title;
+    switch (title) {
+      case "Personal":
+        this.router.navigateByUrl('Home/CreateProfile/personnel');
+        break;
+      case "Qualifications":
+        this.router.navigateByUrl('/Home/CreateProfile/qualifications');
+        break;
+      case "Skills":
+        this.router.navigateByUrl('/Home/CreateProfile/skills');
+        break;
+      case "Trainings":
+        this.router.navigateByUrl('/Home/CreateProfile/trainings');
+        break;
+      case "Certifications":
+        this.router.navigateByUrl('/Home/CreateProfile/certifications');
+        break;
+      case "Employers":
+        this.router.navigateByUrl('/Home/CreateProfile/employers');
+        break;
+      case "Memberships":
+        this.router.navigateByUrl('/Home/CreateProfile/memberships');
+        break;
+      case "Insurance":
+        this.router.navigateByUrl('/Home/CreateProfile/insurances');
+        break;
+      case "Additional Details":
+        this.router.navigateByUrl('/Home/CreateProfile/additional-details');
+        break;
+      case "Done":
+        this.router.navigateByUrl('/Home/CreateProfile/submission');
+        break;
+      default:
+        this.router.navigateByUrl('/Home/CreateProfile');
+    }
 
+
+  }
   Verify(details) {
-    sessionStorage.clear();
     this.loading = true;
     this.onboardingService.VerifyUser(details.email, details.name).subscribe(response => {
       if (response == "Saved" || response == "Submitted") {
@@ -67,7 +107,7 @@ export class CreateProfileComponent implements OnInit {
             this.loading = false;
           }
           else {
-            this.loading = false;
+            this.loading = false;           
           }
           this.appError = false;
           this.hasError = false;
@@ -89,6 +129,7 @@ export class CreateProfileComponent implements OnInit {
         this.loading = false;
         this.appError = true;
         this.errorMessage = "No such user exists";
+        
       }
     },
       err => {

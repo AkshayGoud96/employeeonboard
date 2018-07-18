@@ -3,6 +3,7 @@ import { QualificationData } from '../QualificationData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-qualification',
@@ -15,7 +16,7 @@ export class QualificationComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
 
 
@@ -27,7 +28,12 @@ export class QualificationComponent implements OnInit {
     });
     this.submitted = sessionStorage.getItem("Submitted");
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.qualifications = JSON.parse(sessionStorage.getItem("UserProfile")).QualificationData;
+      let qualifications = JSON.parse(sessionStorage.getItem("UserProfile")).QualificationData;
+      if(qualifications != undefined)
+      {
+        this.qualifications=qualifications;
+      }
+     
     }
     this.model = new QualificationData();
     this.model.Qualification = "Select";
@@ -54,15 +60,31 @@ export class QualificationComponent implements OnInit {
   }
 
   PreviousClick() {
+    if(this.qualifications != [])
+    {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.QualificationData = this.qualifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    }
   }
 
   NextClick() {
+    debugger;
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.QualificationData = this.qualifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 
 }

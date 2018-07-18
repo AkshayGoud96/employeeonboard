@@ -47,7 +47,7 @@
         <div class="col-md-2">
           <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddTraining()">
             <i class="fa fa-plus"></i>
-            Add New</button>
+            Add</button>
         </div>
         <div class="col-md-5"></div>
       </div>
@@ -146,12 +146,12 @@
       <hr size="20">
       <div class="clear-fix"></div>
       <div class="row">
-        <div class="col-md-8"></div>
+        <div class="col-md-7"></div>
         <div class="col-md-2">
-          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../skills']">Previous Step </a>
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../skills']">Previous </a>
         </div>
-        <div class="col-md-2">
-          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../certifications']">Next Step </a>
+        <div class="col-md-3">
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../certifications']">Save and Continue </a>
         </div>
       </div>
 </div>

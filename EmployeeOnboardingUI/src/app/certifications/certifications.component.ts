@@ -3,6 +3,7 @@ import { CertificationData } from '../CertificationData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-certifications',
@@ -16,7 +17,7 @@ export class CertificationsComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
   ngOnInit() {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
@@ -26,7 +27,12 @@ export class CertificationsComponent implements OnInit {
     });
     this.submitted = sessionStorage.getItem("Submitted");
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.certifications = JSON.parse(sessionStorage.getItem("UserProfile")).CertificationData;
+      let certifications = JSON.parse(sessionStorage.getItem("UserProfile")).CertificationData;
+      if(certifications != undefined)
+      {
+        this.certifications=certifications;
+      }
+     
     }
     this.certification = new CertificationData();
     this.certification.Category = "Select";
@@ -51,15 +57,30 @@ export class CertificationsComponent implements OnInit {
   }
 
   PreviousClick() {
+    if(this.certifications!=[])
+    {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.CertificationData = this.certifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    }
   }
 
   NextClick() {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.CertificationData = this.certifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 
 }

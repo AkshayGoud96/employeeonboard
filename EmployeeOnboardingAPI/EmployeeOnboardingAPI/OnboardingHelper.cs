@@ -65,7 +65,7 @@ namespace EmployeeOnboardingAPI
                         return "Data is already submitted cannot make any further changes";
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -76,166 +76,194 @@ namespace EmployeeOnboardingAPI
         private UserProfile UpdateProfileData(UserProfileData userProfile, UserProfile profiledata)
         {
             // Personal Data
-             UpdatePersonalData(userProfile, ref profiledata);
+            if (userProfile.personalData != null)
+            {
+                UpdatePersonalData(userProfile, ref profiledata);
+            }
 
             //Qualification Data
-            foreach (var qualification in userProfile.qualificationData)
+            if (userProfile.qualificationData != null)
             {
-                if (qualification.QDID != null)
+                foreach (var qualification in userProfile.qualificationData)
                 {
-                    var data = profiledata.QualificationDatas.Where(q => q.QDID == qualification.QDID).Single();
-                    if (data != null)
+                    if (qualification.QDID != null)
                     {
-                        UpdateQualificationData(ref profiledata, data);
+                        var data = profiledata.QualificationDatas.Where(q => q.QDID == qualification.QDID).Single();
+                        if (data != null)
+                        {
+                            UpdateQualificationData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddQualificationData(ref profiledata, qualification);
+                        }
                     }
                     else
                     {
                         AddQualificationData(ref profiledata, qualification);
                     }
                 }
-                else
-                {
-                    AddQualificationData(ref profiledata, qualification);
-                }
             }
 
             //Technical Skills Data
-            foreach (var technicalSkill in userProfile.technicalSkillData)
+            if (userProfile.technicalSkillData != null)
             {
-                if (technicalSkill.TSDID != null)
+                foreach (var technicalSkill in userProfile.technicalSkillData)
                 {
-                    var data = profiledata.TechnicalSkillDatas.Where(q => q.TSDID == technicalSkill.TSDID).Single();
-                    if (data != null)
+                    if (technicalSkill.TSDID != null)
                     {
-                        UpdateTechnicalSkillsData(ref profiledata, data);
+                        var data = profiledata.TechnicalSkillDatas.Where(q => q.TSDID == technicalSkill.TSDID).Single();
+                        if (data != null)
+                        {
+                            UpdateTechnicalSkillsData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddTechnicalSkillData(ref profiledata, technicalSkill);
+                        }
                     }
                     else
                     {
                         AddTechnicalSkillData(ref profiledata, technicalSkill);
                     }
                 }
-                else
-                {
-                    AddTechnicalSkillData(ref profiledata, technicalSkill);
-                }
             }
 
             //Functional Skills Data
-            foreach (var functionalSkill in userProfile.functionalSkillData)
+            if (userProfile.functionalSkillData != null)
             {
-                if (functionalSkill.FSDID != null)
+                foreach (var functionalSkill in userProfile.functionalSkillData)
                 {
-                    var data = profiledata.FunctionalSkillDatas.Where(q => q.FSDID == functionalSkill.FSDID).Single();
-                    if (data != null)
+                    if (functionalSkill.FSDID != null)
                     {
-                        UpdateFunctionalSkillData(ref profiledata, data);
+                        var data = profiledata.FunctionalSkillDatas.Where(q => q.FSDID == functionalSkill.FSDID).Single();
+                        if (data != null)
+                        {
+                            UpdateFunctionalSkillData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddFunctionalSkillData(ref profiledata, functionalSkill);
+                        }
                     }
                     else
                     {
                         AddFunctionalSkillData(ref profiledata, functionalSkill);
                     }
                 }
-                else
-                {
-                    AddFunctionalSkillData(ref profiledata, functionalSkill);
-                }
             }
-
             //Certifications Data
-            foreach (var certification in userProfile.certificationData)
+            if (userProfile.certificationData != null)
             {
-                if (certification.CDID != null)
+                foreach (var certification in userProfile.certificationData)
                 {
-                    var data = profiledata.CertificationDatas.Where(q => q.CDID == certification.CDID).Single();
-
-                    if (data != null)
+                    if (certification.CDID != null)
                     {
-                        UpdateCertificationData(ref profiledata, data);
+                        var data = profiledata.CertificationDatas.Where(q => q.CDID == certification.CDID).Single();
+
+                        if (data != null)
+                        {
+                            UpdateCertificationData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddCertificationData(ref profiledata, certification);
+                        }
                     }
                     else
                     {
                         AddCertificationData(ref profiledata, certification);
                     }
                 }
-                else
-                {
-                    AddCertificationData(ref profiledata, certification);
-                }
             }
 
             //Memberships Data
-            foreach (var membership in userProfile.MemberShipData)
+            if (userProfile.MemberShipData != null)
             {
-                if (membership.MDID != null)
+                foreach (var membership in userProfile.MemberShipData)
                 {
-                    var data = profiledata.MembershipDatas.Where(q => q.MDID == membership.MDID).Single();
-
-                    if (data != null)
+                    if (membership.MDID != null)
                     {
-                        UpdateMembershipData(ref profiledata, data);
+                        var data = profiledata.MembershipDatas.Where(q => q.MDID == membership.MDID).Single();
+
+                        if (data != null)
+                        {
+                            UpdateMembershipData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddMemberShipData(ref profiledata, membership);
+                        }
                     }
                     else
                     {
                         AddMemberShipData(ref profiledata, membership);
                     }
                 }
-                else
-                {
-                    AddMemberShipData(ref profiledata, membership);
-                }
             }
 
             //Employer Data
-            foreach (var employer in userProfile.EmployerData)
+            if (userProfile.EmployerData != null)
             {
-                if (employer.EDID != null)
+                foreach (var employer in userProfile.EmployerData)
                 {
-                    var data = profiledata.EmployerDatas.Where(q => q.EDID == employer.EDID).Single();
-
-                    if (data != null)
+                    if (employer.EDID != null)
                     {
-                        UpdateEmployerData(ref profiledata, data);
+                        var data = profiledata.EmployerDatas.Where(q => q.EDID == employer.EDID).Single();
+
+                        if (data != null)
+                        {
+                            UpdateEmployerData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddEmployerData(ref profiledata, employer);
+                        }
                     }
                     else
                     {
                         AddEmployerData(ref profiledata, employer);
                     }
                 }
-                else
-                {
-                    AddEmployerData(ref profiledata, employer);
-                }
             }
 
 
             //Trainings Data
-            foreach (var training in userProfile.trainingData)
+            if (userProfile.trainingData != null)
             {
-                if (training.TDID != null)
+                foreach (var training in userProfile.trainingData)
                 {
-                    var data = userProfile.trainingData.Where(q => q.TDID == training.TDID).Single();
-
-                    if (data != null)
+                    if (training.TDID != null)
                     {
-                        UpdateTrainingData(ref profiledata, data);
+                        var data = userProfile.trainingData.Where(q => q.TDID == training.TDID).Single();
+
+                        if (data != null)
+                        {
+                            UpdateTrainingData(ref profiledata, data);
+                        }
+                        else
+                        {
+                            AddTrainingData(ref profiledata, training);
+                        }
                     }
                     else
                     {
                         AddTrainingData(ref profiledata, training);
                     }
                 }
-                else
-                {
-                    AddTrainingData(ref profiledata, training);
-                }
             }
 
-            //Insurance Data
-            UpdateInsuranceData(userProfile, ref profiledata);
+            if (profiledata.InsuranceDatas.Count>0)
+            {
+                //Insurance Data
+                UpdateInsuranceData(userProfile, ref profiledata);
+            }
 
             //Additional Data
-
-            UpdateAdditionalData(userProfile, ref profiledata);
+            if (profiledata.AdditionalDatas.Count>0)
+            {
+                UpdateAdditionalData(userProfile, ref profiledata);
+            }
             return profiledata;
         }
 
@@ -244,81 +272,114 @@ namespace EmployeeOnboardingAPI
             UserProfile profile = new UserProfile();
             profile.UPID = Convert.ToString(Guid.NewGuid());
             profile.email = email;
-            PersonalData pd = new PersonalData();
-            QualificationData qd = new QualificationData();
-            pd = userProfile.personalData;
-            pd.UPID = profile.UPID;
-            pd.PDID = Convert.ToString(Guid.NewGuid());
-            profile.PersonalDatas.Add(pd);
-            foreach (var qualification in userProfile.qualificationData)
+
+            if (userProfile.personalData != null)
+            {
+                PersonalData pd = new PersonalData();
+
+                pd = userProfile.personalData;
+
+                pd.UPID = profile.UPID;
+                pd.PDID = Convert.ToString(Guid.NewGuid());
+                profile.PersonalDatas.Add(pd);
+            }
+            if (userProfile.qualificationData != null)
+            {
+                QualificationData qd = new QualificationData();
+                foreach (var qualification in userProfile.qualificationData)
+                {
+
+                    qd = qualification;
+                    qd.UPID = profile.UPID;
+                    qd.QDID = Convert.ToString(Guid.NewGuid());
+                    profile.QualificationDatas.Add(qd);
+                }
+            }
+            if (userProfile.technicalSkillData != null)
+            {
+                foreach (var technicalSkill in userProfile.technicalSkillData)
+                {
+                    TechnicalSkillData tsd = new TechnicalSkillData();
+                    tsd = technicalSkill;
+                    tsd.UPID = profile.UPID;
+                    tsd.TSDID = Convert.ToString(Guid.NewGuid());
+                    profile.TechnicalSkillDatas.Add(tsd);
+                }
+            }
+            if (userProfile.functionalSkillData != null)
+            {
+                foreach (var functionalSkill in userProfile.functionalSkillData)
+                {
+                    FunctionalSkillData fsd = new FunctionalSkillData();
+                    fsd = functionalSkill;
+                    fsd.UPID = profile.UPID;
+                    fsd.FSDID = Convert.ToString(Guid.NewGuid());
+                    profile.FunctionalSkillDatas.Add(fsd);
+                }
+            }
+            if (userProfile.certificationData != null)
+            {
+                foreach (var certification in userProfile.certificationData)
+                {
+                    CertificationData cd = new CertificationData();
+                    cd = certification;
+                    cd.UPID = profile.UPID;
+                    cd.CDID = Convert.ToString(Guid.NewGuid());
+                    profile.CertificationDatas.Add(cd);
+                }
+            }
+            if (userProfile.trainingData != null)
+            {
+                foreach (var training in userProfile.trainingData)
+                {
+                    TainingData td = new TainingData();
+                    td = training;
+                    td.UPID = profile.UPID;
+                    td.TDID = Convert.ToString(Guid.NewGuid());
+                    profile.TainingDatas.Add(td);
+                }
+            }
+            if (userProfile.EmployerData != null)
+            {
+                foreach (var employerData in userProfile.EmployerData)
+                {
+                    EmployerData ed = new EmployerData();
+                    ed = employerData;
+                    ed.UPID = profile.UPID;
+                    ed.EDID = Convert.ToString(Guid.NewGuid());
+                    profile.EmployerDatas.Add(ed);
+                }
+            }
+            if (userProfile.MemberShipData != null)
+            {
+                foreach (var membershipData in userProfile.MemberShipData)
+                {
+                    MembershipData md = new MembershipData();
+                    md = membershipData;
+                    md.UPID = profile.UPID;
+                    md.MDID = Convert.ToString(Guid.NewGuid());
+                    profile.MembershipDatas.Add(md);
+                }
+            }
+            if (userProfile.insuranceData != null)
+            {
+                InsuranceData id = new InsuranceData();
+                id = userProfile.insuranceData;
+                id.UPID = profile.UPID;
+                id.IDID = Convert.ToString(Guid.NewGuid());
+
+                profile.InsuranceDatas.Add(id);
+            }
+            if (userProfile.additionalData != null)
             {
 
-                qd = qualification;
-                qd.UPID = profile.UPID;
-                qd.QDID = Convert.ToString(Guid.NewGuid());
-                profile.QualificationDatas.Add(qd);
-            }
-            foreach (var technicalSkill in userProfile.technicalSkillData)
-            {
-                TechnicalSkillData tsd = new TechnicalSkillData();
-                tsd = technicalSkill;
-                tsd.UPID = profile.UPID;
-                tsd.TSDID = Convert.ToString(Guid.NewGuid());
-                profile.TechnicalSkillDatas.Add(tsd);
-            }
-            foreach (var functionalSkill in userProfile.functionalSkillData)
-            {
-                FunctionalSkillData fsd = new FunctionalSkillData();
-                fsd = functionalSkill;
-                fsd.UPID = profile.UPID;
-                fsd.FSDID = Convert.ToString(Guid.NewGuid());
-                profile.FunctionalSkillDatas.Add(fsd);
-            }
-            foreach (var certification in userProfile.certificationData)
-            {
-                CertificationData cd = new CertificationData();
-                cd = certification;
-                cd.UPID = profile.UPID;
-                cd.CDID = Convert.ToString(Guid.NewGuid());
-                profile.CertificationDatas.Add(cd);
-            }
-            foreach (var training in userProfile.trainingData)
-            {
-                TainingData td = new TainingData();
-                td = training;
-                td.UPID = profile.UPID;
-                td.TDID = Convert.ToString(Guid.NewGuid());
-                profile.TainingDatas.Add(td);
-            }
-            foreach (var employerData in userProfile.EmployerData)
-            {
-                EmployerData ed = new EmployerData();
-                ed = employerData;
-                ed.UPID = profile.UPID;
-                ed.EDID = Convert.ToString(Guid.NewGuid());
-                profile.EmployerDatas.Add(ed);
-            }
-            foreach (var membershipData in userProfile.MemberShipData)
-            {
-                MembershipData md = new MembershipData();
-                md = membershipData;
-                md.UPID = profile.UPID;
-                md.MDID = Convert.ToString(Guid.NewGuid());
-                profile.MembershipDatas.Add(md);
-            }
-            InsuranceData id = new InsuranceData();
-            id = userProfile.insuranceData;
-            id.UPID = profile.UPID;
-            id.IDID = Convert.ToString(Guid.NewGuid());
+                AdditionalData ad = new AdditionalData();
+                ad = userProfile.additionalData;
+                ad.UPID = profile.UPID;
+                ad.ADID = Convert.ToString(Guid.NewGuid());
 
-            profile.InsuranceDatas.Add(id);
-
-            AdditionalData ad = new AdditionalData();
-            ad = userProfile.additionalData;
-            ad.UPID = profile.UPID;
-            ad.ADID = Convert.ToString(Guid.NewGuid());
-
-            profile.AdditionalDatas.Add(ad);
+                profile.AdditionalDatas.Add(ad);
+            }
             return profile;
         }
 
@@ -484,7 +545,7 @@ namespace EmployeeOnboardingAPI
         {
             TechnicalSkillData tsd = new TechnicalSkillData();
             tsd = technicalSkill;
-            tsd.UPID = technicalSkill.UPID;
+            tsd.UPID = profiledata.UPID;
             tsd.TSDID = Convert.ToString(Guid.NewGuid());
             profiledata.TechnicalSkillDatas.Add(tsd);
         }
@@ -507,7 +568,7 @@ namespace EmployeeOnboardingAPI
         {
             QualificationData qd = new QualificationData();
             qd = qualification;
-            qd.UPID = qualification.UPID;
+            qd.UPID = profiledata.UPID;
             qd.QDID = Convert.ToString(Guid.NewGuid());
             profiledata.QualificationDatas.Add(qd);
         }

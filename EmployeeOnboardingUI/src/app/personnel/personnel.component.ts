@@ -3,6 +3,8 @@ import { PersonalData } from '../PersonalData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-personnel',
@@ -15,7 +17,7 @@ export class PersonnelComponent implements OnInit {
   userProfile: UserProfile;
   subscription: Subscription;
   submitted: string;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService,private router:Router) { }
 
   ngOnInit() {
     this.submitted = sessionStorage.getItem("Submitted");
@@ -28,13 +30,29 @@ export class PersonnelComponent implements OnInit {
       this.personalData = JSON.parse(sessionStorage.getItem("UserProfile")).PersonalData;
     }
     else {
+      this.userProfile = new UserProfile();
       this.personalData = new PersonalData();
       this.personalData.Gender = "Select";
     }
   }
   NextClick() {
-    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    debugger;
+    if (sessionStorage.getItem("UserProfile") != undefined) {
+      this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    }
     this.userProfile.PersonalData = this.personalData;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 }

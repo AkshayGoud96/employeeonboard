@@ -28,7 +28,7 @@ export class AdditionaldetailsComponent implements OnInit {
     });
 
     this.submitted = sessionStorage.getItem("Submitted");
-    if (sessionStorage.getItem("UserProfile") != undefined) {
+    if (sessionStorage.getItem("UserProfile") != undefined && JSON.parse(sessionStorage.getItem("UserProfile")).AdditionalData !=undefined) {
       this.additionalDetails = JSON.parse(sessionStorage.getItem("UserProfile")).AdditionalData;
     }
     else {

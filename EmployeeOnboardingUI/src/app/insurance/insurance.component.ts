@@ -3,6 +3,7 @@ import { InsuranceData } from '../InsuranceData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-insurance',
@@ -15,15 +16,16 @@ export class InsuranceComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
   ngOnInit() {
+    debugger;
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'get') {
         this.insurance = JSON.parse(sessionStorage.getItem("UserProfile")).InsuranceData;
       }
     });
     this.submitted = sessionStorage.getItem("Submitted");
-    if (sessionStorage.getItem("UserProfile") != undefined) {
+    if (sessionStorage.getItem("UserProfile") != undefined && JSON.parse(sessionStorage.getItem("UserProfile")).InsuranceData != undefined) {
       this.insurance = JSON.parse(sessionStorage.getItem("UserProfile")).InsuranceData;
     }
     else {
@@ -36,13 +38,28 @@ export class InsuranceComponent implements OnInit {
     }
   }
   PreviousClick() {
+    debugger;
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.InsuranceData = this.insurance;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
-    sessionStorage.setItem("Insurance", JSON.stringify(this.insurance));
   }
 
   NextClick() {
-    sessionStorage.setItem("Insurance", JSON.stringify(this.insurance));
+    debugger;
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.InsuranceData = this.insurance;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 }

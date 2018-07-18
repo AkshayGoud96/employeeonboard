@@ -3,6 +3,7 @@ import { TrainingData } from '../TrainingData';
 import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
+import { OnboardingService } from '../services/onboarding.service';
 
 @Component({
   selector: 'app-training',
@@ -16,7 +17,7 @@ export class TrainingComponent implements OnInit {
   userProfile: UserProfile;
   submitted: string;
   subscription: Subscription;
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
   ngOnInit() {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
@@ -26,7 +27,10 @@ export class TrainingComponent implements OnInit {
     });
     this.submitted = sessionStorage.getItem("Submitted");
     if (sessionStorage.getItem("UserProfile") != undefined) {
-      this.trainings = JSON.parse(sessionStorage.getItem("UserProfile")).TrainingData;
+      let trainings = JSON.parse(sessionStorage.getItem("UserProfile")).TrainingData;
+      if (trainings != undefined) {
+        this.trainings = trainings;
+      }
     }
     this.training = new TrainingData();
     this.training.Category = "Select";
@@ -59,6 +63,18 @@ export class TrainingComponent implements OnInit {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.TrainingData = this.trainings;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+    if (this.submitted != "true") {
+      let formData: FormData = new FormData();
+      formData.append("UserProfile", JSON.stringify(this.userProfile));
+      formData.append("Email", sessionStorage.getItem("Email"));
+      this.onboardingService.SaveData(formData).subscribe(res => {
+       
+      },
+        err => {
+          this.commonService.notifyOther({ option: 'error', value: err.message });
+        }
+      );
+    }
   }
 
 }

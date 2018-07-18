@@ -60,7 +60,7 @@
     <div class="col-md-2">
       <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddSkill()">
         <i class="fa fa-plus"></i>
-        Add New</button>
+        Add</button>
     </div>
     <div class="col-md-5"></div>
   </div>
@@ -202,7 +202,7 @@
     <div class="col-md-2">
       <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddFunctionalSkill()">
         <i class="fa fa-plus"></i>
-        Add New</button>
+        Add</button>
     </div>
     <div class="col-md-5"></div>
   </div>
@@ -274,12 +274,12 @@
   <hr size="20">
   <div class="clear-fix"></div>
   <div class="row">
-    <div class="col-md-8"></div>
+    <div class="col-md-7"></div>
     <div class="col-md-2">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../qualifications']">Previous Step </a>
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../qualifications']">Previous </a>
     </div>
-    <div class="col-md-2">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../trainings']">Next Step </a>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../trainings']">Save and Continue </a>
     </div>
   </div>
 </div>
