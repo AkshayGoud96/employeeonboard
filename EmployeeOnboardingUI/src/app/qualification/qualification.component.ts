@@ -63,6 +63,10 @@ export class QualificationComponent implements OnInit {
     if(this.qualifications != [])
     {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    if(this.userProfile.QualificationData==undefined)
+    {
+     
+    }
     this.userProfile.QualificationData = this.qualifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
     }
@@ -73,18 +77,6 @@ export class QualificationComponent implements OnInit {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.QualificationData = this.qualifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
-    if (this.submitted != "true") {
-      let formData: FormData = new FormData();
-      formData.append("UserProfile", JSON.stringify(this.userProfile));
-      formData.append("Email", sessionStorage.getItem("Email"));
-      this.onboardingService.SaveData(formData).subscribe(res => {
-       
-      },
-        err => {
-          this.commonService.notifyOther({ option: 'error', value: err.message });
-        }
-      );
-    }
   }
 
 }

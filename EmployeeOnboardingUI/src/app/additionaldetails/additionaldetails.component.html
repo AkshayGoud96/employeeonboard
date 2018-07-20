@@ -10,7 +10,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
-        #EmergencyContact="ngModel">
+        #EmergencyContact="ngModel" required pattern="^((\\+91-?)|0)?[0-9]{10}$">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -23,7 +23,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
-        #PersonalContact="ngModel">
+        #PersonalContact="ngModel" required pattern="^((\\+91-?)|0)?[0-9]{10}$">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -36,7 +36,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
-        #DateofMarriage="ngModel">
+        #DateofMarriage="ngModel" required>
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <select [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel">
+      <select [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel" required>
         <option>Select</option>
         <option>A+</option>
         <option>A-</option>
@@ -70,7 +70,9 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail"  #PersonalEmail="ngModel">
+      <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" 
+      [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail" 
+       #PersonalEmail="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -82,8 +84,8 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
-        #PassportNumber="ngModel">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
+        #PassportNumber="ngModel" required>
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -108,8 +110,8 @@
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
-        #PermenantAccountNumber="ngModel">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
+        #PermenantAccountNumber="ngModel" required>
     </div>
     <div class="col-md-2"></div>
   </div>

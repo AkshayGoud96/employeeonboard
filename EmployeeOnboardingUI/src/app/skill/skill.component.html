@@ -3,67 +3,101 @@
     <h5>Technical Skills Info</h5>
   </div>
   <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2 form-group">
-      <label>Skill<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="skill.Skill" name="Skill" #Skill="ngModel">
-        <option>Select</option>
-        <option>.Net</option>
-        <option>Java</option>
-        <option>Azure</option>
-        <option>AngularJs</option>
-        <option>Android</option>
-      </select>
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Version<span style="color: red">*</span></label>
-      <input type="number" class="form-control" [(ngModel)]="skill.Version" name="Version" #Version="ngModel" placeholder="Version">
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Experience (months) <span style="color: red">*</span></label>
-      <input type="number" class="form-control" [(ngModel)]="skill.Experience" name="Experience" #Experience="ngModel" placeholder="Experience">
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Expertise<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="skill.Expertise" name="Expertise" #Expertise="ngModel">
-        <option>Select</option>
-        <option>Expert</option>
-        <option>Very Good</option>
-        <option>Good</option>
-        <option>Beginner</option>
-      </select>
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Type<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="skill.Type" name="Type" #Type="ngModel" placeholder="Type">
-        <option>Select</option>
-        <option>Primary</option>
-        <option>Secondary</option>
-      </select>
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Last Worked On<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="skill.LastWorkedOn" name="LastWorkedOn" #LastWorkedOn="ngModel">
-        <option>Select</option>
-        <option>2018</option>
-        <option>2017</option>
-        <option>2016</option>
-        <option>2015</option>
-        <option>2014</option>
-      </select>
+  <form #skillFrom="ngForm" novalidate>
+    <div class="row labelText">
+      <div class="col-md-2 form-group">
+        <label>Skill
+          <span style="color: red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="skill.Skill" name="Skill" #Skill="ngModel" required>
+          <option>Select</option>
+          <option>.Net</option>
+          <option>Java</option>
+          <option>Azure</option>
+          <option>AngularJs</option>
+          <option>Android</option>
+        </select>
+        <div *ngIf="skill.Skill == 'Select' && (Skill.dirty||Skill.touched)" class="alert alert-danger">
+          Skill is required
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Version
+          <span style="color: red">*</span>
+        </label>
+        <input type="number" class="form-control" [(ngModel)]="skill.Version" name="Version" #Version="ngModel" placeholder="Version"
+          required>
+        <div *ngIf="Version.errors && Version.errors.required && (Version.dirty||Version.touched)" class="alert alert-danger">
+          Version is required
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Experience (months)
+          <span style="color: red">*</span>
+        </label>
+        <input type="number" class="form-control" [(ngModel)]="skill.Experience" name="Experience" #Experience="ngModel" placeholder="Experience"
+          required>
+        <div *ngIf="Experience.errors && Experience.errors.required && (Experience.dirty||Experience.touched)" class="alert alert-danger">
+          Experience is required
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Expertise
+          <span style="color: red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="skill.Expertise" name="Expertise" #Expertise="ngModel" required>
+          <option>Select</option>
+          <option>Expert</option>
+          <option>Very Good</option>
+          <option>Good</option>
+          <option>Beginner</option>
+        </select>
+        <div *ngIf="skill.Expertise == 'Select' && (Expertise.dirty||Expertise.touched)" class="alert alert-danger">
+          Expertise is required
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Type
+          <span style="color: red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="skill.Type" name="Type" #Type="ngModel" placeholder="Type" required>
+          <option>Select</option>
+          <option>Primary</option>
+          <option>Secondary</option>
+        </select>
+        <div *ngIf="skill.Type == 'Select' && (Type.dirty||Type.touched)" class="alert alert-danger">
+          Type is required
+        </div>
+      </div>
+      <div class="col-md-2 form-group">
+        <label>Last Worked On
+          <span style="color: red">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="skill.LastWorkedOn" name="LastWorkedOn" #LastWorkedOn="ngModel" required>
+          <option>Select</option>
+          <option>2018</option>
+          <option>2017</option>
+          <option>2016</option>
+          <option>2015</option>
+          <option>2014</option>
+        </select>
+        <div *ngIf="skill.LastWorkedOn == 'Select' && (LastWorkedOn.dirty||LastWorkedOn.touched)" class="alert alert-danger">
+          Skill is required
+        </div>
+      </div>
+      <div class="clear-fix"></div>
     </div>
     <div class="clear-fix"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-      <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddSkill()">
-        <i class="fa fa-plus"></i>
-        Add</button>
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddSkill()">
+          <i class="fa fa-plus"></i>
+          Add</button>
+      </div>
+      <div class="col-md-5"></div>
     </div>
-    <div class="col-md-5"></div>
-  </div>
+  </form>
   <div class="clear-fix"></div>
   <div class="clear-fix"></div>
   <div class="row container">
@@ -131,10 +165,12 @@
               </div>
             </td>
             <td class="actiontd" style="text-align: center">
-              <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditSkill(item)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit"
+                (click)="EditSkill(item)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-              <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditSkill(item)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit"
+                (click)="SaveEditSkill(item)">
                 <span class="glyphicon glyphicon-floppy-saved"></span>
               </button>
               <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteSkill(i)">
@@ -156,10 +192,13 @@
     <h5>Functional Skills Info</h5>
   </div>
   <div class="clear-fix"></div>
+  <form #fskillFrom="ngForm" novalidate>
   <div class="row labelText">
     <div class="col-md-3 form-group">
-      <label>Skill<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="functionalSkill.Skill" name="Skill" #Skill="ngModel">
+      <label>Skill
+        <span style="color: red">*</span>
+      </label>
+      <select class="form-control" [(ngModel)]="functionalSkill.Skill" name="fSkill" #fSkill="ngModel" required>
         <option>Select</option>
         <option>Auto</option>
         <option>BOP</option>
@@ -167,25 +206,42 @@
         <option>Claims</option>
         <option>Banking</option>
       </select>
+      <div *ngIf="functionalSkill.Skill == 'Select' && (fSkill.dirty||fSkill.touched)" class="alert alert-danger">
+          Skill is required
+        </div>
     </div>
     <div class="col-md-3 form-group">
-      <label>Experience (months) <span style="color: red">*</span></label>
-      <input type="number" class="form-control" [(ngModel)]="functionalSkill.Experience" name="Experience" #Experience="ngModel"
-        placeholder="Experience">
+      <label>Experience (months)
+        <span style="color: red">*</span>
+      </label>
+      <input type="number" class="form-control" [(ngModel)]="functionalSkill.Experience" name="fExperience" 
+      #fExperience="ngModel" placeholder="Experience" required>
+        <div *ngIf="Experience.errors && Experience.errors.required && (fExperience.dirty||fExperience.touched)" class="alert alert-danger">
+            Experience is required
+       </div>
     </div>
     <div class="col-md-3 form-group">
-      <label>Expertise<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="functionalSkill.Expertise" name="Expertise" #Expertise="ngModel">
+      <label>Expertise
+        <span style="color: red">*</span>
+      </label>
+      <select class="form-control" [(ngModel)]="functionalSkill.Expertise" name="fExpertise"
+       #fExpertise="ngModel" required>
         <option>Select</option>
         <option>Expert</option>
         <option>Very Good</option>
         <option>Good</option>
         <option>Beginner</option>
       </select>
+      <div *ngIf="functionalSkill.Expertise == 'Select' && (fExpertise.dirty||fExpertise.touched)" class="alert alert-danger">
+          Expertise is required
+        </div>
     </div>
     <div class="col-md-3 form-group">
-      <label>Last Worked On<span style="color: red">*</span></label>
-      <select class="form-control" [(ngModel)]="functionalSkill.LastWorkedOn" name="LastWorkedOn" #LastWorkedOn="ngModel">
+      <label>Last Worked On
+        <span style="color: red">*</span>
+      </label>
+      <select class="form-control" [(ngModel)]="functionalSkill.LastWorkedOn" name="fLastWorkedOn" 
+      #fLastWorkedOn="ngModel" required>
         <option>Select</option>
         <option>2018</option>
         <option>2017</option>
@@ -193,6 +249,9 @@
         <option>2015</option>
         <option>2014</option>
       </select>
+      <div *ngIf="functionalSkill.LastWorkedOn == 'Select' && (fLastWorkedOn.dirty||fLastWorkedOn.touched)" class="alert alert-danger">
+          Last Worked On is required
+        </div>
     </div>
     <div class="clear-fix"></div>
   </div>
@@ -206,6 +265,7 @@
     </div>
     <div class="col-md-5"></div>
   </div>
+  </form>
   <div class="clear-fix"></div>
   <div class="clear-fix"></div>
   <div class="row container">
@@ -255,10 +315,12 @@
               </div>
             </td>
             <td class="actiontd" style="text-align: center">
-              <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit" (click)="EditFunctionalSkill(item)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-primary btn-xs rowbutton" *ngIf="item.IsEdited != true" data-title="Edit"
+                (click)="EditFunctionalSkill(item)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-              <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditFunctionalSkill(item)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit"
+                (click)="SaveEditFunctionalSkill(item)">
                 <span class="glyphicon glyphicon-floppy-saved"></span>
               </button>
               <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteFunctionalSkill(i)">
@@ -279,7 +341,7 @@
       <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../qualifications']">Previous </a>
     </div>
     <div class="col-md-3">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../trainings']">Save and Continue </a>
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../trainings']">Next </a>
     </div>
   </div>
 </div>

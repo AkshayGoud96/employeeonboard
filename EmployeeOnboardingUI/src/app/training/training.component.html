@@ -3,6 +3,7 @@
         <h5>Training Info</h5>
       </div>
       <div class="clear-fix"></div>
+      <form #trainingForm="ngForm">
       <div class="row labelText">
         <div class="col-md-2 form-group">
           <label>Category <span style="color: red">*</span></label>
@@ -51,6 +52,7 @@
         </div>
         <div class="col-md-5"></div>
       </div>
+    </form>
       <div class="clear-fix"></div>
       <div class="clear-fix"></div>
       <div class="row container">
@@ -151,7 +153,7 @@
           <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../skills']">Previous </a>
         </div>
         <div class="col-md-3">
-          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../certifications']">Save and Continue </a>
+          <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../certifications']">Next </a>
         </div>
       </div>
 </div>

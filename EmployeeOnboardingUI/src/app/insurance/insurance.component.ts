@@ -49,17 +49,5 @@ export class InsuranceComponent implements OnInit {
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.InsuranceData = this.insurance;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
-    if (this.submitted != "true") {
-      let formData: FormData = new FormData();
-      formData.append("UserProfile", JSON.stringify(this.userProfile));
-      formData.append("Email", sessionStorage.getItem("Email"));
-      this.onboardingService.SaveData(formData).subscribe(res => {
-       
-      },
-        err => {
-          this.commonService.notifyOther({ option: 'error', value: err.message });
-        }
-      );
-    }
   }
 }

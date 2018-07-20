@@ -3,55 +3,84 @@
     <h5>Qualification Info</h5>
   </div>
   <div class="clear-fix"></div>
+  <form #qualification="ngForm">
     <div class="row labelText">
       <div class="col-md-2 form-group">
         <label>Qualification<span style="color: red">*</span></label>
-        <select class="form-control" [(ngModel)]="model.Qualification" name="Qualification" #Qualification="ngModel">
+        <select class="form-control" [(ngModel)]="model.Qualification" name="Qualification" 
+        #Qualification="ngModel" required>
           <option>Select</option>
           <option>10th Class</option>
           <option>B.Com</option>
           <option>B.E</option>
           <option>AMIE</option>
         </select>
+        <div *ngIf="model.Qualification == 'Select' && (Qualification.dirty||Qualification.touched)" class="alert alert-danger">
+            Qualification is required
+       </div>
       </div>
+     
       <div class="col-md-3 form-group">
         <label>School/College<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="model.Institution" name="Institution" #Institution="ngModel" placeholder="School/College Name">
+        <input type="text" class="form-control" [(ngModel)]="model.Institution" 
+        name="Institution" #Institution="ngModel" placeholder="School/College Name" required>
+        <div *ngIf="Institution.errors && Institution.errors.required && (Institution.dirty||Institution.touched)" class="alert alert-danger">
+            Institution is required
+       </div>
+    
       </div>
+     
       <div class="col-md-3 form-group">
         <label>Board/University<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="model.University" name="University" #University="ngModel" placeholder="Board/University Name">
+        <input type="text" class="form-control" [(ngModel)]="model.University" 
+        name="University" #University="ngModel" placeholder="Board/University Name" required>
+        <div *ngIf="University.errors && University.errors.required && (University.dirty||University.touched)" class="alert alert-danger">
+            University is required
+       </div>    
       </div>
       <div class="col-md-2 form-group">
           <label>Year of Completion<span style="color: red">*</span></label>
-          <select class="form-control" [(ngModel)]="model.YearOfCompletion" name="YearOfCompletion" #YearOfCompletion="ngModel">
+          <select class="form-control" [(ngModel)]="model.YearOfCompletion" name="YearOfCompletion" 
+          #YearOfCompletion="ngModel" required>
             <option>Select</option>
             <option>2018</option>
             <option>2017</option>
             <option>2016</option>
             <option>2015</option>
           </select>
-        </div>
+          <div *ngIf="model.YearOfCompletion == 'Select' && (YearOfCompletion.dirty||YearOfCompletion.touched)" class="alert alert-danger">
+              Year Of Completion is required
+         </div>
+        </div>        
         <div class="col-md-1 form-group">
             <label>Percentage<span style="color: red">*</span></label>
-            <input type="number" class="form-control" [(ngModel)]="model.Percentage" name="Percentage" #Percentage="ngModel" placeholder="%">
+            <input type="number" class="form-control" [(ngModel)]="model.Percentage" name="Percentage" 
+            #Percentage="ngModel" placeholder="%" required>
+            <div *ngIf="Percentage.errors && Percentage.errors.required && (Percentage.dirty||Percentage.touched)" class="alert alert-danger">
+                Percentage is required
+           </div>
           </div>
           <div class="col-md-1 form-group">
               <label>Grade<span style="color: red">*</span></label>
-              <input type="text" class="form-control" [(ngModel)]="model.Grade" name="Grade" #Grade="ngModel" placeholder="Grade">
-            </div>
+              <input type="text" class="form-control" [(ngModel)]="model.Grade" name="Grade" #Grade="ngModel"
+               placeholder="Grade" required> 
+               <div *ngIf="Grade.errors && Grade.errors.required && (Grade.dirty||Grade.touched)" class="alert alert-danger">
+                  Grade is required
+             </div>
+            </div>          
       <div class="clear-fix"></div>
     </div>
     <div class="clear-fix"></div>
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddQualification()">
+        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'|| !qualification.valid" type="submit" (click)="AddQualification()">
             <i class="fa fa-plus"></i>
           Add</button>
       </div>
       <div class="col-md-5"></div>
     </div>
+    </form>
   <div class="clear-fix"></div>
   <div class="row container">
     <div class="table-responsive" *ngIf="qualifications.length>0">
@@ -142,7 +171,7 @@
           <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../personnel']" (click)="PreviousClick()">Previous</a>
       </div>
       <div class="col-md-3">
-        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../skills']" (click)="NextClick()">Save and Continue </a>
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" [routerLink]="['../skills']" (click)="NextClick()">Next</a>
       </div>
 
     </div>
