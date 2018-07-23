@@ -3,40 +3,61 @@
       <h5>Membership Info</h5>
     </div>
     <div class="clear-fix"></div>
+    <form #membershipform="ngForm">
     <div class="row labelText">
       <div class="col-md-3 form-group">
         <label>Association<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="membership.Association" name="Association" #Association="ngModel" placeholder="Association">
-        
+        <input type="text" class="form-control" [(ngModel)]="membership.Association" name="Association"
+         #Association="ngModel" placeholder="Association" required>
+        <div *ngIf="Association.errors && Association.errors.required && (Association.dirty||Association.touched)" class="alert alert-danger">
+            Association is required
+       </div>    
       </div>
       <div class="col-md-2 form-group">
         <label>Membership ID<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="membership.MembershipID" name="MembershipID" #MembershipID="ngModel" placeholder="MembershipID">
+        <input type="text" class="form-control" [(ngModel)]="membership.MembershipID" name="MembershipID" 
+        #MembershipID="ngModel" placeholder="MembershipID" required>
+        <div *ngIf="MembershipID.errors && MembershipID.errors.required && (MembershipID.dirty||MembershipID.touched)" class="alert alert-danger">
+            Membership ID is required
+       </div>   
       </div>
       <div class="col-md-2 form-group">
         <label>Membership Type <span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="membership.MembershipType" name="MembershipType" #MembershipType="ngModel" placeholder="Membership Type">
+        <input type="text" class="form-control" [(ngModel)]="membership.MembershipType" name="MembershipType" 
+        #MembershipType="ngModel" placeholder="Membership Type" required>
+        <div *ngIf="MembershipType.errors && MembershipType.errors.required && (MembershipType.dirty||MembershipType.touched)" class="alert alert-danger">
+            Membership Type is required
+       </div>   
       </div>
       <div class="col-md-2 form-group">
         <label>Membership Year<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="membership.MembershipYear" name="JoiniMembershipYearngDate" #MembershipYear="ngModel" placeholder="Membership Year">
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="membership.MembershipYear" name="MembershipYear"
+         #MembershipYear="ngModel" placeholder="Membership Year" required>
+        <div *ngIf="MembershipYear.errors && MembershipYear.errors.required && (MembershipYear.dirty||MembershipYear.touched)" class="alert alert-danger">
+            Membership Year is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Valid Upto<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="membership.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Valid Upto">     
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="membership.ValidUpto" name="ValidUpto" 
+        #ValidUpto="ngModel" placeholder="Valid Upto" required>     
+        <div *ngIf="ValidUpto.errors && ValidUpto.errors.required && (ValidUpto.dirty||ValidUpto.touched)" class="alert alert-danger">
+            Valid Upto is required
+       </div>
+    </div>
       <div class="clear-fix"></div>
     </div>
     <div class="clear-fix"></div>
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'" type="submit" (click)="AddMembership()">
+        <button class="btn btn-primary addnew" [disabled]="submitted=='Submitted'|| !membershipform.valid" type="submit" (click)="AddMembership()">
           <i class="fa fa-plus"></i>
           Add</button>
       </div>
       <div class="col-md-5"></div>
     </div>
+  </form>
     <div class="clear-fix"></div>
     <div class="clear-fix"></div>
     <div class="row container">

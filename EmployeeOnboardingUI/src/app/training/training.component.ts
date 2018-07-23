@@ -37,7 +37,6 @@ export class TrainingComponent implements OnInit {
   }
 
   AddTraining() {
-    debugger;
     this.trainings.push(this.training);
     this.training = new TrainingData();
     this.training.Category = "Select";

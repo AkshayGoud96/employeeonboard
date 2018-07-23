@@ -3,40 +3,62 @@
       <h5>Employer Info</h5>
     </div>
     <div class="clear-fix"></div>
+    <form #employerForm="ngForm">
     <div class="row labelText">
       <div class="col-md-2 form-group">
         <label>Employer<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="employer.EmployerName" name="EmployerName" #EmployerName="ngModel" placeholder="Name">
-        
+        <input type="text" class="form-control" [(ngModel)]="employer.EmployerName" name="EmployerName" 
+        #EmployerName="ngModel" placeholder="Name" required>
+        <div *ngIf="EmployerName.errors && EmployerName.errors.required && (EmployerName.dirty||EmployerName.touched)" class="alert alert-danger">
+            Employer Name is required
+       </div>
+    
       </div>
       <div class="col-md-2 form-group">
         <label>Designation<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="employer.Designation" name="Designation" #Designation="ngModel" placeholder="Designation">
-      </div>
+        <input type="text" class="form-control" [(ngModel)]="employer.Designation" name="Designation" 
+        #Designation="ngModel" placeholder="Designation" required>
+        <div *ngIf="Designation.errors && Designation.errors.required && (Designation.dirty||Designation.touched)" class="alert alert-danger">
+            Designation is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Domain <span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="employer.Domain" name="Domain" #Domain="ngModel" placeholder="Domain">
-      </div>
+        <input type="text" class="form-control" [(ngModel)]="employer.Domain" name="Domain" #Domain="ngModel" 
+        placeholder="Domain" required>
+        <div *ngIf="Domain.errors && Domain.errors.required && (Domain.dirty||Domain.touched)" class="alert alert-danger">
+            Domain is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Joining Date<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="employer.JoiningDate" name="JoiningDate" #JoiningDate="ngModel" placeholder="Date">
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="employer.JoiningDate" name="JoiningDate" 
+        #JoiningDate="ngModel" placeholder="Date" required>
+        <div *ngIf="JoiningDate.errors && JoiningDate.errors.required && (JoiningDate.dirty||JoiningDate.touched)" class="alert alert-danger">
+            Joining Date is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Releiving Date<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="employer.ReleivingDate" name="ReleivingDate" #ReleivingDate="ngModel" placeholder="Date">     
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="employer.ReleivingDate" name="ReleivingDate" 
+        #ReleivingDate="ngModel" placeholder="Date" required>     
+        <div *ngIf="ReleivingDate.errors && ReleivingDate.errors.required && (ReleivingDate.dirty||ReleivingDate.touched)" class="alert alert-danger">
+            Releiving Date is required
+       </div>
+     </div>
       <div class="clear-fix"></div>
     </div>
     <div class="clear-fix"></div>
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddEmployer()">
+        <button [disabled]="submitted=='Submitted'|| !employerForm.valid" class="btn btn-primary addnew" type="submit" (click)="AddEmployer()">
           <i class="fa fa-plus"></i>
           Add</button>
       </div>
       <div class="col-md-5"></div>
     </div>
+  </form>
     <div class="clear-fix"></div>
     <div class="clear-fix"></div>
     <div class="row container">

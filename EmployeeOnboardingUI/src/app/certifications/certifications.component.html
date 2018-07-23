@@ -3,10 +3,12 @@
       <h5>Certifications Info</h5>
     </div>
     <div class="clear-fix"></div>
+    <form #certificationForm="ngForm">
     <div class="row labelText">
       <div class="col-md-2 form-group">
         <label>Category<span style="color: red">*</span></label>
-        <select class="form-control" [(ngModel)]="certification.Category" name="Category" #Category="ngModel">
+        <select class="form-control" [(ngModel)]="certification.Category" name="Category" 
+        #Category="ngModel" required>
           <option>Select</option>
           <option>Technical</option>
           <option>Domain</option>
@@ -14,39 +16,63 @@
           <option>IT Security Compliance</option>
           <option>Others</option>
         </select>
+        <div *ngIf="certification.Category == 'Select' && (Category.dirty||Category.touched)" class="alert alert-danger">
+            Category is required
+       </div>
       </div>
       <div class="col-md-2 form-group">
         <label>Certification ID<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="certification.CertificationID" name="CertificationID" #CertificationID="ngModel" placeholder="CertificationID">
-      </div>
+        <input type="text" class="form-control" [(ngModel)]="certification.CertificationID" 
+        name="CertificationID" #CertificationID="ngModel" placeholder="CertificationID" required>
+        <div *ngIf="CertificationID.errors && CertificationID.errors.required && (CertificationID.dirty||CertificationID.touched)" class="alert alert-danger">
+            Certification ID is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Title <span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="certification.Title" name="Title" #Title="ngModel" placeholder="Certification Name">
-      </div>
+        <input type="text" class="form-control" [(ngModel)]="certification.Title" name="Title" 
+        #Title="ngModel" placeholder="Certification Name" required>
+        <div *ngIf="Title.errors && Title.errors.required && (Title.dirty||Title.touched)" class="alert alert-danger">
+            Title is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Certified By<span style="color: red">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="certification.CertifiedBy" name="CertifiedBy" #CertifiedBy="ngModel" placeholder="Institute">
-      </div>
+        <input type="text" class="form-control" [(ngModel)]="certification.CertifiedBy" name="CertifiedBy" 
+        #CertifiedBy="ngModel" placeholder="Institute" required>
+        <div *ngIf="CertifiedBy.errors && CertifiedBy.errors.required && (CertifiedBy.dirty||CertifiedBy.touched)" class="alert alert-danger">
+            Certified By is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Issued Date<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="certification.IssuedDate" name="IssuedDate" #IssuedDate="ngModel" placeholder="Date">     
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="certification.IssuedDate" name="IssuedDate" 
+        #IssuedDate="ngModel" placeholder="Date" required>     
+        <div *ngIf="IssuedDate.errors && IssuedDate.errors.required && (IssuedDate.dirty||IssuedDate.touched)" class="alert alert-danger">
+            Issued Date is required
+       </div>
+    </div>
       <div class="col-md-2 form-group">
         <label>Valid Upto<span style="color: red">*</span></label>
-        <input type="date" class="form-control" [(ngModel)]="certification.ValidUpto" name="ValidUpto" #ValidUpto="ngModel" placeholder="Date">
-      </div>
+        <input type="date" class="form-control" [(ngModel)]="certification.ValidUpto" name="ValidUpto" 
+        #ValidUpto="ngModel" placeholder="Date" required>
+        <div *ngIf="ValidUpto.errors && ValidUpto.errors.required && (ValidUpto.dirty||ValidUpto.touched)" class="alert alert-danger">
+            Valid Upto is required
+       </div>
+    </div>
       <div class="clear-fix"></div>
     </div>
     <div class="clear-fix"></div>
     <div class="row">
       <div class="col-md-5"></div>
       <div class="col-md-2">
-        <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddCertification()">
+        <button [disabled]="submitted=='Submitted'|| !certificationForm.valid" class="btn btn-primary addnew" type="submit" (click)="AddCertification()">
           <i class="fa fa-plus"></i>
           Add</button>
       </div>
       <div class="col-md-5"></div>
     </div>
+  </form>
     <div class="clear-fix"></div>
     <div class="clear-fix"></div>
     <div class="row container">

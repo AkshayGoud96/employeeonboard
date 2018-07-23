@@ -3,16 +3,21 @@
     <h5>Insurance Info</h5>
   </div>
   <div class="clear-fix"></div>
-  <div class="row labelText">
+  <form #insuranceForm="ngForm">
+      <div class="row labelText">
     <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Relationship Type<span style="color: red">*</span></label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.RelationshipType" name="RelationshipType" #RelationshipType="ngModel">
+      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.RelationshipType" 
+      name="RelationshipType" #RelationshipType="ngModel" required>
         <option>Select</option>
         <option>Parents</option>
         <option>In-Laws</option>
         <option>None</option>
       </select>
+      <div *ngIf="insurance.RelationshipType == 'Select' && (RelationshipType.dirty||RelationshipType.touched)" class="alert alert-danger">
+          Relationship Type is required
+     </div>
     </div>
   </div>  
   <div class="clear-fix"></div>
@@ -20,49 +25,81 @@
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Father Name<span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.FatherName" name="FatherName" #FatherName="ngModel" placeholder="Father Name">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" 
+      [(ngModel)]="insurance.FatherName" name="FatherName" #FatherName="ngModel" placeholder="Father Name" required>
+      <div *ngIf="FatherName.errors && FatherName.errors.required && (FatherName.dirty||FatherName.touched)" class="alert alert-danger">
+          FatherName is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label>Father Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.FatherDOB" name="FatherDOB" #FatherDOB="ngModel" placeholder="FatherDOB">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" 
+      [(ngModel)]="insurance.FatherDOB" name="FatherDOB" #FatherDOB="ngModel" placeholder="FatherDOB" required>
+      <div *ngIf="FatherDOB.errors && FatherDOB.errors.required && (FatherDOB.dirty||FatherDOB.touched)" class="alert alert-danger">
+          FatherDOB is required
+     </div>
     </div> 
     <div class="col-md-2 form-group">
       <label>Mother Name <span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.MotherName" name="MotherName" #MotherName="ngModel" placeholder="MotherName">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" 
+      [(ngModel)]="insurance.MotherName" name="MotherName" #MotherName="ngModel" placeholder="MotherName" required>
+      <div *ngIf="MotherName.errors && MotherName.errors.required && (MotherName.dirty||MotherName.touched)" class="alert alert-danger">
+          MotherName is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label>Mother Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.MotherDOB" name="MotherDOB" #MotherDOB="ngModel" placeholder="MotherDOB">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control"
+       [(ngModel)]="insurance.MotherDOB" name="MotherDOB" #MotherDOB="ngModel" placeholder="MotherDOB" required>
+             <div *ngIf="MotherDOB.errors && MotherDOB.errors.required && (MotherDOB.dirty||MotherDOB.touched)" class="alert alert-danger">
+                MotherDOB is required
+     </div>
     </div>
   </div>
   <div class="row labelText" *ngIf="insurance.RelationshipType == 'In-Laws'">
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Father In-Law Name<span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.FatherInLawName" name="FatherInLawName" #FatherInLawName="ngModel" placeholder="Father In-Law Name">
+      <input type="text" [disabled]="submitted=='Submitted'" class="form-control"
+       [(ngModel)]="insurance.FatherInLawName" name="FatherInLawName" #FatherInLawName="ngModel" required placeholder="Father In-Law Name">
+      <div *ngIf="FatherInLawName.errors && FatherInLawName.errors.required && (FatherInLawName.dirty||FatherInLawName.touched)" class="alert alert-danger">
+          Father In-Law Name is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label>Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.FatherInLawDOB" name="FatherInLawDOB" #FatherInLawDOB="ngModel" placeholder="Father In-Law DOB">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" required [(ngModel)]="insurance.FatherInLawDOB" name="FatherInLawDOB" #FatherInLawDOB="ngModel" placeholder="Father In-Law DOB">
+      <div *ngIf="FatherInLawDOB.errors && FatherInLawDOB.errors.required && (FatherInLawDOB.dirty||FatherInLawDOB.touched)" class="alert alert-danger">
+          Father In-Law DOB is required
+     </div>
     </div> 
     <div class="col-md-2 form-group">
       <label>Mother In-Law Name <span style="color: red">*</span></label>
-      <input type="text"  [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.MotherInLawName" name="MotherInLawName" #MotherInLawName="ngModel" placeholder="Mother In-Law Name">
+      <input type="text"  [disabled]="submitted=='Submitted'" class="form-control" required [(ngModel)]="insurance.MotherInLawName" name="MotherInLawName" #MotherInLawName="ngModel" placeholder="Mother In-Law Name">
+      <div *ngIf="MotherInLawName.errors && MotherInLawName.errors.required && (MotherInLawName.dirty||MotherInLawName.touched)" class="alert alert-danger">
+          Mother In-Law Name is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label> Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.MotherInLawDOB" name="MotherInLawDOB" #MotherInLawDOB="ngModel" placeholder="Mother In-Law DOB">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" required [(ngModel)]="insurance.MotherInLawDOB" name="MotherInLawDOB" #MotherInLawDOB="ngModel" placeholder="Mother In-Law DOB">
+      <div *ngIf="MotherInLawDOB.errors && MotherInLawDOB.errors.required && (MotherInLawDOB.dirty||MotherInLawDOB.touched)" class="alert alert-danger">
+          Mother In-Law DOB is required
+     </div>
     </div>
   </div>
   <div class="row labelText">
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Marital Status<span style="color: red">*</span></label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.MaritalStatus" name="MaritalStatus" #MaritalStatus="ngModel" placeholder="Marital Status">
+      <select class="form-control" [disabled]="submitted=='Submitted'" required [(ngModel)]="insurance.MaritalStatus" name="MaritalStatus" #MaritalStatus="ngModel" placeholder="Marital Status">
           <option>Select</option>
         <option>Single</option>
         <option>Married</option>
       </select>
+      <div *ngIf="insurance.MaritalStatus == 'Select' && (MaritalStatus.dirty||MaritalStatus.touched)" class="alert alert-danger">
+          Marital Status is required
+     </div>
     </div>
   </div>  
   <div class="clear-fix"></div>
@@ -70,19 +107,29 @@
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Spouse Name<span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.SpouseName" name="SpouseName" #SpouseName="ngModel" placeholder="Name">
+      <input type="text" [disabled]="submitted=='Submitted'" required class="form-control" [(ngModel)]="insurance.SpouseName" name="SpouseName" #SpouseName="ngModel" placeholder="Name">
+      <div *ngIf="SpouseName.errors && SpouseName.errors.required && (SpouseName.dirty||SpouseName.touched)" class="alert alert-danger">
+          Spouse Name is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label>Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.SpouseDOB" name="SpouseDOB" #SpouseDOB="ngModel" placeholder="Date">
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" 
+      [(ngModel)]="insurance.SpouseDOB" name="SpouseDOB" #SpouseDOB="ngModel" placeholder="Date" required>
+      <div *ngIf="SpouseDOB.errors && SpouseDOB.errors.required && (SpouseDOB.dirty||SpouseDOB.touched)" class="alert alert-danger">
+          Spouse DOB is required
+     </div>
     </div>
     <div class="col-md-2 form-group">
       <label>Gender<span style="color: red">*</span></label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.SpouseGender" name="SpouseGender" #SpouseGender="ngModel">
+      <select class="form-control" [disabled]="submitted=='Submitted'" required [(ngModel)]="insurance.SpouseGender" name="SpouseGender" #SpouseGender="ngModel">
         <option>Select</option>
         <option>Male</option>
         <option>Female</option>
       </select>
+      <div *ngIf="insurance.SpouseGender == 'Select' && (SpouseGender.dirty||SpouseGender.touched)" class="alert alert-danger">
+          Spouse Gender is required
+     </div>
     </div>
   </div>
   
@@ -90,37 +137,45 @@
   <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
-      <label>Child1 Name<span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.Child1Name" name="Child1Name" #Child1Name="ngModel" placeholder="Name">
+      <label>Child1 Name</label>
+      <input type="text" [disabled]="submitted=='Submitted'"  class="form-control" [(ngModel)]="insurance.Child1Name" name="Child1Name" #Child1Name="ngModel" placeholder="Name">
+      
     </div>
     <div class="col-md-2 form-group">
-      <label>Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.Child1DOB" name="Child1DOB" #Child1DOB="ngModel" placeholder="Date">
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Gender<span style="color: red">*</span></label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.Child1Gender" name="Child1Gender" #Child1Gender="ngModel">
-        <option>Select</option>
-        <option>Male</option>
-        <option>Female</option>
-      </select>
-    </div>
-  </div>
-  
-  <div class="clear-fix"></div>
-  <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
-      <div class="col-md-1"></div>
-    <div class="col-md-2 form-group">
-      <label>Child2 Name<span style="color: red">*</span></label>
-      <input type="text" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.Child2Name" name="Child2Name" #Child2Name="ngModel" placeholder="Name">
-    </div>
-    <div class="col-md-2 form-group">
-      <label>Date of Birth<span style="color: red">*</span></label>
-      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.Child2DOB" name="Child2DOB" #Child12OB="ngModel" placeholder="Date">
+      <label>Date of Birth</label>
+      <input type="date" [disabled]="submitted=='Submitted'"  class="form-control" [(ngModel)]="insurance.Child1DOB" name="Child1DOB" #Child1DOB="ngModel" placeholder="Date">
+      
     </div>
     <div class="col-md-2 form-group">
       <label>Gender</label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.Child2Gender" name="Child2Gender" #Child2Gender="ngModel">
+      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.Child1Gender" name="Child1Gender" 
+      #Child1Gender="ngModel" >
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="clear-fix"></div>
+  <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Child2 Name</label>
+      <input type="text" [disabled]="submitted=='Submitted'"  class="form-control"
+       [(ngModel)]="insurance.Child2Name" name="Child2Name" #Child2Name="ngModel" placeholder="Name">
+      
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Date of Birth</label>
+      <input type="date" [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]="insurance.Child2DOB" 
+      name="Child2DOB" #Child2DOB="ngModel" placeholder="Date" >
+     
+    </div>
+    <div class="col-md-2 form-group">
+      <label>Gender</label>
+      <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.Child2Gender" name="Child2Gender"
+       #Child2Gender="ngModel" >
         <option>Select</option>
         <option>Male</option>
         <option>Female</option>
@@ -133,10 +188,11 @@
   <div class="row">
     <div class="col-md-7"></div>
     <div class="col-md-2">
-      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../employers']">Previous </a>
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../memberships']">Previous </a>
     </div>
     <div class="col-md-3">
       <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../additional-details']">Next</a>
     </div>
   </div>
+</form>
 </div>

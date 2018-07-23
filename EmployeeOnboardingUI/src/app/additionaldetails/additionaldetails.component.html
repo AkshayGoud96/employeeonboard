@@ -2,6 +2,7 @@
   <div class="row h5css">
     <h5>Additional Info</h5>
   </div>
+  <form #adForm="ngForm">
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
@@ -10,9 +11,13 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
-        #EmergencyContact="ngModel" required pattern="^((\\+91-?)|0)?[0-9]{10}$">
+        #EmergencyContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="EmergencyContact.errors && EmergencyContact.errors.pattern && (EmergencyContact.dirty||EmergencyContact.touched)" class="alert alert-danger">
+            Emergency Contact is Invalid
+          </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
@@ -23,9 +28,13 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
-        #PersonalContact="ngModel" required pattern="^((\\+91-?)|0)?[0-9]{10}$">
+        #PersonalContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="PersonalContact.errors && PersonalContact.errors.pattern && (PersonalContact.dirty||PersonalContact.touched)" class="alert alert-danger">
+            Personal Contact is Invalid
+          </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
@@ -36,7 +45,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
-        #DateofMarriage="ngModel" required>
+        #DateofMarriage="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -72,9 +81,13 @@
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" 
       [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail" 
-       #PersonalEmail="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+       #PersonalEmail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div *ngIf="PersonalEmail.errors && (PersonalEmail.dirty||PersonalEmail.touched)" class="alert alert-danger">
+            Email is required
+       </div>
+    </div>
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
@@ -85,7 +98,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
-        #PassportNumber="ngModel" required>
+        #PassportNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -111,7 +124,7 @@
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
-        #PermenantAccountNumber="ngModel" required>
+        #PermenantAccountNumber="ngModel">
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -149,7 +162,8 @@
         <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../insurances']">Previous Step </button>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" [disabled]="submitted=='Submitted'" (click)="SaveClick()" >Save </button>
+        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" [disabled]="submitted=='Submitted'|| !adForm.valid" (click)="SaveClick()" >Save </button>
       </div>
     </div>
+  </form>
 </div>

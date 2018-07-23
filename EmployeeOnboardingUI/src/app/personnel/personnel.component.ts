@@ -36,7 +36,6 @@ export class PersonnelComponent implements OnInit {
     }
   }
   NextClick() {
-    debugger;
     if (sessionStorage.getItem("UserProfile") != undefined) {
       this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     }

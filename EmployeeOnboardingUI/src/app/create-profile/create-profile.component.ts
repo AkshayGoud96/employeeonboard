@@ -29,7 +29,6 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
-      debugger;
       if (res.hasOwnProperty('option') && res.option === 'success' && res.value != undefined) {
         this.successMessage = res.value;
       }
@@ -44,7 +43,6 @@ export class CreateProfileComponent implements OnInit {
     this.loading = false;
   }
   Navigate(event) {
-    debugger;
     var title = event.currentTarget.title;
     switch (title) {
       case "Personal":
@@ -102,7 +100,10 @@ export class CreateProfileComponent implements OnInit {
             this.userProfile.EmployerData = res.EmployerDatas;
             this.userProfile.MembershipData = res.MembershipDatas;
             this.userProfile.TrainingData = res.TainingDatas;
+            if(sessionStorage.getItem("UserProfile") == undefined)
+            {
             sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
+            }
             this.commonService.notifyOther({ option: 'get', value: res });
             this.loading = false;
           }

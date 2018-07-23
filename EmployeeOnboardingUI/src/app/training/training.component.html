@@ -15,30 +15,57 @@
             <option>IT Security Compliance</option>
             <option>Others</option>
           </select>
+           <div *ngIf="training.Category == 'Select' && (Category.dirty||Category.touched)" class="alert alert-danger">
+              Category is required
+           </div>
         </div>
         <div class="col-md-2 form-group">
           <label>Name of Program<span style="color: red">*</span></label>
-          <input type="text" class="form-control" [(ngModel)]="training.Name" name="Name" #Name="ngModel" placeholder="Name">
+          <input type="text" class="form-control" [(ngModel)]="training.Name" name="Name" 
+          #Name="ngModel" placeholder="Name" required>
+          <div *ngIf="Name.errors && Name.errors.required && (Name.dirty||Name.touched)" class="alert alert-danger">
+              Name is required
+         </div>     
         </div>
         <div class="col-md-2 form-group">
           <label>Start Date <span style="color: red">*</span></label>
-          <input type="date" class="form-control" [(ngModel)]="training.StartDate" name="StartDate" #StartDate="ngModel" placeholder="StartDate">
-        </div>
+          <input type="date" class="form-control" [(ngModel)]="training.StartDate" name="StartDate"
+           #StartDate="ngModel" placeholder="StartDate" required>
+       <div *ngIf="StartDate.errors && StartDate.errors.required && (StartDate.dirty||StartDate.touched)" class="alert alert-danger">
+          Start Date is required
+     </div>
+	</div>
         <div class="col-md-2 form-group">
           <label>End Date <span style="color: red">*</span></label>
-          <input type="date" class="form-control" [(ngModel)]="training.EndDate" name="EndDate" #EndDate="ngModel" placeholder="EndDate">
+          <input type="date" class="form-control" [(ngModel)]="training.EndDate" name="EndDate" 
+          #EndDate="ngModel" placeholder="EndDate" required>  
+       <div *ngIf="EndDate.errors && EndDate.errors.required && (EndDate.dirty||EndDate.touched)" class="alert alert-danger">
+          End Date is required
+     </div>
         </div>
         <div class="col-md-2 form-group">
           <label>Total Hours <span style="color: red">*</span></label>
-          <input type="number" class="form-control" [(ngModel)]="training.TotalHours" name="TotalHours" #TotalHours="ngModel" placeholder="TotalHours">     
+          <input type="number" class="form-control" [(ngModel)]="training.TotalHours" name="TotalHours" 
+          #TotalHours="ngModel" placeholder="TotalHours" required>        
+       <div *ngIf="TotalHours.errors && TotalHours.errors.required && (TotalHours.dirty||TotalHours.touched)" class="alert alert-danger">
+          Total Hours is required
+     </div>
         </div>
         <div class="col-md-2 form-group">
           <label>Institute Name<span style="color: red">*</span></label>
-          <input type="text" class="form-control" [(ngModel)]="training.InstituteName" name="InstituteName" #InstituteName="ngModel" placeholder="InstituteName">
+          <input type="text" class="form-control" [(ngModel)]="training.InstituteName" name="InstituteName" 
+          #InstituteName="ngModel" placeholder="InstituteName" required>
+       <div *ngIf="InstituteName.errors && InstituteName.errors.required && (InstituteName.dirty||InstituteName.touched)" class="alert alert-danger">
+          Institute Name is required
+     </div>
         </div>
         <div class="col-md-2 form-group">
             <label>Trainer Name<span style="color: red">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="training.TrainerName" name="TrainerName" #TrainerName="ngModel" placeholder="TrainerName">
+            <input type="text" class="form-control" [(ngModel)]="training.TrainerName" name="TrainerName"
+             #TrainerName="ngModel" placeholder="TrainerName" required>
+       <div *ngIf="TrainerName.errors && TrainerName.errors.required && (TrainerName.dirty||TrainerName.touched)" class="alert alert-danger">
+          Trainer Name is required
+     </div>
           </div>
         <div class="clear-fix"></div>
       </div>
@@ -46,7 +73,7 @@
       <div class="row">
         <div class="col-md-5"></div>
         <div class="col-md-2">
-          <button [disabled]="submitted=='Submitted'" class="btn btn-primary addnew" type="submit" (click)="AddTraining()">
+          <button [disabled]="submitted=='Submitted' || !trainingForm.valid" class="btn btn-primary addnew" type="submit" (click)="AddTraining()">
             <i class="fa fa-plus"></i>
             Add</button>
         </div>

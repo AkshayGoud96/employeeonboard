@@ -39,7 +39,6 @@ export class CertificationsComponent implements OnInit {
   }
 
   AddCertification() {
-    debugger;
     this.certifications.push(this.certification);
     this.certification = new CertificationData();
     this.certification.Category = "Select";

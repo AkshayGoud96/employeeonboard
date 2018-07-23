@@ -253,14 +253,14 @@ namespace EmployeeOnboardingAPI
                 }
             }
 
-            if (profiledata.InsuranceDatas.Count>0)
+            if (profiledata.InsuranceDatas.Count > 0)
             {
                 //Insurance Data
                 UpdateInsuranceData(userProfile, ref profiledata);
             }
 
             //Additional Data
-            if (profiledata.AdditionalDatas.Count>0)
+            if (profiledata.AdditionalDatas.Count > 0)
             {
                 UpdateAdditionalData(userProfile, ref profiledata);
             }
@@ -449,13 +449,28 @@ namespace EmployeeOnboardingAPI
             profiledata.QualificationDatas.Where(q => q.QDID == data.QDID).FirstOrDefault().YearOfCompletion = data.YearOfCompletion;
         }
 
-        internal void SubmitUserData(string email)
+        internal string SubmitUserData(string email)
         {
-            using (EmployeeOnboardEntities db=new EmployeeOnboardEntities())
+            try
             {
-             var data=  db.UserOfferDetails.Where(x => x.emailID == email).Single();
-              data.isSubmitted = true;
-              db.SaveChanges();
+                using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
+                {
+                    var data = db.UserOfferDetails.Where(x => x.emailID == email).Single();
+                    if (!data.isSubmitted == true)
+                    {
+                        db.SaveChanges();
+                        return "Data is submitted successfully";
+                    }
+                    else
+                    {
+                        return "Already Submitted";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 

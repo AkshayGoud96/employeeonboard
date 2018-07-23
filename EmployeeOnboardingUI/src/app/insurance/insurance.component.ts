@@ -18,7 +18,6 @@ export class InsuranceComponent implements OnInit {
   subscription: Subscription;
   constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
   ngOnInit() {
-    debugger;
     this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'get') {
         this.insurance = JSON.parse(sessionStorage.getItem("UserProfile")).InsuranceData;
@@ -38,14 +37,12 @@ export class InsuranceComponent implements OnInit {
     }
   }
   PreviousClick() {
-    debugger;
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.InsuranceData = this.insurance;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   NextClick() {
-    debugger;
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.InsuranceData = this.insurance;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));

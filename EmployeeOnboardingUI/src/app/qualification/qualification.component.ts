@@ -41,7 +41,6 @@ export class QualificationComponent implements OnInit {
   }
 
   AddQualification() {
-    debugger;
     this.qualifications.push(this.model);
     this.model = new QualificationData();
     this.model.Qualification = "Select";
@@ -73,7 +72,6 @@ export class QualificationComponent implements OnInit {
   }
 
   NextClick() {
-    debugger;
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.QualificationData = this.qualifications;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));

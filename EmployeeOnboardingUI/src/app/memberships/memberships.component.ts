@@ -20,12 +20,14 @@ export class MembershipsComponent implements OnInit {
   constructor(private commonService: CommonService,private onboardingService:OnboardingService) { }
 
   ngOnInit() {
-    this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
+      this.subscription = this.commonService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'get') {
-        this.memberships = JSON.parse(sessionStorage.getItem("UserProfile")).MemberShipData;
+        debugger;
+        this.memberships = JSON.parse(sessionStorage.getItem("UserProfile")).MembershipData;
       }
     });
     this.submitted = sessionStorage.getItem("Submitted");
+    debugger;
     if (sessionStorage.getItem("UserProfile") != undefined) {
       let memberships = JSON.parse(sessionStorage.getItem("UserProfile")).MembershipData;
       if(memberships != undefined)
@@ -37,20 +39,31 @@ export class MembershipsComponent implements OnInit {
     this.membership = new MemberShipData();
   }
   AddMembership() {
-    debugger;
     this.memberships.push(this.membership);
     this.membership = new MemberShipData();
     this.membership.IsEdited = false;
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData = this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   DeleteMembership(index) {
     this.memberships.splice(index, 1);
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData = this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
   EditMembership(item) {
     item.IsEdited = true;
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData = this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
   SaveEditMembership(item) {
     item.IsEdited = false;
+    this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
+    this.userProfile.MembershipData = this.memberships;
+    sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
   PreviousClick() {

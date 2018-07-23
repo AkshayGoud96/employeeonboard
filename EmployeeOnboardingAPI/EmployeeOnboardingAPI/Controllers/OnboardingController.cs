@@ -64,8 +64,8 @@ namespace EmployeeOnboardingAPI.Controllers
                 string email = httpRequest.Params["Email"];
                 
                 OnboardingHelper helper = new OnboardingHelper();
-                helper.SubmitUserData(email);
-                return Request.CreateResponse(HttpStatusCode.OK, "Success");
+                string status =helper.SubmitUserData(email);
+                return Request.CreateResponse(HttpStatusCode.OK, status);
             }
             catch (Exception ex)
             {

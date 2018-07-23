@@ -15,7 +15,7 @@ submitted:string;
   }
   SubmitData() {
     this.onboardingService.SubmitData().subscribe(res => {
-      this.commonService.notifyOther({ option: 'success', value: "Data is submitted successfully" });
+      this.commonService.notifyOther({ option: 'success', value: res });
       this.submitted="Submitted";
       sessionStorage.setItem("Submitted","Submitted");
     }, err => {
