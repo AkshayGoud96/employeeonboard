@@ -72,7 +72,12 @@ namespace EmployeeOnboardingAPI
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userProfile"></param>
+        /// <param name="profiledata"></param>
+        /// <returns></returns>
         private UserProfile UpdateProfileData(UserProfileData userProfile, UserProfile profiledata)
         {
             // Personal Data
