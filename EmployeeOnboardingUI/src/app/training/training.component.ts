@@ -43,8 +43,14 @@ export class TrainingComponent implements OnInit {
     this.training.IsEdited = false;
   }
 
-  DeleteTraining(index) {
+  DeleteTraining(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.trainings.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.TDID, data.UPID, table).subscribe();
     this.trainings.splice(index, 1);
+    }
   }
   EditTraining(item) {
     item.IsEdited = true;

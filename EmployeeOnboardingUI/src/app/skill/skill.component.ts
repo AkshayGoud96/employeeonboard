@@ -65,11 +65,18 @@ export class SkillComponent implements OnInit {
     this.skill.Expertise = "Select";
     this.skill.LastWorkedOn = "Select";
     this.skill.Type = "Select";
-    this.skill.IsEdited = false;
+    this.skill.IsEdited = null;
   }
-  DeleteSkill(index) {
+  DeleteSkill(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    let x = this.skills.find(i => i.UPID == item.UPID);
+    this.onboardingService.DeleteData(x.TSDID, x.UPID, table).subscribe();
     this.skills.splice(index, 1);
+    }
   }
+  
   EditSkill(item) {
     item.IsEdited = true;
   }
@@ -83,10 +90,16 @@ export class SkillComponent implements OnInit {
     this.functionalSkill.Skill = "Select";
     this.functionalSkill.Expertise = "Select";
     this.functionalSkill.LastWorkedOn = "Select";
-    this.functionalSkill.IsEdited = false;
+    this.functionalSkill.IsEdited = null;
   }
-  DeleteFunctionalSkill(index) {
+  DeleteFunctionalSkill(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.functionalSkills.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.FSDID, data.UPID, table).subscribe();
     this.functionalSkills.splice(index, 1);
+    }
   }
   EditFunctionalSkill(item) {
     item.IsEdited = true;

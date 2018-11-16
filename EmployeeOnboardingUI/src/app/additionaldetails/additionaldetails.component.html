@@ -1,169 +1,120 @@
 <div class="container">
   <div class="row h5css">
-    <h5>Additional Info</h5>
-  </div>
-  <form #adForm="ngForm">
+    <h5>File Upload</h5>
+
+  <div class="clear-fix"></div>
   <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Emergency Contact</label>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <label>Experience<span style="color: red">*</span></label>
+      </div>
+      <div class="col-md-1">:</div>
+      <div class="col-md-3">
+        <select class="form-control" [disabled]="submitted=='Submitted'" required [(ngModel)]="experience" name="empType" >
+          <option>Select</option>
+          <option>Fresher</option>
+          <option>Experienced</option>
+        </select>
+      </div>
     </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
-        #EmergencyContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
+
+
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <label>File <span style="color: red">*</span></label>
+      </div>
+      <div class="col-md-1">:</div>      <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="fileType" name="Category" required>
+            <option>Select</option>
+            <option *ngIf="experience=='Fresher' || experience=='Experienced'">SSC/Class 10 Certificate</option>
+            <option *ngIf="experience=='Fresher' || experience=='Experienced'">Intermediate Certificate</option>
+            <option *ngIf="experience=='Fresher' || experience=='Experienced'">Graduation Certificate</option>
+            <option *ngIf="experience=='Fresher' || experience=='Experienced'">Aadhaar Card</option>
+            <option *ngIf="experience=='Fresher' || experience=='Experienced'">PAN Card</option>
+            <option *ngIf="experience=='Experienced'">Resignation Letter</option>
+            <option *ngIf="experience=='Experienced'">Payslip</option>
+          </select>
+      </div>
     </div>
-    <div class="col-md-4">
-        <div *ngIf="EmergencyContact.errors && EmergencyContact.errors.pattern && (EmergencyContact.dirty||EmergencyContact.touched)" class="alert alert-danger">
-            Emergency Contact is Invalid
+
+    <div class="clear-fix"></div>
+    <div class="row labelText">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Description" [(ngModel)]="fileDesc">
+        </div>
+        <div class="col-md-3">
+          <input type="file" class="form-control" #fileinput (change)="Selectfile($event)" [multiple]="3" required>    
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" (click)="Uploadfile()">    
+              Upload
+              </button>
           </div>
-    </div>
-  </div>
+      </div>
+      
+
+      <div class="clear-fix"></div>
+      <div class="row container" style="margin-left: 5px;margin-top: 50px">
+        <div class="table" *ngIf="uploadedFiles.length>0">
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th>S No.</th>
+                <th>File Name</th>
+                <th>File Type</th>
+                <th>File Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of uploadedFiles;let i=index">
+                  <td>
+                      <div>
+                        {{i+1}}
+                      </div>
+                    </td>
+                <td>
+                  <div>
+                    {{item.FileName}}
+                  </div>
+                </td>
+                <td>
+                    <div>
+                      {{item.TypeOfFile}}
+                    </div>
+                  </td>
+                <td>
+                  <div *ngIf="item.IsEdited != true">
+                    {{item.FileDescription}}
+                  </div>
+               
+                <td class="actiontd" style="text-align: center">
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-sm rowbutton" data-title="Delete" (click)="DeleteFile(item, i,'Files')">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-sm rowbutton" data-title="Download" (click)="Downloadfile(item)">
+                      <span class="glyphicon glyphicon-download"></span>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+  <hr size="20">
   <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Personal Contact</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
-        #PersonalContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
-    </div>
-    <div class="col-md-4">
-        <div *ngIf="PersonalContact.errors && PersonalContact.errors.pattern && (PersonalContact.dirty||PersonalContact.touched)" class="alert alert-danger">
-            Personal Contact is Invalid
-          </div>
-    </div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Date of Marriage</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
-        #DateofMarriage="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Blood Group</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <select [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel" required>
-        <option>Select</option>
-        <option>A+</option>
-        <option>A-</option>
-        <option>B+</option>
-        <option>B-</option>
-        <option>O+</option>
-        <option>O-</option>
-        <option>AB+</option>
-        <option>AB-</option>
-      </select>
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Personal Email</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" 
-      [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail" 
-       #PersonalEmail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-    </div>
-    <div class="col-md-4">
-        <div *ngIf="PersonalEmail.errors && (PersonalEmail.dirty||PersonalEmail.touched)" class="alert alert-danger">
-            Email is required
-       </div>
-    </div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Passport Number</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
-        #PassportNumber="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Passport Valid Upto</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.PassportValidUpto name="PassportValidUpto"
-        #PassportValidUpto="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Permenant Account Number</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
-        #PermenantAccountNumber="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Bank Name</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Name" [(ngModel)]=additionalDetails.BankName name="BankName" #BankName="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <div class="row labelText">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-      <label>Bank Account Number</label>
-    </div>
-    <div class="col-md-1">:</div>
-    <div class="col-md-3">
-      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Account Number" [(ngModel)]=additionalDetails.BankAccountNumber name="BankAccountNumber"
-        #BankAccountNumber="ngModel">
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="clear-fix"></div>
-  <hr>
-  <div class=""></div>
   <div class="row">
-      <div class="col-md-8"></div>
-      <div class="col-md-2">
-        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../insurances']">Previous Step </button>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" [disabled]="submitted=='Submitted'|| !adForm.valid" (click)="SaveClick()" >Save </button>
-      </div>
+    <div class="col-md-7"></div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../insurances']">Previous</a>
     </div>
-  </form>
+    <div class="col-md-3">
+      <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../submission']">Next</a>
+    </div>
+  </div>
 </div>

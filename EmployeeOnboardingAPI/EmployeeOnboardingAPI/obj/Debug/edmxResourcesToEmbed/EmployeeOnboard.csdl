@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbonboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdditionalData">
+    <Key>
+      <PropertyRef Name="ADID" />
+    </Key>
+    <Property Name="ADID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="EmergencyContact" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="PersonalContact" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="DateofMarriage" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="BloodGroup" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="PersonalEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="PassportNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="PassportValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="PermenantAccountNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="BankIFSCCode" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="BankAccountNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__Additional__UPID__160F4887" FromRole="AdditionalData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="AdminData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CertificationData">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CertificationID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CertifiedBy" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IssuedDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__Certificat__UPID__60A75C0F" FromRole="CertificationData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="EmployerData">
+    <Key>
+      <PropertyRef Name="EDID" />
+    </Key>
+    <Property Name="EDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="EmployerName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Domain" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="JoiningDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ReleivingDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__EmployerDa__UPID__619B8048" FromRole="EmployerData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="FileData">
+    <Key>
+      <PropertyRef Name="FID" />
+    </Key>
+    <Property Name="FID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="TypeOfFile" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FileType" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FileDescription" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__FileData__UPID__44CA3770" FromRole="FileData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="FunctionalSkillData">
+    <Key>
+      <PropertyRef Name="FSDID" />
+    </Key>
+    <Property Name="FSDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Skill" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Expertise" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="LastWorkedOn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__Functional__UPID__628FA481" FromRole="FunctionalSkillData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="InsuranceData">
+    <Key>
+      <PropertyRef Name="IDID" />
+    </Key>
+    <Property Name="IDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="RelationshipType" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FatherName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FatherDOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MotherName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MotherDOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FatherInLawName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FatherInLawDOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MotherInLawName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MotherInLawDOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MaritalStatus" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="SpouseName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="SpouseDOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="SpouseGender" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child1Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child1DOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child1Gender" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child2Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child2DOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Child2Gender" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__InsuranceD__UPID__6383C8BA" FromRole="InsuranceData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="MembershipData">
+    <Key>
+      <PropertyRef Name="MDID" />
+    </Key>
+    <Property Name="MDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Association" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MembershipID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MembershipType" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="MembershipYear" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__Membership__UPID__6477ECF3" FromRole="MembershipData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="PersonalData">
+    <Key>
+      <PropertyRef Name="PDID" />
+    </Key>
+    <Property Name="PDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DOB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__PersonalDa__UPID__6FE99F9F" FromRole="PersonalData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="QualificationData">
+    <Key>
+      <PropertyRef Name="QDID" />
+    </Key>
+    <Property Name="QDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Qualification" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Institution" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="University" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="YearOfCompletion" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Percentage" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Grade" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEditable" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__Qualificat__UPID__66603565" FromRole="QualificationData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="TainingData">
+    <Key>
+      <PropertyRef Name="TDID" />
+    </Key>
+    <Property Name="TDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="EndDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="TotalHours" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="InstituteName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="TrainerName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__TainingDat__UPID__6754599E" FromRole="TainingData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="TechnicalSkillData">
+    <Key>
+      <PropertyRef Name="TSDID" />
+    </Key>
+    <Property Name="TSDID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Skill" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Version" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Expertise" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="LastWorkedOn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK__TechnicalS__UPID__68487DD7" FromRole="TechnicalSkillData" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="UserOfferDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="emailID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="createdDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="isSubmitted" Type="Boolean" />
+    <Property Name="isEditable" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UPID" />
+    </Key>
+    <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AdditionalDatas" Relationship="Self.FK__Additional__UPID__160F4887" FromRole="UserProfile" ToRole="AdditionalData" />
+    <NavigationProperty Name="CertificationDatas" Relationship="Self.FK__Certificat__UPID__60A75C0F" FromRole="UserProfile" ToRole="CertificationData" />
+    <NavigationProperty Name="EmployerDatas" Relationship="Self.FK__EmployerDa__UPID__619B8048" FromRole="UserProfile" ToRole="EmployerData" />
+    <NavigationProperty Name="FileDatas" Relationship="Self.FK__FileData__UPID__44CA3770" FromRole="UserProfile" ToRole="FileData" />
+    <NavigationProperty Name="FunctionalSkillDatas" Relationship="Self.FK__Functional__UPID__628FA481" FromRole="UserProfile" ToRole="FunctionalSkillData" />
+    <NavigationProperty Name="InsuranceDatas" Relationship="Self.FK__InsuranceD__UPID__6383C8BA" FromRole="UserProfile" ToRole="InsuranceData" />
+    <NavigationProperty Name="MembershipDatas" Relationship="Self.FK__Membership__UPID__6477ECF3" FromRole="UserProfile" ToRole="MembershipData" />
+    <NavigationProperty Name="PersonalDatas" Relationship="Self.FK__PersonalDa__UPID__6FE99F9F" FromRole="UserProfile" ToRole="PersonalData" />
+    <NavigationProperty Name="QualificationDatas" Relationship="Self.FK__Qualificat__UPID__66603565" FromRole="UserProfile" ToRole="QualificationData" />
+    <NavigationProperty Name="TainingDatas" Relationship="Self.FK__TainingDat__UPID__6754599E" FromRole="UserProfile" ToRole="TainingData" />
+    <NavigationProperty Name="TechnicalSkillDatas" Relationship="Self.FK__TechnicalS__UPID__68487DD7" FromRole="UserProfile" ToRole="TechnicalSkillData" />
+  </EntityType>
+  <Association Name="FK__Additional__UPID__160F4887">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="AdditionalData" Type="Self.AdditionalData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="AdditionalData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Certificat__UPID__60A75C0F">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="CertificationData" Type="Self.CertificationData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="CertificationData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployerDa__UPID__619B8048">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="EmployerData" Type="Self.EmployerData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="EmployerData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FileData__UPID__44CA3770">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="FileData" Type="Self.FileData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="FileData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Functional__UPID__628FA481">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="FunctionalSkillData" Type="Self.FunctionalSkillData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="FunctionalSkillData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InsuranceD__UPID__6383C8BA">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="InsuranceData" Type="Self.InsuranceData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="InsuranceData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Membership__UPID__6477ECF3">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="MembershipData" Type="Self.MembershipData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="MembershipData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PersonalDa__UPID__6FE99F9F">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="PersonalData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Qualificat__UPID__66603565">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="QualificationData" Type="Self.QualificationData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="QualificationData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TainingDat__UPID__6754599E">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="TainingData" Type="Self.TainingData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="TainingData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TechnicalS__UPID__68487DD7">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+    <End Role="TechnicalSkillData" Type="Self.TechnicalSkillData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UPID" />
+      </Principal>
+      <Dependent Role="TechnicalSkillData">
+        <PropertyRef Name="UPID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnboardEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdditionalDatas" EntityType="Self.AdditionalData" />
+    <EntitySet Name="AdminDatas" EntityType="Self.AdminData" />
+    <EntitySet Name="CertificationDatas" EntityType="Self.CertificationData" />
+    <EntitySet Name="EmployerDatas" EntityType="Self.EmployerData" />
+    <EntitySet Name="FileDatas" EntityType="Self.FileData" />
+    <EntitySet Name="FunctionalSkillDatas" EntityType="Self.FunctionalSkillData" />
+    <EntitySet Name="InsuranceDatas" EntityType="Self.InsuranceData" />
+    <EntitySet Name="MembershipDatas" EntityType="Self.MembershipData" />
+    <EntitySet Name="PersonalDatas" EntityType="Self.PersonalData" />
+    <EntitySet Name="QualificationDatas" EntityType="Self.QualificationData" />
+    <EntitySet Name="TainingDatas" EntityType="Self.TainingData" />
+    <EntitySet Name="TechnicalSkillDatas" EntityType="Self.TechnicalSkillData" />
+    <EntitySet Name="UserOfferDetails" EntityType="Self.UserOfferDetail" />
+    <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+    <AssociationSet Name="FK__Additional__UPID__160F4887" Association="Self.FK__Additional__UPID__160F4887">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="AdditionalData" EntitySet="AdditionalDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Certificat__UPID__60A75C0F" Association="Self.FK__Certificat__UPID__60A75C0F">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="CertificationData" EntitySet="CertificationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployerDa__UPID__619B8048" Association="Self.FK__EmployerDa__UPID__619B8048">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="EmployerData" EntitySet="EmployerDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FileData__UPID__44CA3770" Association="Self.FK__FileData__UPID__44CA3770">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="FileData" EntitySet="FileDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Functional__UPID__628FA481" Association="Self.FK__Functional__UPID__628FA481">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="FunctionalSkillData" EntitySet="FunctionalSkillDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InsuranceD__UPID__6383C8BA" Association="Self.FK__InsuranceD__UPID__6383C8BA">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="InsuranceData" EntitySet="InsuranceDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Membership__UPID__6477ECF3" Association="Self.FK__Membership__UPID__6477ECF3">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="MembershipData" EntitySet="MembershipDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PersonalDa__UPID__6FE99F9F" Association="Self.FK__PersonalDa__UPID__6FE99F9F">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="PersonalData" EntitySet="PersonalDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Qualificat__UPID__66603565" Association="Self.FK__Qualificat__UPID__66603565">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="QualificationData" EntitySet="QualificationDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TainingDat__UPID__6754599E" Association="Self.FK__TainingDat__UPID__6754599E">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="TainingData" EntitySet="TainingDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TechnicalS__UPID__68487DD7" Association="Self.FK__TechnicalS__UPID__68487DD7">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="TechnicalSkillData" EntitySet="TechnicalSkillDatas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

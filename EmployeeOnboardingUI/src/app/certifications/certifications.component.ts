@@ -4,6 +4,7 @@ import { UserProfile } from '../UserProfile';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/commonservice.service';
 import { OnboardingService } from '../services/onboarding.service';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-certifications',
@@ -45,8 +46,14 @@ export class CertificationsComponent implements OnInit {
     this.certification.IsEdited = false;
   }
 
-  DeleteCertification(index) {
+  DeleteCertification(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.certifications.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.CDID, data.UPID, table).subscribe();
     this.certifications.splice(index, 1);
+    }
   }
   EditCertification(item) {
     item.IsEdited = true;

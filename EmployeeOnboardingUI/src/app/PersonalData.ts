@@ -7,7 +7,8 @@ export class PersonalData
     LastName:string;
     Gender:string;
     MobileNumber:string;
-    Address:string;
+    CurrentAddress:string;
+    PermanentAddress:string;
     City:string;
     State:string;
     Country:string;

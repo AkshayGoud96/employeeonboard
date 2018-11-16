@@ -17,5 +17,6 @@ namespace EmployeeOnboardingAPI
         public MembershipData[] MemberShipData;
         public InsuranceData insuranceData;
         public AdditionalData additionalData;
+        public FileData fileData;
     }
 }

@@ -153,7 +153,7 @@
               <button  [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEditable" data-title="Edit" (click)="SaveEditQualification(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton"  data-title="Delete" (click)="DeleteQualification(i)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton"  data-title="Delete" (click)="DeleteQualification(item, i, 'Qualifications')">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>

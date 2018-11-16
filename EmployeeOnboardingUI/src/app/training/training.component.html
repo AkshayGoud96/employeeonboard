@@ -59,14 +59,6 @@
           Institute Name is required
      </div>
         </div>
-        <div class="col-md-2 form-group">
-            <label>Trainer Name<span style="color: red">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="training.TrainerName" name="TrainerName"
-             #TrainerName="ngModel" placeholder="TrainerName" required>
-       <div *ngIf="TrainerName.errors && TrainerName.errors.required && (TrainerName.dirty||TrainerName.touched)" class="alert alert-danger">
-          Trainer Name is required
-     </div>
-          </div>
         <div class="clear-fix"></div>
       </div>
       <div class="clear-fix"></div>
@@ -92,7 +84,6 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Total Hours</th>
-                <th>Trainer Name</th>
                 <th>Institute Name</th>
                 <th>Action</th>
               </tr>
@@ -128,7 +119,7 @@
                     <input type="text" [(ngModel)]="item.EndDate" class="form-control">
                   </div>
                   <div *ngIf="item.IsEdited != true">
-                    {{item.EndDatet}}
+                    {{item.EndDate}}
                   </div>
                 </td>
                 <td>
@@ -137,14 +128,6 @@
                   </div>
                   <div *ngIf="item.IsEdited != true">
                     {{item.TotalHours}}
-                  </div>
-                </td>
-                <td>
-                  <div *ngIf="item.IsEdited">
-                    <input type="text" [(ngModel)]="item.TrainerName" class="form-control">
-                  </div>
-                  <div *ngIf="item.IsEdited != true">
-                    {{item.TrainerName}}
                   </div>
                 </td>
                 <td>
@@ -162,7 +145,7 @@
                   <button [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditTraining(item)">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
                   </button>
-                  <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteTraining(i)">
+                  <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteTraining(item, i, 'Trainings')">
                     <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </td>

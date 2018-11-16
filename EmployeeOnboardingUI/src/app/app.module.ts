@@ -23,11 +23,16 @@ import { MembershipsComponent } from './memberships/memberships.component';
 import { AdditionaldetailsComponent } from './additionaldetails/additionaldetails.component';
 import { SubmissionComponent } from './submission/submission.component';
 import { CommonService } from 'src/app/services/commonservice.service';
+import { EqualValidator } from './equal-validator.directive';
+import { AdminComponent } from './admin/admin.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { componentFactoryName } from '@angular/compiler';
 
 const routes:Routes=[
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   {path:'Home',component:HomeComponent},
   {path:'Guidelines',component:GuidelinesComponent},
+  {path:'Home/Admin', component:AdminComponent},
   {path:'Home/CreateProfile',component:CreateProfileComponent,
   children: [
     {path: '', redirectTo: 'personnel',pathMatch:'full'}, 
@@ -63,15 +68,18 @@ const routes:Routes=[
     InsuranceComponent,
     MembershipsComponent,
     AdditionaldetailsComponent,
-    SubmissionComponent
+    SubmissionComponent,
+    EqualValidator,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    NgbModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true}),
   ],
   providers: [OnboardingService,CommonService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

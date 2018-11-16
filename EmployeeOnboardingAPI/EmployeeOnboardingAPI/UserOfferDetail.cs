@@ -19,5 +19,6 @@ namespace EmployeeOnboardingAPI
         public string emailID { get; set; }
         public string createdDate { get; set; }
         public Nullable<bool> isSubmitted { get; set; }
+        public Nullable<bool> isEditable { get; set; }
     }
 }

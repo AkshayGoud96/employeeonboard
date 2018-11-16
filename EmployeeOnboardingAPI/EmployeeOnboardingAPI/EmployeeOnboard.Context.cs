@@ -13,10 +13,10 @@ namespace EmployeeOnboardingAPI
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmployeeOnboardEntities : DbContext
+    public partial class OnboardEntities : DbContext
     {
-        public EmployeeOnboardEntities()
-            : base("name=EmployeeOnboardEntities")
+        public OnboardEntities()
+            : base("name=OnboardEntities")
         {
         }
     
@@ -26,8 +26,10 @@ namespace EmployeeOnboardingAPI
         }
     
         public virtual DbSet<AdditionalData> AdditionalDatas { get; set; }
+        public virtual DbSet<AdminData> AdminDatas { get; set; }
         public virtual DbSet<CertificationData> CertificationDatas { get; set; }
         public virtual DbSet<EmployerData> EmployerDatas { get; set; }
+        public virtual DbSet<FileData> FileDatas { get; set; }
         public virtual DbSet<FunctionalSkillData> FunctionalSkillDatas { get; set; }
         public virtual DbSet<InsuranceData> InsuranceDatas { get; set; }
         public virtual DbSet<MembershipData> MembershipDatas { get; set; }

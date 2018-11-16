@@ -122,7 +122,7 @@
                 <button  [disabled]="submitted=='Submitted'" class="btn btn-success btn-xs rowbutton" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditMembership(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-                <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteMembership(i)">
+                <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteMembership(item, i, 'Memberships')">
                   <span class="glyphicon glyphicon-trash"></span>
                 </button>
               </td>

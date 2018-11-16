@@ -48,8 +48,14 @@ export class QualificationComponent implements OnInit {
     this.model.IsEditable = false;
   }
 
-  DeleteQualification(index) {
+  DeleteQualification(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.qualifications.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.QDID, data.UPID, table).subscribe();
     this.qualifications.splice(index, 1);
+    }
   }
   EditQualification(item) {
     item.IsEditable = true;

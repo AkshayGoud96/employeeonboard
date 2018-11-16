@@ -1,7 +1,7 @@
 <div class="container">
   <form #personal="ngForm">
   <div class="row personnelcss">
-    <h5>Personnel Info</h5>
+    <h5>Personal Info</h5>
   </div>
   <div class="row labelText">
     <div class="col-md-2"></div>
@@ -23,21 +23,16 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Middle Name <span style="color: red">*</span></label>
+      <label>Middle Name </label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <input type="text" [disabled]="submitted=='Submitted'" class="form-control" 
       placeholder="Middle Name" [(ngModel)]=personalData.MiddleName name="MiddleName" 
-      #MiddleName="ngModel" required>
+      #MiddleName="ngModel" >
       
     </div>
-    <div class="col-md-4">
-        <div *ngIf="MiddleName.errors && MiddleName.errors.required && (MiddleName.dirty||MiddleName.touched)" class="alert alert-danger">
-            Middle Name is required
-       </div>
-       
-    </div>
+    
   </div>
   <div class="clear-fix"></div>
   <div class="row labelText">
@@ -103,20 +98,43 @@
   <div class="row labelText">
     <div class="col-md-2"></div>
     <div class="col-md-2">
-      <label>Address <span style="color: red">*</span></label>
+      <label>Current  Address <span style="color: red">*</span></label>
     </div>
     <div class="col-md-1">:</div>
     <div class="col-md-3">
       <textarea class="form-control" [disabled]="submitted=='Submitted'" rows="3"
-       [(ngModel)]=personalData.Address name="Address" #Address="ngModel" required></textarea>
+       [(ngModel)]=personalData.CurrentAddress name="CurrentAddress" #CurrentAddress="ngModel" required></textarea>
 
     </div>
     <div class="col-md-4">
-        <div *ngIf="Address.errors && Address.errors.required && (Address.dirty||Address.touched)" class="alert alert-danger">
-            Address is required
+        <div *ngIf="CurrentAddress.errors && CurrentAddress.errors.required && (CurrentAddress.dirty||CurrentAddress.touched)" class="alert alert-danger">
+            Current Address is required
        </div>
     </div>
   </div>
+
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Permanent Address <span style="color: red">*</span></label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <textarea class="form-control" [disabled]="submitted=='Submitted'" rows="3"
+       [(ngModel)]=personalData.PermanentAddress name="PermanentAddress" #PermanentAddress="ngModel" required></textarea>
+
+    </div>
+    <div class="col-md-4">
+        <div *ngIf="PermanentAddress.errors && PermanentAddress.errors.required && (PermanentAddress.dirty||PermanentAddress.touched)" class="alert alert-danger">
+            Permanent Address is required
+       </div>
+    </div>
+    <div class="col-md-4">
+        <input type="checkbox" [disabled]="submitted=='Submitted'" #addresscheck (change)="sameAddress($event)"> <label>Same as Current Address</label>
+      </div>
+  </div>
+
   <div class="clear-fix"></div>
   <div class="row labelText">
     <div class="col-md-2"></div>
@@ -190,6 +208,181 @@
        </div>
     </div>
   </div>
+<hr>
+  <div class="row h5css">
+    <h5>Additional Info</h5>
+  </div>
+    <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Personal Contact</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.PersonalContact name="PersonalContact"
+        #PersonalContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
+    </div>
+    <div class="col-md-4">
+        <div *ngIf="PersonalContact.errors && PersonalContact.errors.pattern && (PersonalContact.dirty||PersonalContact.touched)" class="alert alert-danger">
+            Personal Contact is Invalid
+          </div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <label>Alternate Contact</label>
+      </div>
+      <div class="col-md-1">:</div>
+      <div class="col-md-3">
+        <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Mobile Number" [(ngModel)]=additionalDetails.EmergencyContact name="EmergencyContact"
+          #EmergencyContact="ngModel" pattern="^((\\+91-?)|0)?[0-9]{10}$">
+      </div>
+      <div class="col-md-4">
+          <div *ngIf="EmergencyContact.errors && EmergencyContact.errors.pattern && (EmergencyContact.dirty||EmergencyContact.touched)" class="alert alert-danger">
+              Alternate Contact is Invalid
+            </div>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+  <!-- <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Date of Marriage</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.DateofMarriage name="DateofMarriage"
+        #DateofMarriage="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="clear-fix"></div> -->
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Blood Group</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <select [disabled]="submitted=='Submitted'" class="form-control" [(ngModel)]=additionalDetails.BloodGroup name="BloodGroup" #BloodGroup="ngModel" required>
+        <option>Select</option>
+        <option>A+</option>
+        <option>A-</option>
+        <option>B+</option>
+        <option>B-</option>
+        <option>O+</option>
+        <option>O-</option>
+        <option>AB+</option>
+        <option>AB-</option>
+      </select>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Personal Email</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="email" class="form-control" placeholder="Email" 
+      [(ngModel)]=additionalDetails.PersonalEmail name="PersonalEmail" 
+       #PersonalEmail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+    </div>
+    <div class="col-md-4">
+        <div *ngIf="PersonalEmail.errors && (PersonalEmail.dirty||PersonalEmail.touched)" class="alert alert-danger">
+            Email is required
+       </div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Passport Number</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Passport" [(ngModel)]=additionalDetails.PassportNumber name="PassportNumber"
+        #PassportNumber="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Passport Valid Upto</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="date" class="form-control" placeholder="Date" [(ngModel)]=additionalDetails.PassportValidUpto name="PassportValidUpto"
+        #PassportValidUpto="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>PAN<span style="color:red">*</span></label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="PAN" [(ngModel)]=additionalDetails.PermenantAccountNumber name="PermenantAccountNumber"
+        #PermenantAccountNumber="ngModel" required>
+    </div>
+    <div class="col-md-2">
+      <div *ngIf="PermenantAccountNumber.errors && (PermenantAccountNumber.dirty||PermenantAccountNumber.touched)" class="alert alert-danger">
+        PAN is required
+   </div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Bank Name</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="Name" [(ngModel)]=additionalDetails.BankName name="BankName" #BankName="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Bank IFSC Code</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="text" class="form-control" placeholder="IFSC Code" [(ngModel)]=additionalDetails.BankIFSCCode name="BankIFSCCode"
+        #BankIFSCCode="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="clear-fix"></div>
+  <div class="row labelText">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <label>Bank Account Number</label>
+    </div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-3">
+      <input [disabled]="submitted=='Submitted'" type="number" class="form-control" placeholder="Account Number" [(ngModel)]=additionalDetails.BankAccountNumber name="BankAccountNumber"
+        #BankAccountNumber="ngModel">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+</form>
   <div class="clear-fix"></div>
   <div class="row">
     <div class="col-md-7"></div>
@@ -197,8 +390,8 @@
         <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [disabled]="submitted=='Submitted'||!personal.valid" >Update</button>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../qualifications']">Next</button>
+      <button class="btn btn-primary" style="padding:6px 45px;font-size:14px" [disabled]="!personal.valid" [routerLink]="['../qualifications']" (click)="NextClick($event)">Next</button>
     </div>
   </div>
-</form>
 </div>
+

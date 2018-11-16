@@ -39,11 +39,11 @@
        </div>
     </div>
       <div class="col-md-2 form-group">
-        <label>Releiving Date<span style="color: red">*</span></label>
+        <label>Relieving Date<span style="color: red">*</span></label>
         <input type="date" class="form-control" [(ngModel)]="employer.ReleivingDate" name="ReleivingDate" 
         #ReleivingDate="ngModel" placeholder="Date" required>     
         <div *ngIf="ReleivingDate.errors && ReleivingDate.errors.required && (ReleivingDate.dirty||ReleivingDate.touched)" class="alert alert-danger">
-            Releiving Date is required
+            Relieving Date is required
        </div>
      </div>
       <div class="clear-fix"></div>
@@ -70,7 +70,7 @@
               <th>Designation</th>
               <th>Domain</th>
               <th>Joining Date</th>
-              <th>Releiving Date</th>
+              <th>Relieving Date</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -123,7 +123,7 @@
                 <button class="btn btn-success btn-xs rowbutton" [disabled]="submitted=='Submitted'" *ngIf="item.IsEdited" data-title="Edit" (click)="SaveEditEmployer(item)">
                   <span class="glyphicon glyphicon-floppy-saved"></span>
                 </button>
-                <button class="btn btn-danger btn-xs rowbutton" [disabled]="submitted=='Submitted'" data-title="Delete" (click)="DeleteEmployer(i)">
+                <button class="btn btn-danger btn-xs rowbutton" [disabled]="submitted=='Submitted'" data-title="Delete" (click)="DeleteEmployer(item, i, 'Employers')">
                   <span class="glyphicon glyphicon-trash"></span>
                 </button>
               </td>
@@ -141,7 +141,7 @@
         <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="PreviousClick()" [routerLink]="['../certifications']">Previous</a>
       </div>
       <div class="col-md-3">
-        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px" (click)="NextClick()" [routerLink]="['../memberships']">Next</a>
+        <a class="btn btn-primary" style="padding:6px 45px;font-size:14px"  (click)="NextClick()" [routerLink]="['../memberships']">Next</a>
       </div>
     </div>
 </div>

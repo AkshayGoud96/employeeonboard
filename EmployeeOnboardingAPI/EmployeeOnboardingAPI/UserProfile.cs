@@ -20,6 +20,7 @@ namespace EmployeeOnboardingAPI
             this.AdditionalDatas = new HashSet<AdditionalData>();
             this.CertificationDatas = new HashSet<CertificationData>();
             this.EmployerDatas = new HashSet<EmployerData>();
+            this.FileDatas = new HashSet<FileData>();
             this.FunctionalSkillDatas = new HashSet<FunctionalSkillData>();
             this.InsuranceDatas = new HashSet<InsuranceData>();
             this.MembershipDatas = new HashSet<MembershipData>();
@@ -38,6 +39,8 @@ namespace EmployeeOnboardingAPI
         public virtual ICollection<CertificationData> CertificationDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployerData> EmployerDatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileData> FileDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FunctionalSkillData> FunctionalSkillDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

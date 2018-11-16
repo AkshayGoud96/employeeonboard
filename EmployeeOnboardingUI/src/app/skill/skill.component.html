@@ -173,7 +173,7 @@
                 (click)="SaveEditSkill(item)">
                 <span class="glyphicon glyphicon-floppy-saved"></span>
               </button>
-              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteSkill(i)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteSkill(item, index, 'TechincalSkills')">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>
@@ -189,7 +189,7 @@
   <!-- ------------------------------- -->
 
   <div class="row h5css">
-    <h5>Functional Skills Info</h5>
+    <h5>Domain Details </h5>
   </div>
   <div class="clear-fix"></div>
   <form #fskillFrom="ngForm" novalidate>
@@ -323,7 +323,7 @@
                 (click)="SaveEditFunctionalSkill(item)">
                 <span class="glyphicon glyphicon-floppy-saved"></span>
               </button>
-              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteFunctionalSkill(i)">
+              <button [disabled]="submitted=='Submitted'" class="btn btn-danger btn-xs rowbutton" data-title="Delete" (click)="DeleteFunctionalSkill(item, i, 'FunctionalSkills')">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>

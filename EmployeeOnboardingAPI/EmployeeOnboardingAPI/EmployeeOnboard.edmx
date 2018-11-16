@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EmployeeOnboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbonboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AdditionalData">
           <Key>
             <PropertyRef Name="ADID" />
@@ -20,7 +20,16 @@
           <Property Name="PassportValidUpto" Type="nvarchar" MaxLength="80" />
           <Property Name="PermenantAccountNumber" Type="nvarchar" MaxLength="80" />
           <Property Name="BankName" Type="nvarchar" MaxLength="80" />
+          <Property Name="BankIFSCCode" Type="nvarchar" MaxLength="80" />
           <Property Name="BankAccountNumber" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="AdminData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="email" Type="nchar" MaxLength="30" />
+          <Property Name="password" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="CertificationData">
           <Key>
@@ -48,6 +57,18 @@
           <Property Name="JoiningDate" Type="nvarchar" MaxLength="80" />
           <Property Name="ReleivingDate" Type="nvarchar" MaxLength="80" />
           <Property Name="IsEdited" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="FileData">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="UPID" Type="nvarchar" MaxLength="80" />
+          <Property Name="File" Type="varbinary(max)" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="80" />
+          <Property Name="TypeOfFile" Type="nvarchar" MaxLength="80" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="80" />
+          <Property Name="FileDescription" Type="nvarchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="FunctionalSkillData">
           <Key>
@@ -111,7 +132,8 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Gender" Type="nvarchar" MaxLength="50" />
           <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrentAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
@@ -169,6 +191,7 @@
           <Property Name="emailID" Type="nvarchar" MaxLength="80" />
           <Property Name="createdDate" Type="nvarchar" MaxLength="80" />
           <Property Name="isSubmitted" Type="bit" />
+          <Property Name="isEditable" Type="bit" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -177,7 +200,7 @@
           <Property Name="UPID" Type="nvarchar" MaxLength="80" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="80" />
         </EntityType>
-        <Association Name="FK__Additional__UPID__7D439ABD">
+        <Association Name="FK__Additional__UPID__160F4887">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="AdditionalData" Type="Self.AdditionalData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -189,7 +212,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Certificat__UPID__71D1E811">
+        <Association Name="FK__Certificat__UPID__60A75C0F">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="CertificationData" Type="Self.CertificationData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -201,7 +224,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployerDa__UPID__74AE54BC">
+        <Association Name="FK__EmployerDa__UPID__619B8048">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="EmployerData" Type="Self.EmployerData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -213,7 +236,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Functional__UPID__6C190EBB">
+        <Association Name="FK__FileData__UPID__44CA3770">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="FileData" Type="Self.FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UPID" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="UPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Functional__UPID__628FA481">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="FunctionalSkillData" Type="Self.FunctionalSkillData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -225,7 +260,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__InsuranceD__UPID__7A672E12">
+        <Association Name="FK__InsuranceD__UPID__6383C8BA">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="InsuranceData" Type="Self.InsuranceData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -237,7 +272,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Membership__UPID__778AC167">
+        <Association Name="FK__Membership__UPID__6477ECF3">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="MembershipData" Type="Self.MembershipData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -249,7 +284,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonalDa__UPID__6383C8BA">
+        <Association Name="FK__PersonalDa__UPID__6FE99F9F">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -273,7 +308,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TainingDat__UPID__6EF57B66">
+        <Association Name="FK__TainingDat__UPID__6754599E">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="TainingData" Type="Self.TainingData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -285,7 +320,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TechnicalS__UPID__693CA210">
+        <Association Name="FK__TechnicalS__UPID__68487DD7">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="TechnicalSkillData" Type="Self.TechnicalSkillData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -297,10 +332,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EmployeeOnboardModelStoreContainer">
+        <EntityContainer Name="dbonboardModelStoreContainer">
           <EntitySet Name="AdditionalData" EntityType="Self.AdditionalData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminData" EntityType="Self.AdminData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CertificationData" EntityType="Self.CertificationData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployerData" EntityType="Self.EmployerData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileData" EntityType="Self.FileData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FunctionalSkillData" EntityType="Self.FunctionalSkillData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InsuranceData" EntityType="Self.InsuranceData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MembershipData" EntityType="Self.MembershipData" Schema="dbo" store:Type="Tables" />
@@ -310,31 +347,35 @@
           <EntitySet Name="TechnicalSkillData" EntityType="Self.TechnicalSkillData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserOfferDetails" EntityType="Self.UserOfferDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Additional__UPID__7D439ABD" Association="Self.FK__Additional__UPID__7D439ABD">
+          <AssociationSet Name="FK__Additional__UPID__160F4887" Association="Self.FK__Additional__UPID__160F4887">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="AdditionalData" EntitySet="AdditionalData" />
           </AssociationSet>
-          <AssociationSet Name="FK__Certificat__UPID__71D1E811" Association="Self.FK__Certificat__UPID__71D1E811">
+          <AssociationSet Name="FK__Certificat__UPID__60A75C0F" Association="Self.FK__Certificat__UPID__60A75C0F">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="CertificationData" EntitySet="CertificationData" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployerDa__UPID__74AE54BC" Association="Self.FK__EmployerDa__UPID__74AE54BC">
+          <AssociationSet Name="FK__EmployerDa__UPID__619B8048" Association="Self.FK__EmployerDa__UPID__619B8048">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="EmployerData" EntitySet="EmployerData" />
           </AssociationSet>
-          <AssociationSet Name="FK__Functional__UPID__6C190EBB" Association="Self.FK__Functional__UPID__6C190EBB">
+          <AssociationSet Name="FK__FileData__UPID__44CA3770" Association="Self.FK__FileData__UPID__44CA3770">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="FileData" EntitySet="FileData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Functional__UPID__628FA481" Association="Self.FK__Functional__UPID__628FA481">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="FunctionalSkillData" EntitySet="FunctionalSkillData" />
           </AssociationSet>
-          <AssociationSet Name="FK__InsuranceD__UPID__7A672E12" Association="Self.FK__InsuranceD__UPID__7A672E12">
+          <AssociationSet Name="FK__InsuranceD__UPID__6383C8BA" Association="Self.FK__InsuranceD__UPID__6383C8BA">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="InsuranceData" EntitySet="InsuranceData" />
           </AssociationSet>
-          <AssociationSet Name="FK__Membership__UPID__778AC167" Association="Self.FK__Membership__UPID__778AC167">
+          <AssociationSet Name="FK__Membership__UPID__6477ECF3" Association="Self.FK__Membership__UPID__6477ECF3">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="MembershipData" EntitySet="MembershipData" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonalDa__UPID__6383C8BA" Association="Self.FK__PersonalDa__UPID__6383C8BA">
+          <AssociationSet Name="FK__PersonalDa__UPID__6FE99F9F" Association="Self.FK__PersonalDa__UPID__6FE99F9F">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="PersonalData" EntitySet="PersonalData" />
           </AssociationSet>
@@ -342,19 +383,20 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="QualificationData" EntitySet="QualificationData" />
           </AssociationSet>
-          <AssociationSet Name="FK__TainingDat__UPID__6EF57B66" Association="Self.FK__TainingDat__UPID__6EF57B66">
+          <AssociationSet Name="FK__TainingDat__UPID__6754599E" Association="Self.FK__TainingDat__UPID__6754599E">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="TainingData" EntitySet="TainingData" />
           </AssociationSet>
-          <AssociationSet Name="FK__TechnicalS__UPID__693CA210" Association="Self.FK__TechnicalS__UPID__693CA210">
+          <AssociationSet Name="FK__TechnicalS__UPID__68487DD7" Association="Self.FK__TechnicalS__UPID__68487DD7">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="TechnicalSkillData" EntitySet="TechnicalSkillData" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="EmployeeOnboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="dbonboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AdditionalData">
           <Key>
             <PropertyRef Name="ADID" />
@@ -370,8 +412,17 @@
           <Property Name="PassportValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="PermenantAccountNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="BankName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="BankIFSCCode" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="BankAccountNumber" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Additional__UPID__7D439ABD" FromRole="AdditionalData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Additional__UPID__160F4887" FromRole="AdditionalData" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="AdminData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="CertificationData">
           <Key>
@@ -386,7 +437,7 @@
           <Property Name="IssuedDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="ValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Certificat__UPID__71D1E811" FromRole="CertificationData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Certificat__UPID__60A75C0F" FromRole="CertificationData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="EmployerData">
           <Key>
@@ -400,7 +451,20 @@
           <Property Name="JoiningDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="ReleivingDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__EmployerDa__UPID__74AE54BC" FromRole="EmployerData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__EmployerDa__UPID__619B8048" FromRole="EmployerData" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="FileData">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfFile" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="FileDescription" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__FileData__UPID__44CA3770" FromRole="FileData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="FunctionalSkillData">
           <Key>
@@ -413,7 +477,7 @@
           <Property Name="LastWorkedOn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Experience" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Functional__UPID__6C190EBB" FromRole="FunctionalSkillData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Functional__UPID__628FA481" FromRole="FunctionalSkillData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="InsuranceData">
           <Key>
@@ -440,7 +504,7 @@
           <Property Name="Child2Name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Child2DOB" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Child2Gender" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__InsuranceD__UPID__7A672E12" FromRole="InsuranceData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__InsuranceD__UPID__6383C8BA" FromRole="InsuranceData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="MembershipData">
           <Key>
@@ -454,7 +518,7 @@
           <Property Name="MembershipYear" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="ValidUpto" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Membership__UPID__778AC167" FromRole="MembershipData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Membership__UPID__6477ECF3" FromRole="MembershipData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="PersonalData">
           <Key>
@@ -467,12 +531,13 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DOB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__PersonalDa__UPID__6383C8BA" FromRole="PersonalData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__PersonalDa__UPID__6FE99F9F" FromRole="PersonalData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="QualificationData">
           <Key>
@@ -503,7 +568,7 @@
           <Property Name="InstituteName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="TrainerName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__TainingDat__UPID__6EF57B66" FromRole="TainingData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__TainingDat__UPID__6754599E" FromRole="TainingData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="TechnicalSkillData">
           <Key>
@@ -518,7 +583,7 @@
           <Property Name="LastWorkedOn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="Experience" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="IsEdited" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK__TechnicalS__UPID__693CA210" FromRole="TechnicalSkillData" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__TechnicalS__UPID__68487DD7" FromRole="TechnicalSkillData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="UserOfferDetail">
           <Key>
@@ -529,6 +594,7 @@
           <Property Name="emailID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="createdDate" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="isSubmitted" Type="Boolean" />
+          <Property Name="isEditable" Type="Boolean" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -536,18 +602,19 @@
           </Key>
           <Property Name="UPID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AdditionalDatas" Relationship="Self.FK__Additional__UPID__7D439ABD" FromRole="UserProfile" ToRole="AdditionalData" />
-          <NavigationProperty Name="CertificationDatas" Relationship="Self.FK__Certificat__UPID__71D1E811" FromRole="UserProfile" ToRole="CertificationData" />
-          <NavigationProperty Name="EmployerDatas" Relationship="Self.FK__EmployerDa__UPID__74AE54BC" FromRole="UserProfile" ToRole="EmployerData" />
-          <NavigationProperty Name="FunctionalSkillDatas" Relationship="Self.FK__Functional__UPID__6C190EBB" FromRole="UserProfile" ToRole="FunctionalSkillData" />
-          <NavigationProperty Name="InsuranceDatas" Relationship="Self.FK__InsuranceD__UPID__7A672E12" FromRole="UserProfile" ToRole="InsuranceData" />
-          <NavigationProperty Name="MembershipDatas" Relationship="Self.FK__Membership__UPID__778AC167" FromRole="UserProfile" ToRole="MembershipData" />
-          <NavigationProperty Name="PersonalDatas" Relationship="Self.FK__PersonalDa__UPID__6383C8BA" FromRole="UserProfile" ToRole="PersonalData" />
+          <NavigationProperty Name="AdditionalDatas" Relationship="Self.FK__Additional__UPID__160F4887" FromRole="UserProfile" ToRole="AdditionalData" />
+          <NavigationProperty Name="CertificationDatas" Relationship="Self.FK__Certificat__UPID__60A75C0F" FromRole="UserProfile" ToRole="CertificationData" />
+          <NavigationProperty Name="EmployerDatas" Relationship="Self.FK__EmployerDa__UPID__619B8048" FromRole="UserProfile" ToRole="EmployerData" />
+          <NavigationProperty Name="FileDatas" Relationship="Self.FK__FileData__UPID__44CA3770" FromRole="UserProfile" ToRole="FileData" />
+          <NavigationProperty Name="FunctionalSkillDatas" Relationship="Self.FK__Functional__UPID__628FA481" FromRole="UserProfile" ToRole="FunctionalSkillData" />
+          <NavigationProperty Name="InsuranceDatas" Relationship="Self.FK__InsuranceD__UPID__6383C8BA" FromRole="UserProfile" ToRole="InsuranceData" />
+          <NavigationProperty Name="MembershipDatas" Relationship="Self.FK__Membership__UPID__6477ECF3" FromRole="UserProfile" ToRole="MembershipData" />
+          <NavigationProperty Name="PersonalDatas" Relationship="Self.FK__PersonalDa__UPID__6FE99F9F" FromRole="UserProfile" ToRole="PersonalData" />
           <NavigationProperty Name="QualificationDatas" Relationship="Self.FK__Qualificat__UPID__66603565" FromRole="UserProfile" ToRole="QualificationData" />
-          <NavigationProperty Name="TainingDatas" Relationship="Self.FK__TainingDat__UPID__6EF57B66" FromRole="UserProfile" ToRole="TainingData" />
-          <NavigationProperty Name="TechnicalSkillDatas" Relationship="Self.FK__TechnicalS__UPID__693CA210" FromRole="UserProfile" ToRole="TechnicalSkillData" />
+          <NavigationProperty Name="TainingDatas" Relationship="Self.FK__TainingDat__UPID__6754599E" FromRole="UserProfile" ToRole="TainingData" />
+          <NavigationProperty Name="TechnicalSkillDatas" Relationship="Self.FK__TechnicalS__UPID__68487DD7" FromRole="UserProfile" ToRole="TechnicalSkillData" />
         </EntityType>
-        <Association Name="FK__Additional__UPID__7D439ABD">
+        <Association Name="FK__Additional__UPID__160F4887">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="AdditionalData" Type="Self.AdditionalData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -559,7 +626,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Certificat__UPID__71D1E811">
+        <Association Name="FK__Certificat__UPID__60A75C0F">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="CertificationData" Type="Self.CertificationData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -571,7 +638,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployerDa__UPID__74AE54BC">
+        <Association Name="FK__EmployerDa__UPID__619B8048">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="EmployerData" Type="Self.EmployerData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -583,7 +650,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Functional__UPID__6C190EBB">
+        <Association Name="FK__FileData__UPID__44CA3770">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="FileData" Type="Self.FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UPID" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="UPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Functional__UPID__628FA481">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="FunctionalSkillData" Type="Self.FunctionalSkillData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -595,7 +674,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__InsuranceD__UPID__7A672E12">
+        <Association Name="FK__InsuranceD__UPID__6383C8BA">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="InsuranceData" Type="Self.InsuranceData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -607,7 +686,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Membership__UPID__778AC167">
+        <Association Name="FK__Membership__UPID__6477ECF3">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="MembershipData" Type="Self.MembershipData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -619,7 +698,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonalDa__UPID__6383C8BA">
+        <Association Name="FK__PersonalDa__UPID__6FE99F9F">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -643,7 +722,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TainingDat__UPID__6EF57B66">
+        <Association Name="FK__TainingDat__UPID__6754599E">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="TainingData" Type="Self.TainingData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -655,7 +734,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TechnicalS__UPID__693CA210">
+        <Association Name="FK__TechnicalS__UPID__68487DD7">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="TechnicalSkillData" Type="Self.TechnicalSkillData" Multiplicity="*" />
           <ReferentialConstraint>
@@ -667,10 +746,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EmployeeOnboardEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OnboardEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdditionalDatas" EntityType="Self.AdditionalData" />
+          <EntitySet Name="AdminDatas" EntityType="Self.AdminData" />
           <EntitySet Name="CertificationDatas" EntityType="Self.CertificationData" />
           <EntitySet Name="EmployerDatas" EntityType="Self.EmployerData" />
+          <EntitySet Name="FileDatas" EntityType="Self.FileData" />
           <EntitySet Name="FunctionalSkillDatas" EntityType="Self.FunctionalSkillData" />
           <EntitySet Name="InsuranceDatas" EntityType="Self.InsuranceData" />
           <EntitySet Name="MembershipDatas" EntityType="Self.MembershipData" />
@@ -680,31 +761,35 @@
           <EntitySet Name="TechnicalSkillDatas" EntityType="Self.TechnicalSkillData" />
           <EntitySet Name="UserOfferDetails" EntityType="Self.UserOfferDetail" />
           <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
-          <AssociationSet Name="FK__Additional__UPID__7D439ABD" Association="Self.FK__Additional__UPID__7D439ABD">
+          <AssociationSet Name="FK__Additional__UPID__160F4887" Association="Self.FK__Additional__UPID__160F4887">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="AdditionalData" EntitySet="AdditionalDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Certificat__UPID__71D1E811" Association="Self.FK__Certificat__UPID__71D1E811">
+          <AssociationSet Name="FK__Certificat__UPID__60A75C0F" Association="Self.FK__Certificat__UPID__60A75C0F">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="CertificationData" EntitySet="CertificationDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployerDa__UPID__74AE54BC" Association="Self.FK__EmployerDa__UPID__74AE54BC">
+          <AssociationSet Name="FK__EmployerDa__UPID__619B8048" Association="Self.FK__EmployerDa__UPID__619B8048">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="EmployerData" EntitySet="EmployerDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Functional__UPID__6C190EBB" Association="Self.FK__Functional__UPID__6C190EBB">
+          <AssociationSet Name="FK__FileData__UPID__44CA3770" Association="Self.FK__FileData__UPID__44CA3770">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="FileData" EntitySet="FileDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Functional__UPID__628FA481" Association="Self.FK__Functional__UPID__628FA481">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="FunctionalSkillData" EntitySet="FunctionalSkillDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__InsuranceD__UPID__7A672E12" Association="Self.FK__InsuranceD__UPID__7A672E12">
+          <AssociationSet Name="FK__InsuranceD__UPID__6383C8BA" Association="Self.FK__InsuranceD__UPID__6383C8BA">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="InsuranceData" EntitySet="InsuranceDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Membership__UPID__778AC167" Association="Self.FK__Membership__UPID__778AC167">
+          <AssociationSet Name="FK__Membership__UPID__6477ECF3" Association="Self.FK__Membership__UPID__6477ECF3">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="MembershipData" EntitySet="MembershipDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonalDa__UPID__6383C8BA" Association="Self.FK__PersonalDa__UPID__6383C8BA">
+          <AssociationSet Name="FK__PersonalDa__UPID__6FE99F9F" Association="Self.FK__PersonalDa__UPID__6FE99F9F">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="PersonalData" EntitySet="PersonalDatas" />
           </AssociationSet>
@@ -712,11 +797,11 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="QualificationData" EntitySet="QualificationDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__TainingDat__UPID__6EF57B66" Association="Self.FK__TainingDat__UPID__6EF57B66">
+          <AssociationSet Name="FK__TainingDat__UPID__6754599E" Association="Self.FK__TainingDat__UPID__6754599E">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="TainingData" EntitySet="TainingDatas" />
           </AssociationSet>
-          <AssociationSet Name="FK__TechnicalS__UPID__693CA210" Association="Self.FK__TechnicalS__UPID__693CA210">
+          <AssociationSet Name="FK__TechnicalS__UPID__68487DD7" Association="Self.FK__TechnicalS__UPID__68487DD7">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="TechnicalSkillData" EntitySet="TechnicalSkillDatas" />
           </AssociationSet>
@@ -726,9 +811,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmployeeOnboardModelStoreContainer" CdmEntityContainer="EmployeeOnboardEntities">
+        <EntityContainerMapping StorageEntityContainer="dbonboardModelStoreContainer" CdmEntityContainer="OnboardEntities">
           <EntitySetMapping Name="AdditionalDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.AdditionalData">
+            <EntityTypeMapping TypeName="dbonboardModel.AdditionalData">
               <MappingFragment StoreEntitySet="AdditionalData">
                 <ScalarProperty Name="ADID" ColumnName="ADID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -741,12 +826,22 @@
                 <ScalarProperty Name="PassportValidUpto" ColumnName="PassportValidUpto" />
                 <ScalarProperty Name="PermenantAccountNumber" ColumnName="PermenantAccountNumber" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankIFSCCode" ColumnName="BankIFSCCode" />
                 <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AdminDatas">
+            <EntityTypeMapping TypeName="dbonboardModel.AdminData">
+              <MappingFragment StoreEntitySet="AdminData">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CertificationDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.CertificationData">
+            <EntityTypeMapping TypeName="dbonboardModel.CertificationData">
               <MappingFragment StoreEntitySet="CertificationData">
                 <ScalarProperty Name="CDID" ColumnName="CDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -761,7 +856,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployerDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.EmployerData">
+            <EntityTypeMapping TypeName="dbonboardModel.EmployerData">
               <MappingFragment StoreEntitySet="EmployerData">
                 <ScalarProperty Name="EDID" ColumnName="EDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -774,8 +869,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FileDatas">
+            <EntityTypeMapping TypeName="dbonboardModel.FileData">
+              <MappingFragment StoreEntitySet="FileData">
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="UPID" ColumnName="UPID" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="TypeOfFile" ColumnName="TypeOfFile" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FunctionalSkillDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.FunctionalSkillData">
+            <EntityTypeMapping TypeName="dbonboardModel.FunctionalSkillData">
               <MappingFragment StoreEntitySet="FunctionalSkillData">
                 <ScalarProperty Name="FSDID" ColumnName="FSDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -788,7 +896,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InsuranceDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.InsuranceData">
+            <EntityTypeMapping TypeName="dbonboardModel.InsuranceData">
               <MappingFragment StoreEntitySet="InsuranceData">
                 <ScalarProperty Name="IDID" ColumnName="IDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -815,7 +923,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MembershipDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.MembershipData">
+            <EntityTypeMapping TypeName="dbonboardModel.MembershipData">
               <MappingFragment StoreEntitySet="MembershipData">
                 <ScalarProperty Name="MDID" ColumnName="MDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -829,7 +937,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonalDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.PersonalData">
+            <EntityTypeMapping TypeName="dbonboardModel.PersonalData">
               <MappingFragment StoreEntitySet="PersonalData">
                 <ScalarProperty Name="PDID" ColumnName="PDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -838,7 +946,8 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CurrentAddress" ColumnName="CurrentAddress" />
+                <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
@@ -847,7 +956,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QualificationDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.QualificationData">
+            <EntityTypeMapping TypeName="dbonboardModel.QualificationData">
               <MappingFragment StoreEntitySet="QualificationData">
                 <ScalarProperty Name="QDID" ColumnName="QDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -862,7 +971,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TainingDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.TainingData">
+            <EntityTypeMapping TypeName="dbonboardModel.TainingData">
               <MappingFragment StoreEntitySet="TainingData">
                 <ScalarProperty Name="TDID" ColumnName="TDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -878,7 +987,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TechnicalSkillDatas">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.TechnicalSkillData">
+            <EntityTypeMapping TypeName="dbonboardModel.TechnicalSkillData">
               <MappingFragment StoreEntitySet="TechnicalSkillData">
                 <ScalarProperty Name="TSDID" ColumnName="TSDID" />
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
@@ -893,18 +1002,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserOfferDetails">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.UserOfferDetail">
+            <EntityTypeMapping TypeName="dbonboardModel.UserOfferDetail">
               <MappingFragment StoreEntitySet="UserOfferDetails">
-                <ScalarProperty Name="isSubmitted" ColumnName="isSubmitted" />
-                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="emailID" ColumnName="emailID" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="isSubmitted" ColumnName="isSubmitted" />
+                <ScalarProperty Name="isEditable" ColumnName="isEditable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
-            <EntityTypeMapping TypeName="EmployeeOnboardModel.UserProfile">
+            <EntityTypeMapping TypeName="dbonboardModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
                 <ScalarProperty Name="UPID" ColumnName="UPID" />
                 <ScalarProperty Name="email" ColumnName="email" />

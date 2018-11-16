@@ -2,6 +2,20 @@
   <div class="row h5css">
     <h5>Insurance Info</h5>
   </div>
+  <div class="row labelText">
+      <div class="col-md-1"></div>
+    <div class="col-md-2 form-group">
+      <label>Marital Status<span style="color: red">*</span></label>
+      <select class="form-control" [disabled]="submitted=='Submitted'" required [(ngModel)]="insurance.MaritalStatus" name="MaritalStatus" #MaritalStatus="ngModel" placeholder="Marital Status">
+          <option>Select</option>
+        <option>Single</option>
+        <option>Married</option>
+      </select>
+      <div *ngIf="insurance.MaritalStatus == 'Select' && (MaritalStatus.dirty||MaritalStatus.touched)" class="alert alert-danger">
+          Marital Status is required
+     </div>
+    </div>
+  </div>  
   <div class="clear-fix"></div>
   <form #insuranceForm="ngForm">
       <div class="row labelText">
@@ -11,8 +25,8 @@
       <select class="form-control" [disabled]="submitted=='Submitted'" [(ngModel)]="insurance.RelationshipType" 
       name="RelationshipType" #RelationshipType="ngModel" required>
         <option>Select</option>
-        <option>Parents</option>
-        <option>In-Laws</option>
+        <option >Parents</option>
+        <option *ngIf="insurance.MaritalStatus == 'Married'">In-Laws</option>
         <option>None</option>
       </select>
       <div *ngIf="insurance.RelationshipType == 'Select' && (RelationshipType.dirty||RelationshipType.touched)" class="alert alert-danger">
@@ -56,7 +70,7 @@
      </div>
     </div>
   </div>
-  <div class="row labelText" *ngIf="insurance.RelationshipType == 'In-Laws'">
+  <div class="row labelText" *ngIf="insurance.RelationshipType == 'In-Laws' && insurance.MaritalStatus == 'Married'">
       <div class="col-md-1"></div>
     <div class="col-md-2 form-group">
       <label>Father In-Law Name<span style="color: red">*</span></label>
@@ -88,20 +102,7 @@
      </div>
     </div>
   </div>
-  <div class="row labelText">
-      <div class="col-md-1"></div>
-    <div class="col-md-2 form-group">
-      <label>Marital Status<span style="color: red">*</span></label>
-      <select class="form-control" [disabled]="submitted=='Submitted'" required [(ngModel)]="insurance.MaritalStatus" name="MaritalStatus" #MaritalStatus="ngModel" placeholder="Marital Status">
-          <option>Select</option>
-        <option>Single</option>
-        <option>Married</option>
-      </select>
-      <div *ngIf="insurance.MaritalStatus == 'Select' && (MaritalStatus.dirty||MaritalStatus.touched)" class="alert alert-danger">
-          Marital Status is required
-     </div>
-    </div>
-  </div>  
+  
   <div class="clear-fix"></div>
   <div class="row labelText" *ngIf="insurance.MaritalStatus == 'Married'">
       <div class="col-md-1"></div>

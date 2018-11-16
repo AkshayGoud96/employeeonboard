@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bb9a9fca30354a85bf5665f24ca4da37" Name="Diagram1">
+        <EntityTypeShape EntityType="dbonboardModel.AdditionalData" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.AdminData" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.CertificationData" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.EmployerData" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.FileData" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.FunctionalSkillData" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.InsuranceData" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.MembershipData" Width="1.5" PointX="3" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.PersonalData" Width="1.5" PointX="3" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.QualificationData" Width="1.5" PointX="3" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.TainingData" Width="1.5" PointX="3" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.TechnicalSkillData" Width="1.5" PointX="3" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.UserOfferDetail" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbonboardModel.UserProfile" Width="1.5" PointX="0.75" PointY="22.625" IsExpanded="true" />
+        <AssociationConnector Association="dbonboardModel.FK__Additional__UPID__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__Certificat__UPID__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__EmployerDa__UPID__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__FileData__UPID__44CA3770" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__Functional__UPID__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__InsuranceD__UPID__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__Membership__UPID__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__PersonalDa__UPID__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__Qualificat__UPID__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__TainingDat__UPID__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbonboardModel.FK__TechnicalS__UPID__68487DD7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

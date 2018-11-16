@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { PersonalData } from '../PersonalData';
 import { QualificationData } from '../QualificationData';
+import { LTextNode } from '@angular/core/src/render3/interfaces/node';
 
 @Component({
   selector: 'app-create-profile',
@@ -14,7 +15,8 @@ import { QualificationData } from '../QualificationData';
 })
 export class CreateProfileComponent implements OnInit {
 
-  emailiD: string;
+  emailID: string;
+  confirmEmail: string;
   fullName: string;
   recordExists: boolean = false;
   verifyStatus: string = "Verify";
@@ -42,6 +44,7 @@ export class CreateProfileComponent implements OnInit {
     this.userProfile = new UserProfile();
     this.loading = false;
   }
+  
   Navigate(event) {
     var title = event.currentTarget.title;
     switch (title) {
@@ -69,7 +72,7 @@ export class CreateProfileComponent implements OnInit {
       case "Insurance":
         this.router.navigateByUrl('/Home/CreateProfile/insurances');
         break;
-      case "Additional Details":
+      case "Files Upload":
         this.router.navigateByUrl('/Home/CreateProfile/additional-details');
         break;
       case "Done":
@@ -81,13 +84,20 @@ export class CreateProfileComponent implements OnInit {
 
 
   }
+
+  isActive(path : string): boolean
+  {
+      return this.router.isActive(path, true);
+  }
+
   Verify(details) {
     this.loading = true;
     this.onboardingService.VerifyUser(details.email, details.name).subscribe(response => {
-      if (response == "Saved" || response == "Submitted") {
-        this.recordExists = true;
+      if (response == "NotSubmitted") {
+        this.recordExists=true;
         this.verifyStatus = "Success";
         sessionStorage.setItem("Email", details.email);
+        sessionStorage.setItem("Name", details.name);
         this.onboardingService.GetProfileData(details.email).subscribe(res => {
           if (res != null) {
             this.userProfile.PersonalData = res.PersonalDatas[0];
@@ -112,17 +122,28 @@ export class CreateProfileComponent implements OnInit {
           }
           this.appError = false;
           this.hasError = false;
-          if (response == "Submitted") {
-            sessionStorage.setItem("Submitted", "Submitted");
-          }
           if (response == "Saved") {
             sessionStorage.setItem("Submitted", "Saved");
           }
         },
           err => {
-            this.hasError = true;
+            // this.hasError = true;
             this.loading = false;
           });
+      }
+      else if(response == "Disabled"){
+        this.recordExists = false;
+        this.verifyStatus = "Failed";
+        this.loading = false;
+        this.appError = true;
+        this.errorMessage = "User is disabled from login";
+      }
+      else if(response == "Submitted"){
+        this.recordExists = false;
+        this.verifyStatus = "Failed";
+        this.loading = false;
+        this.appError = true;
+        this.errorMessage = "User has already submitted the data";
       }
       else {
         this.recordExists = false;
@@ -130,13 +151,14 @@ export class CreateProfileComponent implements OnInit {
         this.loading = false;
         this.appError = true;
         this.errorMessage = "No such user exists";
-        
       }
     },
       err => {
         this.hasError = true;
         this.loading = false;
       });
+
+
   }
 
 }

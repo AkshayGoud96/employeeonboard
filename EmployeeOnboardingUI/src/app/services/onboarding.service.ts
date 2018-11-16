@@ -15,7 +15,27 @@ export class OnboardingService {
     return this.httpClient.get(environment.api+'api/Onboarding/VerifyUser?email='+email+'&name='+name);
   }
 
-  SaveData(data):Observable<any>
+  VerifyAdmin(email, password):Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/VerifyAdmin?email='+email+'&password='+password);
+  }
+
+  LoginAccess(index):Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/LoginAccess?index='+index);
+  }
+
+  GetAllUserData():Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/GetAllUserData');
+  }
+
+  DeleteData(dataid, empid, table):Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/DeleteData?dataid='+dataid+'&empid='+empid+'&table='+table);
+  }
+
+  SaveData(data):Observable<any>  
   {
     return this.httpClient.post(environment.api+'api/Onboarding/SaveData',data);
   }
@@ -24,6 +44,34 @@ export class OnboardingService {
   {
     return this.httpClient.get(environment.api+'api/Onboarding/GetProfileData?emailId='+email);
   }
+
+  GetFiles(email):Observable<any>
+  {
+      return this.httpClient.get(environment.api+'api/Onboarding/GetFiles?email='+email)
+  }
+
+  GetFileName(fileid):Observable<any>
+  {
+      return this.httpClient.get(environment.api+'api/Onboarding/GetFileName?fileid='+fileid)
+  }
+
+  DownloadFile(data, empid):Observable<any>
+  {
+      return this.httpClient.get(environment.api+'api/Onboarding/DownloadFile?data='+data+'&empid='+empid, {responseType: 'arraybuffer'})
+  }
+
+  CreateUserProfile(email, name):Observable<any>
+  {
+    return this.httpClient.get(environment.api+'api/Onboarding/CreateUserProfile?email='+email+'&name='+name);
+  }
+
+  UploadFile(data):Observable<any>
+  {
+    
+    return this.httpClient.post(environment.api+'api/Onboarding/UploadFile', data);
+  }
+
+
   SubmitData():Observable<any>
   {
     let formData:FormData=new FormData();

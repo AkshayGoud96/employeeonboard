@@ -47,8 +47,14 @@ export class MembershipsComponent implements OnInit {
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));
   }
 
-  DeleteMembership(index) {
+  DeleteMembership(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.memberships.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.MDID, data.UPID, table).subscribe();
     this.memberships.splice(index, 1);
+    }
     this.userProfile = JSON.parse(sessionStorage.getItem("UserProfile"));
     this.userProfile.MembershipData = this.memberships;
     sessionStorage.setItem("UserProfile", JSON.stringify(this.userProfile));

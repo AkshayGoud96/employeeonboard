@@ -11,5 +11,6 @@ export class AdditionalDetailsData
     PassportValidUpto:string;
     PermenantAccountNumber:string;
     BankName:string;
+    BankIFSCCode:string;
     BankAccountNumber:string;
 }

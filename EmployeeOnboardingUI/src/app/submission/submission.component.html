@@ -1,12 +1,40 @@
 <div class="container">
     <div class="clear-fix"></div>
+    <h5 style="font-size:20px;color:#31708f"> Disclaimer</h5>
 <div class="row labelText" style="text-align: center">
-  <label>Your data is saved sucessfully .In case you have no further changes please Submit.</label>
+  
 </div>
+
+<form #submission="ngForm" novalidate>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-3">
+        <input type="checkbox" [disabled]="submitted=='Submitted'" #disclaimercheck (change)="DisclaimerCheck($event)"> <label>Dislaimer Message</label>
+    </div>
+  </div>
+
+
+  <div class="row labelText">
+      <div class="col-md-4"></div>
+      <div class="col-md-3">
+          <input type="text" [disabled]="submitted=='Submitted' || checkAgree=='unchecked'" [(ngModel)]="signature" placeholder="Signature" class="form-control" name="Sign" #Sign="ngModel" required>
+      </div>
+      <div class="col-md-2">
+          <div *ngIf="Sign.errors && Sign.errors.required && (Sign.dirty || Sign.touched)" class="alert alert-danger">
+              Signature is required
+      </div>
+      </div>
+    </div>
+</form>
+
 <div class="clear-fix"></div>
 <div class="row">
-  <div class="col-md-5"></div>
-<button type="submit" class="col-md-1 btn btn-primary" [disabled]="submitted=='Submitted'" (click)="SubmitData()">Submit</button>
-<div class="col-md-5"></div>
+  <div class="col-md-4"></div>
+  <button class="col-md-1 btn btn-primary" [disabled]="submitted=='Submitted' || checkAgree=='unchecked' || !submission.valid" (click)="SaveClick()" >Save </button>
+  <div class="col-md-1"></div>
+<button type="submit" class="col-md-1 btn btn-primary" [disabled]="submitted=='Submitted' || checkAgree=='unchecked' || !submission.valid" (click)="SubmitData()">Submit</button>
+<div class="col-md-4"></div>
 </div>
 </div>
+
+

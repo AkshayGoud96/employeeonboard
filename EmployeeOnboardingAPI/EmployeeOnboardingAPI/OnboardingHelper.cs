@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EmployeeOnboardingAPI
@@ -10,10 +11,24 @@ namespace EmployeeOnboardingAPI
             string status = string.Empty;
             try
             {
-                using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
+                using (OnboardEntities db = new OnboardEntities())
                 {
                     UserOfferDetail user = db.UserOfferDetails.Where(x => (x.emailID == email && x.name == fullname)).FirstOrDefault();
-                    status = user != null ? (user.isSubmitted == true ? "Submitted" : "Saved") : "NoRecord";
+                    if (user.isEditable == false)
+                    {
+                        status = "Disabled";
+                        if (user.isSubmitted == true)
+                            status = "Submitted";
+                    }
+                    else if (user.isEditable == true)
+                    {
+                        status = "NotSubmitted";
+                        if (user.isSubmitted == true)
+                            status = "Submitted";
+                    }
+                    else
+                        status = "NoRecord";
+                    //status = user != null ? (user.isEditable == true && user.isSubmitted == false ? (user.isSubmitted == true ? "Submitted" : "NotSubmitted") : "Disabled") : "NoRecord";
                     return status;
                 }
             }
@@ -24,9 +39,47 @@ namespace EmployeeOnboardingAPI
 
         }
 
+        public string VerifyAdminDetails(string email, string password)
+        {
+            String status = string.Empty;
+            using (OnboardEntities db = new OnboardEntities())
+            {
+                AdminData user = db.AdminDatas.Where(x => (x.email == email && x.password == password)).FirstOrDefault();
+                status = user != null ? "Submitted" : "NoRecord";
+                return status;
+            }
+        }
+
+        public List<UserOfferDetail> GetAllUsers()
+        {
+            using (OnboardEntities db = new OnboardEntities())
+            {
+                List<UserOfferDetail> allUsers = db.UserOfferDetails.ToList();
+                return allUsers;
+            }
+        }
+
+        public void SetLoginAccess(int index)
+        {
+            using (OnboardEntities db = new OnboardEntities())
+            {
+                UserOfferDetail selectedUser = db.UserOfferDetails.SingleOrDefault(x => x.id == index);
+                if (selectedUser.isEditable == true)
+                    selectedUser.isEditable = false;
+                else if (selectedUser.isEditable == false)
+                {
+                    selectedUser.isEditable = true;
+                    selectedUser.isSubmitted = false;
+                }
+                db.SaveChanges();
+            }
+        }
+
+
+
         internal string SaveUserProfileData(UserProfileData userProfile, string email)
         {
-            using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
+            using (OnboardEntities db = new OnboardEntities())
             {
                 try
                 {
@@ -42,6 +95,7 @@ namespace EmployeeOnboardingAPI
                             .Include("PersonalDatas")
                             .Include("QualificationDatas")
                             .Include("TainingDatas")
+                            .Include("FileDatas")
                             .Include("TechnicalSkillDatas").Where(s => s.email == email).FirstOrDefault();
 
                         if (profiledata != null)
@@ -68,7 +122,7 @@ namespace EmployeeOnboardingAPI
                 catch (Exception ex)
                 {
 
-                    throw;
+                    throw ex;
                 }
             }
         }
@@ -109,6 +163,7 @@ namespace EmployeeOnboardingAPI
                     }
                 }
             }
+
 
             //Technical Skills Data
             if (userProfile.technicalSkillData != null)
@@ -300,6 +355,13 @@ namespace EmployeeOnboardingAPI
                     profile.QualificationDatas.Add(qd);
                 }
             }
+            if (userProfile.fileData != null)
+            {
+                FileData fd = new FileData();
+                fd.UPID = profile.UPID;
+                fd.FID = Convert.ToString(Guid.NewGuid());
+                profile.FileDatas.Add(fd);
+            }
             if (userProfile.technicalSkillData != null)
             {
                 foreach (var technicalSkill in userProfile.technicalSkillData)
@@ -458,7 +520,7 @@ namespace EmployeeOnboardingAPI
         {
             try
             {
-                using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
+                using (OnboardEntities db = new OnboardEntities())
                 {
                     var data = db.UserOfferDetails.Where(x => x.emailID == email).Single();
                     if (!data.isSubmitted == true)
@@ -572,7 +634,8 @@ namespace EmployeeOnboardingAPI
 
         private static void UpdatePersonalData(UserProfileData userProfile, ref UserProfile profiledata)
         {
-            profiledata.PersonalDatas.FirstOrDefault().Address = userProfile.personalData.Address;
+            profiledata.PersonalDatas.FirstOrDefault().CurrentAddress = userProfile.personalData.CurrentAddress;
+            profiledata.PersonalDatas.FirstOrDefault().PermanentAddress = userProfile.personalData.PermanentAddress;
             profiledata.PersonalDatas.FirstOrDefault().City = userProfile.personalData.City;
             profiledata.PersonalDatas.FirstOrDefault().Country = userProfile.personalData.Country;
             profiledata.PersonalDatas.FirstOrDefault().DOB = userProfile.personalData.DOB;
@@ -595,8 +658,9 @@ namespace EmployeeOnboardingAPI
 
         internal UserProfile GetUserProfileData(string email)
         {
-            using (EmployeeOnboardEntities db = new EmployeeOnboardEntities())
+            using (OnboardEntities db = new OnboardEntities())
             {
+                var upid = db.UserProfiles.Where(s => s.email == email).First();
                 UserProfile userProfile = db.UserProfiles.Include("AdditionalDatas")
                     .Include("FunctionalSkillDatas")
                     .Include("CertificationDatas")
@@ -606,7 +670,8 @@ namespace EmployeeOnboardingAPI
                     .Include("PersonalDatas")
                     .Include("QualificationDatas")
                     .Include("TainingDatas")
-                    .Include("TechnicalSkillDatas").Where(s => s.email == email).FirstOrDefault();
+                    .Include("FileDatas")
+                    .Include("TechnicalSkillDatas").First(s =>  s.UPID == upid.UPID);
                 return userProfile;
             }
         }

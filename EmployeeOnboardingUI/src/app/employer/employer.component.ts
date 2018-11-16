@@ -42,9 +42,16 @@ export class EmployerComponent implements OnInit {
     this.employer.IsEdited = false;
   }
 
-  DeleteEmployer(index) {
+  DeleteEmployer(item, index, table) {
+    var confirmResult = confirm("Are you sure you want to delete ?");
+    if(confirmResult)
+    {
+    var data = this.employers.find(d => d.UPID == item.UPID);
+    this.onboardingService.DeleteData(data.EDID, data.UPID, table).subscribe();
     this.employers.splice(index, 1);
+    }
   }
+
   EditEmployer(item) {
     item.IsEdited = true;
   }

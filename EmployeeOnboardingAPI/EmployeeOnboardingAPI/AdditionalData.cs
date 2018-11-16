@@ -25,6 +25,7 @@ namespace EmployeeOnboardingAPI
         public string PassportValidUpto { get; set; }
         public string PermenantAccountNumber { get; set; }
         public string BankName { get; set; }
+        public string BankIFSCCode { get; set; }
         public string BankAccountNumber { get; set; }
     
         public virtual UserProfile UserProfile { get; set; }

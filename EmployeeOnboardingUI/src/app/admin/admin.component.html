@@ -1,0 +1,134 @@
+<div class="container">
+    <div class=" row text-center profile">
+      Onboarding Admin
+    </div>
+    <div *ngIf="loading">
+      <div class="loading"></div>
+    </div>
+    <div *ngIf="appError">
+      <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <h5>
+          <strong>Error!</strong> {{errorMessage}} </h5>
+      </div>
+    </div>
+    <div *ngIf="successMessage != ''">
+      <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <h5>
+          <strong>Success!</strong> {{successMessage}} </h5>
+      </div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="row" *ngIf="hasError">
+      <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <h5>
+          <strong>Error!</strong> Something went wrong please try after sometime. If the issue persists please contact Finance Team
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-info" *ngIf="!recordExists">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+          <form #user="ngForm" (ngSubmit)="Verify(user.value)" class="form-inline" novalidate>
+  
+            <div class="row labelText">
+                <div class="col-md-3"></div>
+              <div class="col-md-2 form-group customtextbox">
+                <input type="email" class="form-control" id="inputEmail" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email"
+                  #email="ngModel" placeholder="Email ID" [(ngModel)]="emailID" required>
+                <div *ngIf="email.errors && email.errors.required && (email.dirty||email.touched)" class="alert alert-danger">
+                     Email is required
+                </div>
+                <div *ngIf="email.errors && email.errors.pattern && (email.dirty||email.touched)" class="alert alert-danger">
+                    Email is Invalid
+                  </div>
+              </div>
+
+
+              <div class="col-md-2 form-group customtextbox">
+                <input type="password" required class="form-control" id="passwrd" name="passWord" #passWord="ngModel" placeholder="Password" [(ngModel)]="pass">
+                <div *ngIf="passWord.errors && passWord.errors.required && (passWord.dirty||passWord.touched)" class="alert alert-danger">
+                    Password is required
+               </div>
+              </div>
+              <button type="submit" [ngClass]="{
+                  'btn-primary':verifyStatus === 'Login',
+                  'btn-success':verifyStatus === 'Success',
+                  'btn-danger':verifyStatus === 'Failed'
+                }" class="col-md-2 btn  customtextbox"  
+                [disabled]="!user.dirty || !user.valid">{{verifyStatus}}</button>
+            </div>
+            <br />
+            <p>Note : Login as Admin</p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="recordExists">
+      <table class="table table-striped">
+        <th style="font-size:16px">S No.</th>
+        <th style="font-size:16px">Name</th>
+        <th style="font-size:16px">Email</th>
+        <th style="font-size:16px">Date</th>
+        <th style="font-size:16px">Permission<label style="font-size:11px;">(Click to enable/disable)</label></th>
+        <tr *ngFor="let user of allUsers;let i = index">
+          <td>
+            {{user.id}}
+          </td>
+          <td>
+              {{user.name}}          
+          </td>
+          <td>
+              {{user.emailID}}          
+          </td>
+          <td>
+              {{user.createdDate}}          
+          </td>
+          <td *ngIf="user.isEditable == true">
+              <button  
+              [ngClass]="{
+                'btn-success':user.isEditable === true,
+                'btn-danger':user.isEditable === false 
+              }"
+              class="col-md-5 btn  customtextbox"
+              (click)="Access(i+1)">Access Enabled</button>
+          </td>
+          <td *ngIf="user.isEditable == false">
+              <button 
+              [ngClass]="{
+                'btn-success':user.isEditable === true,
+                'btn-danger':user.isEditable === false 
+              }"
+              class="col-md-5 btn  customtextbox"
+              (click)="Access(i+1)">Access Disabled</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{allUsers.length+1}}
+          </td>
+          <form #adduser="ngForm" (ngSubmit)="AddUserProfile(adduser.value)" class="form-inline">
+          <td>
+            <input type="text" placeholder="Name" class="form-control" [(ngModel)]="fullname" name="fullname" >        
+          </td>
+          <td>
+            <input type="email" placeholder="Email" class="form-control" [(ngModel)]="email" name="email">         
+          </td>
+          <td>
+          </td>
+         <td>
+            <button type="submit" style="margin-left: 5px" class="col-md-5 btn btn-primary" >
+              Add
+            </button>
+          </td>
+        </form>
+        </tr>
+      </table>
+     
+    </div>
+
+    
+  </div>
